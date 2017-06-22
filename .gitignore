@@ -25,3 +25,5 @@ hs_err_pid*
 RemoteSystemsTempFiles/
 
 pom.properties
+
+Orderys/src/main/resources/beans.xml
