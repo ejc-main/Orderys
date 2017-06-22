@@ -1,13 +1,36 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="BUSINESS")
 public class Business {
+	@Id
+	@Column(name="BUSINESS_ID")
 	private long id;
+	
+	@Column(name="MANAGER_ID")
 	private long managerId;
+	
+	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
+	
+	@Column(name="STREET_ADDRESS")
 	private String streetAddress2;
+	
+	@Column(name="CITY")
 	private String city;
+	
+	@Column(name="STATE")
 	private String state;
+	
+	@Column(name="COUNTRY")
 	private String country;
+	
+	@Column(name="ZIP")
 	private String zip;
 	
 	public Business() {

@@ -2,10 +2,23 @@ package com.revature.orderys.pojos;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 // TODO: Remove if customizable ordering is not implemented...
+@Entity
+@Table(name="COMPONENT")
 public class Component {
+	@Id
+	@Column(name="COMPONENT_ID")
 	private long id;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="PRICE")
 	private BigDecimal price;
 	
 	public Component() {
