@@ -1,4 +1,4 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
 // TODO: This class may not be necessary (Hibernate may take care of this...)
 public class ProductProvider {

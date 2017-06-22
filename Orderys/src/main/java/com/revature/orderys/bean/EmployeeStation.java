@@ -1,4 +1,4 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
 // TODO: Find out if this table is still necessary...
 // Reasoning: Employees are now only assigned to one business.

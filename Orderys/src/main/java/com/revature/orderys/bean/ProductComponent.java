@@ -1,4 +1,4 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
 //TODO: Remove if customizable ordering is not implemented...
 public class ProductComponent {
