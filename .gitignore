@@ -23,7 +23,8 @@ hs_err_pid*
 
 .metadata/
 RemoteSystemsTempFiles/
-
-pom.properties
-
+/Orderys/.settings
+/Orderys/target
+/Servers/.settings
+/Orderys/.project
 Orderys/src/main/resources/beans.xml
