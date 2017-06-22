@@ -23,7 +23,7 @@ public class Business {
 	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
 	
-	@Column(name="STREET_ADDRESS")
+	@Column(name="STREET_ADDRESS_2")
 	private String streetAddress2;
 	
 	@Column(name="CITY")

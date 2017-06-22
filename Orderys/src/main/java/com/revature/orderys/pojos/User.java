@@ -2,6 +2,8 @@ package com.revature.orderys.pojos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,14 +31,21 @@ public class User {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="ROLE")
-	private short role;
+	private Role role;
+	
+	enum Role {
+		CUSTOMER,
+		EMPLOYEE,
+		MANAGER
+	}
 	
 	public User() {
 		super();
 	}
 
-	public User(long id, String email, String passwordHash, String firstName, String lastName, short role) {
+	public User(long id, String email, String passwordHash, String firstName, String lastName, Role role) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -86,11 +95,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public short getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(short role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}	
 }
