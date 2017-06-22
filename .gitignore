@@ -24,3 +24,6 @@ hs_err_pid*
 .metadata/
 RemoteSystemsTempFiles/
 Orderys/target/
+/Orderys/.settings
+/Orderys/target
+/Servers/.settings
