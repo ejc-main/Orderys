@@ -2,13 +2,18 @@ package com.revature.orderys.pojos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="BUSINESS")
 public class Business {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="businessSeq")
+	@SequenceGenerator(allocationSize=1, name="businessSeq", sequenceName="BUSINESS_SEQ")
 	@Column(name="BUSINESS_ID")
 	private long id;
 	

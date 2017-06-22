@@ -4,13 +4,18 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="ORDER")
 public class Order {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="orderSeq")
+	@SequenceGenerator(allocationSize=1, name="orderSeq", sequenceName="ORDER_SEQ")
 	@Column(name="ORDER_ID")
 	private long id;
 	
