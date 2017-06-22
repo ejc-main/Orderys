@@ -1,11 +1,30 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="USER")
 public class User {
+	@Id
+	@Column(name="USER_ID")
 	private long id;
+	
+	@Column(name="EMAIL")
 	private String email;
+	
+	@Column(name="PASSWORD_HASH")
 	private String passwordHash;
+	
+	@Column(name="FIRST_NAME")
 	private String firstName;
+	
+	@Column(name="LAST_NAME")
 	private String lastName;
+	
+	@Column(name="ROLE")
 	private short role;
 	
 	public User() {

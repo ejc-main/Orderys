@@ -1,9 +1,20 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 //TODO: Remove if customizable ordering is not implemented...
+@Entity
+@Table(name="PRODUCT_COMPONENT")
 public class ProductComponent {
+	@Column(name="PRODUCT_ID")
 	private long productId;
+	
+	@Column(name="COMPONENT_ID")
 	private long componentId;
+	
+	@Column(name="AMOUNT")
 	private int amount;
 	
 	public ProductComponent() {
