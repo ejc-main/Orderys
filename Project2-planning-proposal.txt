@@ -1,0 +1,186 @@
+﻿1/2/4/8 hour increments
+
+
+General:
+- register, login/logout (2hr)
+- paypal integration (8hr)
+- DB design (4hr)
+- upload images//blob stuff (8hr)
+- View design (8hr)
+- inventory tracking (8hr - lowest priority) 
+
+
+(30)
+
+
+Customers:
+- place orders (2hr)
+- customize orders (4hr)
+- cancel orders (1hr)
+- place delayed orders/schedule orders (4hr)
+- search for items to order (4hr)
+- get notified when their orders are completed (2hr)
+- rate order items and locations (8hr)
+(25)
+
+
+Employees:
+- can do anything customers can (2hr)
+- view active orders (8hr)
+- mark orders as being handled by themselves (2hr)
+- mark orders as complete (2hr)
+-can assign themselves a station (2hr)
+-(16)
+
+
+Managers:
+- can do anything employees can (2hr)
+- can register their restaurant        (2hr)
+- managers can edit the menu for their restaurant (8hr)
+- can add employees to their restaurant (2hr)
+- can setup restaurant stations (4hr)
+- can view data plots for ordering trends (8hr)
+(26)
+`
+
+
+
+
+
+
+
+
+Sprint 1
+* Database design 
+* View design {do a pop) 
+* Most of service and DAO layers
+* User registration, login, logout
+* → confirmation email
+* Restaurant registration
+* Core adding items to menus
+* Order placement, customization, scheduling, cancellation
+
+
+Sprint 2
+* Whatever doesn’t get finished in first sprint
+* Managers add employees and setup restaurant stations
+* Employees assign themselves to stations
+* Employees view active orders, mark orders as in progress and completed
+* Customers can search for order items and locations
+* Customers can rate orders
+* Paypal integration
+* Image uploading/blob stuff
+* Additional adding items to menus
+* Order trends data visualization
+* Inventory tracking (depending on our mood)
+
+
+X-axis: “Sprint Dates” unit: dates
+Y-axis: “Remaining effort” units: hours
+------
+
+
+
+
+TECHNOLOGY STACK:
+[Jamie] AWS RDS
+[ERIC] (GitHub, Slack)
+[Mark/Chantel/ERIC/Jamie] CI/CD pipeline (EC2, Maven, Jenkins)
+[Jamie] Hibernate
+Spring MVC
+[Eric] jQuery/AJAX
+[Mark] AngularJS
+[Chantel] Bootstrap //AngularBootstrap
+[Jim] Logging with Log4J 
+[Jim] (Test-Driven Development) unit testing with JUnit 
+Trello
+________________
+
+
+Proposal
+-Overview/definition
+→ an extensible order management tool //for customers and vendors
+        → designed to provide small businesses with a cost effective way to supervise/track (manage is bit repetitive) current orders(business transactions/services?) and 
+-->customers with realistic order fulfillment (wait) times
+//and a way to order
+
+
+//should not talk about actors?
+-Customers can…
+-Employees can…
+-Managers can…
+-Conclusion
+
+
+
+
+Due 19 June:
+=======
+Git repo integrated with our group's slack: Complete
+Team name: Null Terminators
+Domain: nullterminus.com
+Team lead: Eric
+Project proposal: Complete
+Assign points to stories: Complete
+Assign stories to team members: Pending
+Create burndown chart: Pending
+
+
+
+
+
+
+
+
+________________
+
+
+Initial ideas:
+Order Processing Application (Restaurant)
+        users can order from home
+        users can order from menu
+        active orders (for staff)
+                completion time for order
+        management / customer views
+        generic : can be used in other fields
+        businesses and their clients can use
+        users / managers / employees can login
+                different views for each
+        managers can track all the things
+        initial design decoupled from restaurant use case
+
+
+        clients:
+                reserve a table
+                coupon code ?!?!?!
+                credit card ?!?!?!
+                        - pay at store
+                can carry-out or dine-in
+                users log in and pick local restaurant
+                        search by:
+                                city
+                                business name
+                                geolocation ?!?!?!?!
+                users have favorite restaurant
+                users can rate dishes
+                        - items sorted by most popular ?!?!?!?!
+                users can store pictures of their meals ?!?!?!
+                clients can customize orders
+                paypal integration
+                
+        managers
+                managers can plot ordering trends
+                can make stations
+                        - associate employees with stations
+                can register restuarant
+                        - captcha ?!?!?!?!
+                can offer refunds
+                
+        
+        employees        ?!?!?!?!
+                view active orders
+                        - change state of order (completed, etc)
+                        - orders prioritized by time
+                        - orders can be sorted by station
+                view completed orders
+                can switch to customer view
