@@ -1,21 +1,27 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RATING")
-public class Rating {
+@Table(name="Rating")
+public class Rating implements Serializable{
+	private static final long serialVersionUID = -8703568968425115709L;
+
 	@Column(name="CUSTOMER_ID")
 	private long customerId;
-	
+
+	@Id
 	@Column(name="PRODUCT_ID")
 	private long productId;
-	
+
 	@Column(name="RATING")
 	private short rating;
-	
+
 	public Rating() {
 		super();
 	}

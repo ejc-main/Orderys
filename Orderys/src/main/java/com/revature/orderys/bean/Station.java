@@ -1,4 +1,4 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
 public class Station {
 	private long id;

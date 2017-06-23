@@ -1,4 +1,4 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
 import java.math.BigDecimal;
 
