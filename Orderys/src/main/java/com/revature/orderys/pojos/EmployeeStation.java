@@ -1,10 +1,19 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 // TODO: Find out if this table is still necessary...
 // Reasoning: Employees are now only assigned to one business.
 //				This table may be redundant.
+@Entity
+@Table(name="EMPLOYEE_STATION")
 public class EmployeeStation {
+	@Column(name="STATION_ID")
 	private long stationId;
+	
+	@Column(name="EMPLOYEE_ID")
 	private long employeeId;
 	
 	public EmployeeStation() {

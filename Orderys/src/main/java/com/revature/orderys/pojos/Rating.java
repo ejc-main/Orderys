@@ -1,8 +1,19 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="RATING")
 public class Rating {
+	@Column(name="CUSTOMER_ID")
 	private long customerId;
+	
+	@Column(name="PRODUCT_ID")
 	private long productId;
+	
+	@Column(name="RATING")
 	private short rating;
 	
 	public Rating() {

@@ -1,18 +1,51 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="USER")
 public class User {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userSeq")
+	@SequenceGenerator(allocationSize=1, name="userSeq", sequenceName="USER_SEQ")
+	@Column(name="USER_ID")
 	private long id;
+	
+	@Column(name="EMAIL")
 	private String email;
+	
+	@Column(name="PASSWORD_HASH")
 	private String passwordHash;
+	
+	@Column(name="FIRST_NAME")
 	private String firstName;
+	
+	@Column(name="LAST_NAME")
 	private String lastName;
-	private short role;
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="ROLE")
+	private Role role;
+	
+	enum Role {
+		CUSTOMER,
+		EMPLOYEE,
+		MANAGER
+	}
 	
 	public User() {
 		super();
 	}
 
-	public User(long id, String email, String passwordHash, String firstName, String lastName, short role) {
+	public User(long id, String email, String passwordHash, String firstName, String lastName, Role role) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -62,11 +95,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public short getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(short role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}	
 }

@@ -3,11 +3,33 @@ package com.revature.orderys.pojos;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="PRODUCT")
 public class Product {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="productSeq")
+	@SequenceGenerator(allocationSize=1, name="productSeq", sequenceName="PRODUCT_SEQ")
+	@Column(name="PRODUCT_ID")
 	private long id;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="PRODUCT_PRICE")
 	private BigDecimal productPrice;
+	
+	@Column(name="INTENDED_COMPLETION_TIME")
 	private Date intendedCompletionTime;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
 	
 	public Product() {

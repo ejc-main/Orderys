@@ -2,10 +2,28 @@ package com.revature.orderys.pojos;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 // TODO: Remove if customizable ordering is not implemented...
+@Entity
+@Table(name="COMPONENT")
 public class Component {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="componentSeq")
+	@SequenceGenerator(allocationSize=1, name="componentSeq", sequenceName="COMPONENT_SEQ")
+	@Column(name="COMPONENT_ID")
 	private long id;
+	
+	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="PRICE")
 	private BigDecimal price;
 	
 	public Component() {

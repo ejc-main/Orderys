@@ -1,13 +1,41 @@
 package com.revature.orderys.pojos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="BUSINESS")
 public class Business {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="businessSeq")
+	@SequenceGenerator(allocationSize=1, name="businessSeq", sequenceName="BUSINESS_SEQ")
+	@Column(name="BUSINESS_ID")
 	private long id;
+	
+	@Column(name="MANAGER_ID")
 	private long managerId;
+	
+	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
+	
+	@Column(name="STREET_ADDRESS_2")
 	private String streetAddress2;
+	
+	@Column(name="CITY")
 	private String city;
+	
+	@Column(name="STATE")
 	private String state;
+	
+	@Column(name="COUNTRY")
 	private String country;
+	
+	@Column(name="ZIP")
 	private String zip;
 	
 	public Business() {
