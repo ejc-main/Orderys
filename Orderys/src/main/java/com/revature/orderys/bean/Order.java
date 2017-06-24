@@ -33,17 +33,8 @@ public class Order implements Serializable {
 	@JoinColumn(name="USER_ID")
 	private User customerId;
 	
-	@Column(name="TIME_PLACED")
-	private Date timePlaced;
-	
-	@Column(name="TIME_FULFILLED")
-	private Date timeCompleted;
-	
 	@Column(name="PAYMENT_METHOD")
 	private short paymentMethod;
-	
-	@Column(name="STATUS")
-	private String status;
 	
 	@MapsId("orderItemId")
 	@OneToMany(fetch=FetchType.LAZY)
@@ -54,14 +45,11 @@ public class Order implements Serializable {
 		super();
 	}
 
-	public Order(long id, User customerId, Date timePlaced, Date timeFulfilled, short paymentMethod, String status) {
+	public Order(long id, User customerId, short paymentMethod) {
 		super();
 		this.id = id;
 		this.customerId = customerId;
-		this.timePlaced = timePlaced;
-		this.timeCompleted = timeFulfilled;
 		this.paymentMethod = paymentMethod;
-		this.status = status;
 	}
 
 	public long getId() {
@@ -80,35 +68,11 @@ public class Order implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public Date getTimePlaced() {
-		return timePlaced;
-	}
-
-	public void setTimePlaced(Date timePlaced) {
-		this.timePlaced = timePlaced;
-	}
-
-	public Date getTimeCompleted() {
-		return timeCompleted;
-	}
-
-	public void setTimeCompleted(Date timeFulfilled) {
-		this.timeCompleted = timeFulfilled;
-	}
-
 	public short getPaymentMethod() {
 		return paymentMethod;
 	}
 
 	public void setPaymentMethod(short paymentMethod) {
 		this.paymentMethod = paymentMethod;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 }
