@@ -1,5 +1,9 @@
 package com.revature.orderys.dao;
 
+import java.util.ArrayList;
+
+import com.revature.orderys.bean.User;
+
 public class UserDaoImpl {
 	
 	public ArrayList<User> getAllUsers() {
@@ -12,7 +16,8 @@ public class UserDaoImpl {
 	}
 	
 	public User getUserById(int id) {
-		
+		User u = null;
+		return u;
 	}
 	
 	public void updateUser(User u) {
