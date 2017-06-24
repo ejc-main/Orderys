@@ -62,11 +62,10 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(long id, String email, String passwordHash, String firstName, String lastName, Role role) {
+	public User(long id, String email, String firstName, String lastName, Role role) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.passwordHash = passwordHash;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;
