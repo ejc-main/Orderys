@@ -1,18 +1,28 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userSeq")
 	@SequenceGenerator(allocationSize=1, name="userSeq", sequenceName="USER_SEQ")
@@ -34,6 +44,13 @@ public class User {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="ROLE")
 	private Role role;
+	
+	// TODO: Get feedback for fetch type
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="EMPLOYEE_STATION",
+						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
+						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
+	private Set<Station> employeeStations;
 	
 	enum Role {
 		CUSTOMER,
@@ -102,4 +119,12 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}	
+	
+	public Set<Station> getEmployeeStations() {
+		return employeeStations;
+	}
+	
+	public void setEmployeeStations(Set<Station> employeeStations) {
+		this.employeeStations = employeeStations;
+	}
 }

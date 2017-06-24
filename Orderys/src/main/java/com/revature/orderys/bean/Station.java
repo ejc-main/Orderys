@@ -1,9 +1,33 @@
 package com.revature.orderys.bean;
 
-public class Station {
+import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="STATION_TABLE")
+public class Station implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="STATION_ID")
 	private long id;
+	
+	@Column(name="BUSINESS_ID")
 	private long businessId;
+	
+	@Column(name="STATION_NAME")
 	private String stationName;
+	
+	@ManyToMany(cascade=CascadeType.ALL, mappedBy="employeeStations")
+	private Set<User> employees;
 	
 	public Station() {
 		super();
@@ -38,5 +62,13 @@ public class Station {
 	
 	public void setStationName(String stationName) {
 		this.stationName = stationName;
+	}
+	
+	public Set<User> getEmployees() {
+		return employees;
+	}
+	
+	public void setEmployees(Set<User> employees) {
+		this.employees = employees;
 	}
 }

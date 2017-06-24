@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Rating")
-public class Rating implements Serializable{
+public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
 	@Column(name="CUSTOMER_ID")
