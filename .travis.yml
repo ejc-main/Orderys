@@ -3,3 +3,26 @@ jdk: oraclejdk8
 
 notifications:
   email: false
+
+branches:
+  only:
+    - master
+    - dev
+
+# addons:
+# before_install:
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+# before_script:
+script: 
+  - mvn test -B
+# before_cache:
+# after_success:
+# after_failure:
+before_deploy:
+# after_deploy:
+# after_script:
+
+deploy:
+  skip_cleanup: true
+  
