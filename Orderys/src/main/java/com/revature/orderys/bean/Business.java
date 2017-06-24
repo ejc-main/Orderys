@@ -1,12 +1,17 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,6 +27,8 @@ public class Business implements Serializable {
 	@Column(name="BUSINESS_ID")
 	private long id;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="USER_ID")
 	@Column(name="MANAGER_ID")
 	private long managerId;
 	
@@ -42,6 +49,10 @@ public class Business implements Serializable {
 	
 	@Column(name="ZIP")
 	private String zip;
+	
+	@OneToMany
+	@JoinColumn(name="STATION_ID")
+	private Set<Station> stations;
 	
 	public Business() {
 		super();
@@ -122,5 +133,13 @@ public class Business implements Serializable {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+	
+	public Set<Station> getStations() {
+		return stations;
+	}
+	
+	public void setStations(Set<Station> stations) {
+		this.stations = stations;
 	}
 }
