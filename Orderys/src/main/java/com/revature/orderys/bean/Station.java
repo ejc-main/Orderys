@@ -26,7 +26,7 @@ public class Station implements Serializable {
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
 	@Column(name="BUSINESS_ID")
-	private long businessId;
+	private Business businessId;
 	
 	@Column(name="STATION_NAME")
 	private String stationName;
@@ -38,7 +38,7 @@ public class Station implements Serializable {
 		super();
 	}
 
-	public Station(long id, long businessId, String stationName) {
+	public Station(long id, Business businessId, String stationName) {
 		super();
 		this.id = id;
 		this.businessId = businessId;
@@ -53,11 +53,11 @@ public class Station implements Serializable {
 		this.id = id;
 	}
 
-	public long getBusinessId() {
+	public Business getBusinessId() {
 		return businessId;
 	}
 
-	public void setBusinessId(long businessId) {
+	public void setBusinessId(Business businessId) {
 		this.businessId = businessId;
 	}	
 	

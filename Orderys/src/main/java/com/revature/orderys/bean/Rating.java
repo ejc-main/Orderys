@@ -13,11 +13,11 @@ public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
 	@Column(name="CUSTOMER_ID")
-	private long customerId;
+	private User customerId;
 
 	@Id
 	@Column(name="PRODUCT_ID")
-	private long productId;
+	private Product productId;
 
 	@Column(name="RATING")
 	private short rating;
@@ -26,26 +26,26 @@ public class Rating implements Serializable {
 		super();
 	}
 
-	public Rating(long customerId, long productId, short rating) {
+	public Rating(User customerId, Product productId, short rating) {
 		super();
 		this.customerId = customerId;
 		this.productId = productId;
 		this.rating = rating;
 	}
 
-	public long getCustomerId() {
+	public User getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(long customerId) {
+	public void setCustomerId(User customerId) {
 		this.customerId = customerId;
 	}
 
-	public long getProductId() {
+	public Product getProductId() {
 		return productId;
 	}
 
-	public void setProductId(long productId) {
+	public void setProductId(Product productId) {
 		this.productId = productId;
 	}
 

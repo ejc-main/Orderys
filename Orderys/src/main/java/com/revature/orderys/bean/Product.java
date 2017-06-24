@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,6 +26,10 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
+	@OneToOne
+	@JoinColumn(name="BUSINESS_ID")
+	private Business businessId;
+	
 	@Column(name="NAME")
 	private String name;
 	
@@ -35,6 +41,9 @@ public class Product implements Serializable {
 	
 	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@Column(name="PHOTO_URL")
+	private String photoUrl;
 	
 	public Product() {
 		super();

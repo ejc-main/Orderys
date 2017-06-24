@@ -31,7 +31,7 @@ public class Order implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	private long customerId;
+	private User customerId;
 	
 	@Column(name="TIME_PLACED")
 	private Date timePlaced;
@@ -53,7 +53,7 @@ public class Order implements Serializable {
 		super();
 	}
 
-	public Order(long id, long customerId, Date timePlaced, Date timeFulfilled, short paymentMethod, String status) {
+	public Order(long id, User customerId, Date timePlaced, Date timeFulfilled, short paymentMethod, String status) {
 		super();
 		this.id = id;
 		this.customerId = customerId;
@@ -71,11 +71,11 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public long getCustomerId() {
+	public User getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(long customerId) {
+	public void setCustomerId(User customerId) {
 		this.customerId = customerId;
 	}
 
