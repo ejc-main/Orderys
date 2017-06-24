@@ -29,7 +29,6 @@ public class Business implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	@Column(name="MANAGER_ID")
 	private long managerId;
 	
 	@Column(name="STREET_ADDRESS_1")
