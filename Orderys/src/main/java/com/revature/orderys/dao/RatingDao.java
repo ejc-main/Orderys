@@ -7,8 +7,6 @@ import com.revature.orderys.bean.Rating;
 
 public interface RatingDao {
 
-
-
 	void createRating(Rating rating);
-
+	
 }
