@@ -9,6 +9,6 @@ public interface RatingDao {
 
 
 
-	void makeRating(Rating rating);
+	void createRating(Rating rating);
 
 }
