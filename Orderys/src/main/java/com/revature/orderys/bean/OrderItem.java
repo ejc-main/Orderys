@@ -1,9 +1,22 @@
-package com.revature.orderys.pojos;
+package com.revature.orderys.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ORDER_ID")
 public class OrderItem {
+	@Column(name="PRODUCT_ID")
 	private long productId;
+	
+	@Column(name="ORDER_ID")
 	private long orderId;
+	
+	@Column(name="QUANTITY")
 	private int quantity;
+	
+	@Column(name="NOTE")
 	private String note;
 	
 	public OrderItem() {
