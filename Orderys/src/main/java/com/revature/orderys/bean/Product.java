@@ -23,6 +23,9 @@ public class Product {
 	@Column(name="NAME")
 	private String name;
 	
+	@Column(name="BUSINESS_ID")
+	private long businessId;
+	
 	@Column(name="PRODUCT_PRICE")
 	private BigDecimal productPrice;
 	
