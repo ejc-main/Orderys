@@ -3,26 +3,42 @@
 
 ### Adding a new feature to the project
 1. Open your local repository (which is also your eclipse workspace for the project) in git bash. You should see the .git directory listed when you enter
-`ls -al`
+```
+ls -al
+```
 2. Make sure your local repo is up-to-date.
-`git pull --all`
+```
+git pull --all
+```
 3. Commit any changes you have made on your current branch and optionally push those changes.
-`git status`
-`git add ./some/files/that ./you/changed`
-`git commit -m "DESCRIPTIVE COMMIT MESSAGE HERE"`
-`git push origin your-current-branch-name`
+```
+git status
+git add ./some/files/that ./you/changed
+git commit -m "DESCRIPTIVE COMMIT MESSAGE HERE"
+git push origin your-current-branch-name
+```
 4. Create a new feature branch by branching from the dev branch. (The actual rules for branch names can be found https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html. Personally, I prefer to stick to 'kebab case' for my branch names, which is just lowercase letters, numbers, and dashes to separate words.)
-`git checkout -b your-descriptive-branch-name -t origin/dev`
+```
+git checkout -b your-descriptive-branch-name -t origin/dev
+```
 5. Do some work, then commit your changes. Make sure the changes you include in a single commit are all related, and make sure you describe the work with a good commit message. Check the status of your local repo if you aren't sure what you have changed or staged.
-`git status`
-`git add ./some/files/that ./you/changed`
-`git commit -m "DESCRIPTIVE COMMIT MESSAGE HERE"`
+```
+git status
+git add ./some/files/that ./you/changed
+git commit -m "DESCRIPTIVE COMMIT MESSAGE HERE"
+```
 6. Before you try to push any of your own work, make sure you update the branch you are working on locally with any changes in the dev branch of the main repository.
-`git pull`
+```
+git pull
+```
 or
-`git pull origin dev`
+```
+git pull origin dev
+```
 7. Once your local feature branch is up-to-date with the dev branch, push your work to a new branch in the main repository.
-`git push origin your-descriptive-branch-name`
+```
+git push origin your-descriptive-branch-name
+```
 8. To get your work onto the dev branch in the main repository, open GitHub in your web browser and go to the page for the branch you just pushed. On that page, click the button next to the "Branch" dropdown menu that says "New pull request". When you come to a page that says "Open a pull request" make sure that you have selected "base: dev" and "compare: your-descriptive-branch-name", and that the branches are "Able to merge", and if that is the case, click the "Create pull request" button.
 9. After you've opened the pull request, leave the rest for someone else to handle. DON'T approve or merge your own pull requests.
 10. Lather, rinse, and repeat until the project deadline.
