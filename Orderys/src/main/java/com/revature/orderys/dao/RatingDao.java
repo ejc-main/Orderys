@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Rating;
 
-public interface Dao {
+public interface RatingDao {
 
 
 

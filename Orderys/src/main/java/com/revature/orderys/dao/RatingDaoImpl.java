@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.orderys.bean.Rating;
 
 @Transactional
-public class DaoImpl implements Dao {
+public class RatingDaoImpl implements Dao {
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
