@@ -37,7 +37,7 @@ public class Order implements Serializable {
 	private Date timePlaced;
 	
 	@Column(name="TIME_FULFILLED")
-	private Date timeFulfilled;
+	private Date timeCompleted;
 	
 	@Column(name="PAYMENT_METHOD")
 	private short paymentMethod;
@@ -47,6 +47,7 @@ public class Order implements Serializable {
 	
 	@MapsId("orderItemId")
 	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="orderItemId")
 	private Set<OrderItem> orderItems;
 	
 	public Order() {
@@ -58,7 +59,7 @@ public class Order implements Serializable {
 		this.id = id;
 		this.customerId = customerId;
 		this.timePlaced = timePlaced;
-		this.timeFulfilled = timeFulfilled;
+		this.timeCompleted = timeFulfilled;
 		this.paymentMethod = paymentMethod;
 		this.status = status;
 	}
@@ -87,12 +88,12 @@ public class Order implements Serializable {
 		this.timePlaced = timePlaced;
 	}
 
-	public Date getTimeFulfilled() {
-		return timeFulfilled;
+	public Date getTimeCompleted() {
+		return timeCompleted;
 	}
 
-	public void setTimeFulfilled(Date timeFulfilled) {
-		this.timeFulfilled = timeFulfilled;
+	public void setTimeCompleted(Date timeFulfilled) {
+		this.timeCompleted = timeFulfilled;
 	}
 
 	public short getPaymentMethod() {
