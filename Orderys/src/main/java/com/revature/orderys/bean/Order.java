@@ -2,6 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -42,6 +45,9 @@ public class Order implements Serializable {
 	@Column(name="STATUS")
 	private String status;
 	
+	@MapsId("orderItemId")
+	@OneToMany(fetch=FetchType.LAZY)
+	private Set<OrderItem> orderItems;
 	
 	public Order() {
 		super();
