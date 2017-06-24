@@ -28,3 +28,4 @@ RemoteSystemsTempFiles/
 /Servers/.settings
 /Orderys/.project
 Orderys/src/main/resources/beans.xml
+/.vscode
