@@ -1,5 +1,7 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,7 +9,10 @@ import javax.persistence.Table;
 //TODO: Remove if customizable ordering is not implemented...
 @Entity
 @Table(name="PRODUCT_COMPONENT")
-public class ProductComponent {
+public class ProductComponent implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name="PRODUCT_ID")
 	private long productId;
 	

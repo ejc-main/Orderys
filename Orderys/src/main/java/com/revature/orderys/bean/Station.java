@@ -1,6 +1,11 @@
 package com.revature.orderys.bean;
 
-public class Station {
+import java.io.Serializable;
+
+public class Station implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private long id;
 	private long businessId;
 	private String stationName;

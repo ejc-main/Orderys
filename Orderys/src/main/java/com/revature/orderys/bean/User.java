@@ -1,5 +1,7 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +14,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USER")
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userSeq")
 	@SequenceGenerator(allocationSize=1, name="userSeq", sequenceName="USER_SEQ")

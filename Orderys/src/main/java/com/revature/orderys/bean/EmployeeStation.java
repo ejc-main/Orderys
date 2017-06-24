@@ -1,5 +1,7 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +11,10 @@ import javax.persistence.Table;
 //				This table may be redundant.
 @Entity
 @Table(name="EMPLOYEE_STATION")
-public class EmployeeStation {
+public class EmployeeStation implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Column(name="STATION_ID")
 	private long stationId;
 	

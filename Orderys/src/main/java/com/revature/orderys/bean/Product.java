@@ -1,5 +1,6 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -13,7 +14,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="PRODUCT")
-public class Product {
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="productSeq")
 	@SequenceGenerator(allocationSize=1, name="productSeq", sequenceName="PRODUCT_SEQ")

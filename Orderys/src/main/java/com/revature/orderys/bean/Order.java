@@ -1,5 +1,6 @@
 package com.revature.orderys.bean;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ORDER")
-public class Order {
+public class Order implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="orderSeq")
 	@SequenceGenerator(allocationSize=1, name="orderSeq", sequenceName="ORDER_SEQ")
