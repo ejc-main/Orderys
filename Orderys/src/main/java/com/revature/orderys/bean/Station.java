@@ -25,7 +25,6 @@ public class Station implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
-	@Column(name="BUSINESS_ID")
 	private Business businessId;
 	
 	@Column(name="STATION_NAME")
