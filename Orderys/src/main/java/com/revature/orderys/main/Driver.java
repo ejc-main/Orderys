@@ -2,17 +2,18 @@ package com.revature.orderys.main;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.orderys.bean.Rating;
-import com.revature.orderys.dao.RatingDao;
-
+import com.revature.orderys.bean.User;
+import com.revature.orderys.dao.UserDaoImpl;
+@Transactional
 public class Driver {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		RatingDao dao = (RatingDao) ac.getBean("ratingDao");
-		Rating r = new Rating();
-		dao.createRating(r);
+		UserDaoImpl dao = (UserDaoImpl) ac.getBean("userDao");
+		User u = new User("markworth@gmail.com","Mark","Worth",User.Role.MANAGER);
+		dao.createUser(u);
 		ac.close();
 	}
 

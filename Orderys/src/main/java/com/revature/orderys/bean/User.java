@@ -62,7 +62,7 @@ public class User implements Serializable {
 	@JoinColumn(name="orderItemId")
 	private Set<Rating> ratings;
 	
-	enum Role {
+	static public enum Role {
 		CUSTOMER,
 		EMPLOYEE,
 		MANAGER
@@ -75,6 +75,13 @@ public class User implements Serializable {
 	public User(long id, String email, String firstName, String lastName, Role role) {
 		super();
 		this.id = id;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
+	public User(String email, String firstName, String lastName, Role role) {
+		super();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
