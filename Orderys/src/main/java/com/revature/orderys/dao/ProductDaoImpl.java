@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
+import com.revature.orderys.bean.Station;
 import com.revature.orderys.util.ConnectionUtil;
 import com.revature.orderys.util.EasyLogger;
 
@@ -15,10 +18,6 @@ public class ProductDaoImpl {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
@@ -65,6 +64,51 @@ public class ProductDaoImpl {
 			session.close();
 		}
 		return p;
+	}
+	
+	public ArrayList<Product> getProductsByBusiness(Business b) {
+		ArrayList<Product> products = null;
+		Session session = ConnectionUtil.getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			
+			tx.commit();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		} finally {
+			session.close();
+		}
+		return products;
+	}
+	
+	public ArrayList<Product> getProductsByStation(Station s) {
+		ArrayList<Product> products = null;
+		Session session = ConnectionUtil.getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			
+			tx.commit();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		} finally {
+			session.close();
+		}
+		return products;
+	}
+	
+	public ArrayList<Product> getProductsByOrder(Station s) {
+		ArrayList<Product> products = null;
+		Session session = ConnectionUtil.getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			
+			tx.commit();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		} finally {
+			session.close();
+		}
+		return products;
 	}
 	
 	public void updateProduct() {

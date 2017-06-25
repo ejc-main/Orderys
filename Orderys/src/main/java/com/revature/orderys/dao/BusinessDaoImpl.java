@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.revature.orderys.bean.Business;
@@ -16,10 +17,6 @@ public class BusinessDaoImpl {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
@@ -54,6 +51,21 @@ public class BusinessDaoImpl {
 	}
 	
 	public Business getBusinessById(int id) {
+		Business b = null;
+		Session session = ConnectionUtil.getSession();
+		try {
+			Transaction tx = session.beginTransaction();
+			
+			tx.commit();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		} finally {
+			session.close();
+		}
+		return b;
+	}
+	
+	public Business getBusinessByManager(User m) {
 		Business b = null;
 		Session session = ConnectionUtil.getSession();
 		try {
