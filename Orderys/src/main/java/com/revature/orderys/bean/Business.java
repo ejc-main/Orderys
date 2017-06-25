@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class Business implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	private User managerId;
+	private User manager;
 	
 	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
@@ -49,9 +49,10 @@ public class Business implements Serializable {
 	@Column(name="ZIP")
 	private String zip;
 	
+	// TODO: Check annotation
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="STATION_ID")
-	private Set<Station> stations;
+	private List<Station> stations;
 	
 	public Business() {
 		super();
@@ -61,7 +62,7 @@ public class Business implements Serializable {
 			String country, String zip) {
 		super();
 		this.id = id;
-		this.managerId = managerId;
+		this.manager = managerId;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
 		this.city = city;
@@ -78,12 +79,12 @@ public class Business implements Serializable {
 		this.id = id;
 	}
 
-	public User getManagerId() {
-		return managerId;
+	public User getManager() {
+		return manager;
 	}
 
-	public void setManagerId(User managerId) {
-		this.managerId = managerId;
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 
 	public String getStreetAddress1() {
@@ -134,11 +135,11 @@ public class Business implements Serializable {
 		this.zip = zip;
 	}
 	
-	public Set<Station> getStations() {
+	public List<Station> getStations() {
 		return stations;
 	}
 	
-	public void setStations(Set<Station> stations) {
+	public void setStations(List<Station> stations) {
 		this.stations = stations;
 	}
 }

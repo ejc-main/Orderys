@@ -2,7 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,10 +29,10 @@ public class Order implements Serializable {
 	@Column(name="ORDER_ID")
 	private long id;
 	
-	// TODO: Find out if this is right... should it be many to one?
+	// TODO: Change to many to one?
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	private User customerId;
+	private User customer;
 	
 	@Column(name="PAYMENT_METHOD")
 	private short paymentMethod;
@@ -40,16 +40,16 @@ public class Order implements Serializable {
 	@MapsId("orderItemId")
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderItemId")
-	private Set<OrderItem> orderItems;
+	private List<OrderItem> orderItems;
 	
 	public Order() {
 		super();
 	}
 
-	public Order(long id, User customerId, short paymentMethod) {
+	public Order(long id, User customer, short paymentMethod) {
 		super();
 		this.id = id;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -61,12 +61,12 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public User getCustomerId() {
-		return customerId;
+	public User getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(User customerId) {
-		this.customerId = customerId;
+	public void setCustomerId(User customer) {
+		this.customer = customer;
 	}
 
 	public short getPaymentMethod() {
