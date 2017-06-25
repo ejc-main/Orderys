@@ -22,7 +22,7 @@ public class StationDaoImpl {
 	
 	public ArrayList<Station> getAllStations() {
 		ArrayList<Station> stations = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -36,7 +36,7 @@ public class StationDaoImpl {
 	}
 	
 	public void createStation(Station s) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -51,7 +51,7 @@ public class StationDaoImpl {
 	
 	public Station getStationById(int id) {
 		Station s = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -65,7 +65,7 @@ public class StationDaoImpl {
 	}
 	
 	public void updateStation(Station s) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -79,7 +79,7 @@ public class StationDaoImpl {
 	}
 	
 	public void deleteStation(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			

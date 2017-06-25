@@ -31,7 +31,7 @@ public class RatingDaoImpl implements RatingDao {
 	
 	public ArrayList<Rating> getAllRatings() {
 		ArrayList<Rating> ratings = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -45,7 +45,7 @@ public class RatingDaoImpl implements RatingDao {
 	}
 	
 	public void createRating(Rating r) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -60,7 +60,7 @@ public class RatingDaoImpl implements RatingDao {
 	
 	public Rating getRatingById(int id) {
 		Rating r = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -74,7 +74,7 @@ public class RatingDaoImpl implements RatingDao {
 	}
 	
 	public void updateRating(Rating r) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -88,7 +88,7 @@ public class RatingDaoImpl implements RatingDao {
 	}
 	
 	public void deleteRating(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			

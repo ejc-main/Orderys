@@ -22,7 +22,7 @@ public class UserDaoImpl {
 	
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> users = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -36,7 +36,7 @@ public class UserDaoImpl {
 	}
 	
 	public void createUser(User u) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -51,7 +51,7 @@ public class UserDaoImpl {
 	
 	public User getUserById(int id) {
 		User u = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -65,7 +65,7 @@ public class UserDaoImpl {
 	}
 	
 	public void updateUser(User u) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -79,7 +79,7 @@ public class UserDaoImpl {
 	}
 	
 	public void deleteUser(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
