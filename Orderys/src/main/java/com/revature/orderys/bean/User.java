@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -51,16 +50,16 @@ public class User implements Serializable {
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
-	private Set<Station> employeeStations;
+	private List<Station> employeeStations;
 	
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="ORDER_ID")
-	private Set<Order> orders;
+	private List<Order> orders;
 	
 	@MapsId("ratingId")
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderItemId")
-	private Set<Rating> ratings;
+	private List<Rating> ratings;
 	
 	enum Role {
 		CUSTOMER,
@@ -129,27 +128,27 @@ public class User implements Serializable {
 		this.role = role;
 	}	
 	
-	public Set<Station> getEmployeeStations() {
+	public List<Station> getEmployeeStations() {
 		return employeeStations;
 	}
 	
-	public void setEmployeeStations(Set<Station> employeeStations) {
+	public void setEmployeeStations(List<Station> employeeStations) {
 		this.employeeStations = employeeStations;
 	}
 	
-	public Set<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 	
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 	
-	public Set<Rating> getRatings() {
+	public List<Rating> getRatings() {
 		return ratings;
 	}
 	
-	public void setRatings(Set<Rating> ratings) {
+	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
 }

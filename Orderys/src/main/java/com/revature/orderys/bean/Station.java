@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +31,7 @@ public class Station implements Serializable {
 	private String stationName;
 	
 	@ManyToMany(mappedBy="employeeStations")
-	private Set<User> employees;
+	private List<User> employees;
 	
 	public Station() {
 		super();
@@ -68,11 +68,11 @@ public class Station implements Serializable {
 		this.stationName = stationName;
 	}
 	
-	public Set<User> getEmployees() {
+	public List<User> getEmployees() {
 		return employees;
 	}
 	
-	public void setEmployees(Set<User> employees) {
+	public void setEmployees(List<User> employees) {
 		this.employees = employees;
 	}
 }

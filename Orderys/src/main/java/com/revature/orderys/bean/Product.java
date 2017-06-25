@@ -3,7 +3,7 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,7 +52,7 @@ public class Product implements Serializable {
 	@MapsId("ratingId")
 	@OneToMany(fetch=FetchType.LAZY) 
 	@JoinColumn(name="orderItemId")
-	private Set<Rating> ratings;
+	private List<Rating> ratings;
 	
 	public Product() {
 		super();
@@ -116,11 +116,11 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 	
-	public Set<Rating> getRatings() {
+	public List<Rating> getRatings() {
 		return ratings;
 	}
 	
-	public void setRatings(Set<Rating> ratings) {
+	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
 }

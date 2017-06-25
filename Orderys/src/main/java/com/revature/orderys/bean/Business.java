@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,9 +49,10 @@ public class Business implements Serializable {
 	@Column(name="ZIP")
 	private String zip;
 	
+	// TODO: Check annotation
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="STATION_ID")
-	private Set<Station> stations;
+	private List<Station> stations;
 	
 	public Business() {
 		super();
@@ -134,11 +135,11 @@ public class Business implements Serializable {
 		this.zip = zip;
 	}
 	
-	public Set<Station> getStations() {
+	public List<Station> getStations() {
 		return stations;
 	}
 	
-	public void setStations(Set<Station> stations) {
+	public void setStations(List<Station> stations) {
 		this.stations = stations;
 	}
 }
