@@ -1,18 +1,19 @@
 package com.revature.orderys.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.User;
-import com.revature.orderys.util.ConnectionUtil;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 public class OrderDaoImpl {
 	
 	private EasyLogger logger = new EasyLogger();
@@ -22,12 +23,13 @@ public class OrderDaoImpl {
 	  this.sessionFactory = sessionFactory;
 	}
 	
-	public ArrayList<Order> getAllOrders() {
-		ArrayList<Order> orders = null;
+	@SuppressWarnings("unchecked")
+	public List<Order> getAllOrders() {
+		List<Order> orders = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			orders = (List<Order>) session.createCriteria(Order.class).list();
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
@@ -41,7 +43,7 @@ public class OrderDaoImpl {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			session.save(o);
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
@@ -66,8 +68,8 @@ public class OrderDaoImpl {
 		return o;
 	}
 	
-	public ArrayList<Order> getOrdersByCustomer(User c) {
-		ArrayList<Order> orders = null;
+	public List<Order> getOrdersByCustomer(User c) {
+		List<Order> orders = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
@@ -81,8 +83,8 @@ public class OrderDaoImpl {
 		return orders;
 	}
 	
-	public ArrayList<Order> getOrdersByBusiness(Business b) {
-		ArrayList<Order> orders = null;
+	public List<Order> getOrdersByBusiness(Business b) {
+		List<Order> orders = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();

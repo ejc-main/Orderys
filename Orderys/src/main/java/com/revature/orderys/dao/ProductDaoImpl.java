@@ -1,18 +1,19 @@
 package com.revature.orderys.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
-import com.revature.orderys.util.ConnectionUtil;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 public class ProductDaoImpl {
 	
 	private EasyLogger logger = new EasyLogger();
@@ -22,12 +23,13 @@ public class ProductDaoImpl {
 	  this.sessionFactory = sessionFactory;
 	}
 	
-	public ArrayList<Product> getAllProducts() {
-		ArrayList<Product> products = null;
+	@SuppressWarnings("unchecked")
+	public List<Product> getAllProducts() {
+		List<Product> products = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			products = (List<Product>) session.createCriteria(Product.class).list();
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
@@ -41,7 +43,7 @@ public class ProductDaoImpl {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			session.save(p);
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
@@ -66,8 +68,8 @@ public class ProductDaoImpl {
 		return p;
 	}
 	
-	public ArrayList<Product> getProductsByBusiness(Business b) {
-		ArrayList<Product> products = null;
+	public List<Product> getProductsByBusiness(Business b) {
+		List<Product> products = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
@@ -81,8 +83,8 @@ public class ProductDaoImpl {
 		return products;
 	}
 	
-	public ArrayList<Product> getProductsByStation(Station s) {
-		ArrayList<Product> products = null;
+	public List<Product> getProductsByStation(Station s) {
+		List<Product> products = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
@@ -96,8 +98,8 @@ public class ProductDaoImpl {
 		return products;
 	}
 	
-	public ArrayList<Product> getProductsByOrder(Station s) {
-		ArrayList<Product> products = null;
+	public List<Product> getProductsByOrder(Station s) {
+		List<Product> products = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
