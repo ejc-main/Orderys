@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.revature.orderys.bean.User;
@@ -15,10 +16,6 @@ public class UserDaoImpl {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}

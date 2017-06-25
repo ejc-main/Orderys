@@ -19,10 +19,6 @@ public class RatingDaoImpl implements RatingDao {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
   	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
