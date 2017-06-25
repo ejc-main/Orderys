@@ -8,7 +8,8 @@ import javax.persistence.OneToOne;
 
 @Embeddable
 public class OrderItemPrimaryKey implements Serializable {
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -3594529445590675729L;
 
 	@OneToOne
 	@JoinColumn(name="orderid_fk", referencedColumnName="ORDER_ID")

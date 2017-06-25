@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name="BUSINESS_TABLE")
 public class Business implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1168516909188344278L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="businessSeq")

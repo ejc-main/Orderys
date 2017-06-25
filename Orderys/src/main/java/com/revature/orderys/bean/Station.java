@@ -15,9 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="STATION_TABLE")
 public class Station implements Serializable {
+	private static final long serialVersionUID = -529102517553725487L;
 
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@Column(name="STATION_ID")
 	private long id;

@@ -21,9 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="PRODUCT_TABLE")
 public class Product implements Serializable {
+	private static final long serialVersionUID = 4341819973903627363L;
 
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="productSeq")
 	@SequenceGenerator(allocationSize=1, name="productSeq", sequenceName="PRODUCT_SEQ")
