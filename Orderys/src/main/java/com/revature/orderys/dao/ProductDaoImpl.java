@@ -24,7 +24,7 @@ public class ProductDaoImpl {
 	
 	public ArrayList<Product> getAllProducts() {
 		ArrayList<Product> products = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -38,7 +38,7 @@ public class ProductDaoImpl {
 	}
 	
 	public void createProduct(Product p) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -53,7 +53,7 @@ public class ProductDaoImpl {
 	
 	public Product getProductById(int id) {
 		Product p = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -68,7 +68,7 @@ public class ProductDaoImpl {
 	
 	public ArrayList<Product> getProductsByBusiness(Business b) {
 		ArrayList<Product> products = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -83,7 +83,7 @@ public class ProductDaoImpl {
 	
 	public ArrayList<Product> getProductsByStation(Station s) {
 		ArrayList<Product> products = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -98,7 +98,7 @@ public class ProductDaoImpl {
 	
 	public ArrayList<Product> getProductsByOrder(Station s) {
 		ArrayList<Product> products = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -112,7 +112,7 @@ public class ProductDaoImpl {
 	}
 	
 	public void updateProduct() {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -126,7 +126,7 @@ public class ProductDaoImpl {
 	}
 	
 	public void deleteProduct(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			

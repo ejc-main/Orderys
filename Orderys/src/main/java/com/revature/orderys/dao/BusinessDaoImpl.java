@@ -23,7 +23,7 @@ public class BusinessDaoImpl {
 	
 	public ArrayList<User> getAllBusinesses() {
 		ArrayList<User> businesses = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -37,7 +37,7 @@ public class BusinessDaoImpl {
 	}
 	
 	public void createBusiness(User u) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -52,7 +52,7 @@ public class BusinessDaoImpl {
 	
 	public Business getBusinessById(int id) {
 		Business b = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -67,7 +67,7 @@ public class BusinessDaoImpl {
 	
 	public Business getBusinessByManager(User m) {
 		Business b = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -81,7 +81,7 @@ public class BusinessDaoImpl {
 	}
 	
 	public void updateBusiness(Business b) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -95,7 +95,7 @@ public class BusinessDaoImpl {
 	}
 	
 	public void deleteBusiness(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			

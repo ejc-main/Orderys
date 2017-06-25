@@ -24,7 +24,7 @@ public class OrderDaoImpl {
 	
 	public ArrayList<Order> getAllOrders() {
 		ArrayList<Order> orders = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -38,7 +38,7 @@ public class OrderDaoImpl {
 	}
 	
 	public void createOrder(Order o) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -53,7 +53,7 @@ public class OrderDaoImpl {
 	
 	public Order getOrderById(int id) {
 		Order o = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -68,7 +68,7 @@ public class OrderDaoImpl {
 	
 	public ArrayList<Order> getOrdersByCustomer(User c) {
 		ArrayList<Order> orders = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -83,7 +83,7 @@ public class OrderDaoImpl {
 	
 	public ArrayList<Order> getOrdersByBusiness(Business b) {
 		ArrayList<Order> orders = null;
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -102,7 +102,7 @@ public class OrderDaoImpl {
 	// TODO add getOrderItemsByProduct
 	
 	public void updateOrder(Order o) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
@@ -116,7 +116,7 @@ public class OrderDaoImpl {
 	}
 	
 	public void deleteOrder(int id) {
-		Session session = ConnectionUtil.getSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
 			
