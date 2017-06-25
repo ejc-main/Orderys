@@ -29,6 +29,7 @@ public class Order implements Serializable {
 	@Column(name="ORDER_ID")
 	private long id;
 	
+	// TODO: Find out if this is right... should it be many to one?
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
 	private User customerId;

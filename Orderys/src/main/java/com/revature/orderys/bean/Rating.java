@@ -3,8 +3,8 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -12,12 +12,8 @@ import javax.persistence.Table;
 public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
-	@Column(name="CUSTOMER_ID")
-	private User customerId;
-
-	@Id
-	@Column(name="PRODUCT_ID")
-	private Product productId;
+	@EmbeddedId
+	private RatingPrimaryKey ratingId;
 
 	@Column(name="RATING")
 	private short rating;
@@ -26,27 +22,18 @@ public class Rating implements Serializable {
 		super();
 	}
 
-	public Rating(User customerId, Product productId, short rating) {
+	public Rating(RatingPrimaryKey ratingId, short rating) {
 		super();
-		this.customerId = customerId;
-		this.productId = productId;
+		this.ratingId = ratingId;
 		this.rating = rating;
 	}
 
-	public User getCustomerId() {
-		return customerId;
+	public RatingPrimaryKey getRatingId() {
+		return ratingId;
 	}
-
-	public void setCustomerId(User customerId) {
-		this.customerId = customerId;
-	}
-
-	public Product getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Product productId) {
-		this.productId = productId;
+	
+	public void setRatingId(RatingPrimaryKey ratingId) {
+		this.ratingId = ratingId;
 	}
 
 	public short getRating() {

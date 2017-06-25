@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,12 +47,20 @@ public class User implements Serializable {
 	@Column(name="ROLE")
 	private Role role;
 	
-	// TODO: Get feedback for fetch type
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
 	private Set<Station> employeeStations;
+	
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="ORDER_ID")
+	private Set<Order> orders;
+	
+	@MapsId("ratingId")
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="orderItemId")
+	private Set<Rating> ratings;
 	
 	enum Role {
 		CUSTOMER,
@@ -125,5 +135,21 @@ public class User implements Serializable {
 	
 	public void setEmployeeStations(Set<Station> employeeStations) {
 		this.employeeStations = employeeStations;
+	}
+	
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+	
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 }

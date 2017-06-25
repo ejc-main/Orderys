@@ -3,13 +3,17 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -44,6 +48,11 @@ public class Product implements Serializable {
 	
 	@Column(name="PHOTO_URL")
 	private String photoUrl;
+	
+	@MapsId("ratingId")
+	@OneToMany(fetch=FetchType.LAZY) 
+	@JoinColumn(name="orderItemId")
+	private Set<Rating> ratings;
 	
 	public Product() {
 		super();
@@ -105,5 +114,13 @@ public class Product implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Set<Rating> getRatings() {
+		return ratings;
+	}
+	
+	public void setRatings(Set<Rating> ratings) {
+		this.ratings = ratings;
 	}
 }
