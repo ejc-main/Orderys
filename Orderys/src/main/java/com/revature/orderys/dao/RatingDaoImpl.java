@@ -23,12 +23,6 @@ public class RatingDaoImpl implements RatingDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-//	@Transactional(readOnly=false)
-//	public void createRating(Rating r){
-//		Session s = sessionFactory.getCurrentSession();
-//		s.saveOrUpdate(rating);
-//	}
-	
 	public ArrayList<Rating> getAllRatings() {
 		ArrayList<Rating> ratings = null;
 		Session session = sessionFactory.getCurrentSession();
@@ -48,7 +42,7 @@ public class RatingDaoImpl implements RatingDao {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			session.saveOrUpdate(r);
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
