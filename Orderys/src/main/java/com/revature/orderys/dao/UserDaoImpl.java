@@ -37,16 +37,13 @@ public class UserDaoImpl {
 		return users;
 	}
 	
+	@Transactional(readOnly=false)
 	public void createUser(User u) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			session.save(u);
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(u);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		
 	}
@@ -56,7 +53,6 @@ public class UserDaoImpl {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
