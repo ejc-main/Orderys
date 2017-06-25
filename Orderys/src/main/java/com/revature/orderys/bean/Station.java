@@ -6,8 +6,11 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,20 +23,21 @@ public class Station implements Serializable {
 	@Column(name="STATION_ID")
 	private long id;
 	
-	@Column(name="BUSINESS_ID")
-	private long businessId;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="BUSINESS_ID")
+	private Business businessId;
 	
 	@Column(name="STATION_NAME")
 	private String stationName;
 	
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="employeeStations")
+	@ManyToMany(mappedBy="employeeStations")
 	private Set<User> employees;
 	
 	public Station() {
 		super();
 	}
 
-	public Station(long id, long businessId, String stationName) {
+	public Station(long id, Business businessId, String stationName) {
 		super();
 		this.id = id;
 		this.businessId = businessId;
@@ -48,11 +52,11 @@ public class Station implements Serializable {
 		this.id = id;
 	}
 
-	public long getBusinessId() {
+	public Business getBusinessId() {
 		return businessId;
 	}
 
-	public void setBusinessId(long businessId) {
+	public void setBusinessId(Business businessId) {
 		this.businessId = businessId;
 	}	
 	
