@@ -15,7 +15,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId	
-	OrderItemPrimaryKey orderItemId;
+	OrderItemPrimaryKey orderItemKey;
 	
 	@Column(name="QUANTITY")
 	private int quantity;
@@ -36,10 +36,10 @@ public class OrderItem implements Serializable {
 		super();
 	}
 
-	public OrderItem(OrderItemPrimaryKey orderItemId, int quantity, String note, Date timeCompleted,
+	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timeCompleted,
 			short paymentMethod, String status) {
 		super();
-		this.orderItemId = orderItemId;
+		this.orderItemKey = orderItemKey;
 		this.quantity = quantity;
 		this.note = note;
 		this.timeCompleted = timeCompleted;
@@ -47,12 +47,12 @@ public class OrderItem implements Serializable {
 		this.status = status;
 	}
 
-	public OrderItemPrimaryKey getOrderItemId() {
-		return orderItemId;
+	public OrderItemPrimaryKey getOrderItemKey() {
+		return orderItemKey;
 	}
 
-	public void setOrderItemId(OrderItemPrimaryKey orderItemId) {
-		this.orderItemId = orderItemId;
+	public void setOrderItemKey(OrderItemPrimaryKey orderItemKey) {
+		this.orderItemKey = orderItemKey;
 	}
 
 	public int getQuantity() {

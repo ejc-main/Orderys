@@ -13,7 +13,7 @@ public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
 	@EmbeddedId
-	private RatingPrimaryKey ratingId;
+	private RatingPrimaryKey ratingKey;
 
 	@Column(name="RATING")
 	private short rating;
@@ -22,18 +22,18 @@ public class Rating implements Serializable {
 		super();
 	}
 
-	public Rating(RatingPrimaryKey ratingId, short rating) {
+	public Rating(RatingPrimaryKey ratingKey, short rating) {
 		super();
-		this.ratingId = ratingId;
+		this.ratingKey = ratingKey;
 		this.rating = rating;
 	}
 
-	public RatingPrimaryKey getRatingId() {
-		return ratingId;
+	public RatingPrimaryKey getRatingKey() {
+		return ratingKey;
 	}
 	
-	public void setRatingId(RatingPrimaryKey ratingId) {
-		this.ratingId = ratingId;
+	public void setRatingId(RatingPrimaryKey ratingKey) {
+		this.ratingKey = ratingKey;
 	}
 
 	public short getRating() {

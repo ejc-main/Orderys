@@ -32,7 +32,7 @@ public class Order implements Serializable {
 	// TODO: Change to many to one?
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	private User customerId;
+	private User customer;
 	
 	@Column(name="PAYMENT_METHOD")
 	private short paymentMethod;
@@ -46,10 +46,10 @@ public class Order implements Serializable {
 		super();
 	}
 
-	public Order(long id, User customerId, short paymentMethod) {
+	public Order(long id, User customer, short paymentMethod) {
 		super();
 		this.id = id;
-		this.customerId = customerId;
+		this.customer = customer;
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -61,12 +61,12 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public User getCustomerId() {
-		return customerId;
+	public User getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(User customerId) {
-		this.customerId = customerId;
+	public void setCustomerId(User customer) {
+		this.customer = customer;
 	}
 
 	public short getPaymentMethod() {

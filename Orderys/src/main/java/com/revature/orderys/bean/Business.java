@@ -29,7 +29,7 @@ public class Business implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
-	private User managerId;
+	private User manager;
 	
 	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
@@ -62,7 +62,7 @@ public class Business implements Serializable {
 			String country, String zip) {
 		super();
 		this.id = id;
-		this.managerId = managerId;
+		this.manager = managerId;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
 		this.city = city;
@@ -79,12 +79,12 @@ public class Business implements Serializable {
 		this.id = id;
 	}
 
-	public User getManagerId() {
-		return managerId;
+	public User getManager() {
+		return manager;
 	}
 
-	public void setManagerId(User managerId) {
-		this.managerId = managerId;
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 
 	public String getStreetAddress1() {

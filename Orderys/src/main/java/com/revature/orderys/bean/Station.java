@@ -3,7 +3,6 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +24,7 @@ public class Station implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
-	private Business businessId;
+	private Business business;
 	
 	@Column(name="STATION_NAME")
 	private String stationName;
@@ -37,10 +36,10 @@ public class Station implements Serializable {
 		super();
 	}
 
-	public Station(long id, Business businessId, String stationName) {
+	public Station(long id, Business business, String stationName) {
 		super();
 		this.id = id;
-		this.businessId = businessId;
+		this.business = business;
 		this.stationName = stationName;
 	}
 
@@ -52,12 +51,12 @@ public class Station implements Serializable {
 		this.id = id;
 	}
 
-	public Business getBusinessId() {
-		return businessId;
+	public Business getBusiness() {
+		return business;
 	}
 
-	public void setBusinessId(Business businessId) {
-		this.businessId = businessId;
+	public void setBusiness(Business business) {
+		this.business = business;
 	}	
 	
 	public String getStationName() {

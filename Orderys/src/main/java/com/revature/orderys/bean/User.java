@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,7 +44,7 @@ public class User implements Serializable {
 	private String lastName;
 	
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name="ROLE")
+	@Column(name="USER_ROLE")
 	private Role role;
 	
 	@OneToMany(fetch=FetchType.LAZY)
@@ -61,7 +62,11 @@ public class User implements Serializable {
 	@JoinColumn(name="orderItemId")
 	private List<Rating> ratings;
 	
-	enum Role {
+	@OneToOne
+	@JoinColumn(name="BUSINESS_ID")
+	private Business businessManaged;
+	
+	public static enum Role {
 		CUSTOMER,
 		EMPLOYEE,
 		MANAGER
@@ -150,5 +155,13 @@ public class User implements Serializable {
 	
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
+	}
+	
+	public Business getBusinessManaged() {
+		return businessManaged;
+	}
+	
+	public void setBusinessManaged(Business businessManaged) {
+		this.businessManaged = businessManaged;
 	}
 }
