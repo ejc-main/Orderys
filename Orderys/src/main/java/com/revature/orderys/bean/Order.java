@@ -21,8 +21,8 @@ import javax.persistence.Table;
 @Table(name="ORDER_TABLE")
 public class Order implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 7379274681923492528L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="orderSeq")
 	@SequenceGenerator(allocationSize=1, name="orderSeq", sequenceName="ORDER_SEQ")

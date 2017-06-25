@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 
 @Embeddable
 public class RatingPrimaryKey implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5178716734900342018L;
 
 	@OneToOne
 	@JoinColumn(name="userid_fk", referencedColumnName="USER_ID")

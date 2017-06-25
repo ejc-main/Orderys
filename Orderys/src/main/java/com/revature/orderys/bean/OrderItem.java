@@ -11,9 +11,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ORDER_ITEM_TABLE")
 public class OrderItem implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 5236751285429294295L;
+
 	@EmbeddedId	
 	OrderItemPrimaryKey orderItemKey;
 	
