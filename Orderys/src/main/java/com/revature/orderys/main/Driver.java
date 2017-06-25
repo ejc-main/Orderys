@@ -10,7 +10,7 @@ public class Driver {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		RatingDao dao = (RatingDao) ac.getBean("myDao");
+		RatingDao dao = (RatingDao) ac.getBean("ratingDao");
 		Rating r = new Rating();
 		dao.createRating(r);
 		ac.close();
