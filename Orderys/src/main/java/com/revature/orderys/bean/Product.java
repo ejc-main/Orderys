@@ -19,7 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PRODUCT")
+@Table(name="PRODUCT_TABLE")
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;

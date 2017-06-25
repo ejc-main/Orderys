@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER")
+@Table(name="USER_TABLE")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class User implements Serializable {
 	@Column(name="ROLE")
 	private Role role;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))

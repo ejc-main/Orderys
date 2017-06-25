@@ -30,7 +30,7 @@ public class Station implements Serializable {
 	@Column(name="STATION_NAME")
 	private String stationName;
 	
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="employeeStations")
+	@ManyToMany(mappedBy="employeeStations")
 	private Set<User> employees;
 	
 	public Station() {

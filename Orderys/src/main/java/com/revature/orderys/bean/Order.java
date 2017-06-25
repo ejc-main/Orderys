@@ -18,7 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ORDER")
+@Table(name="ORDER_TABLE")
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
