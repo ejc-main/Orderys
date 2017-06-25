@@ -1,7 +1,6 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,6 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
 @Table(name="ORDER_TABLE")
 public class Order implements Serializable {
