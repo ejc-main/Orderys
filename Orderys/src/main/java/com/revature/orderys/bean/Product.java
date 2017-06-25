@@ -27,8 +27,8 @@ public class Product implements Serializable {
 	private long id;
 	
 	@OneToOne
-	@JoinColumn(name="BUSINESS_ID")
-	private Business businessId;
+	@JoinColumn(name="STATION_ID")
+	private Station stationId;
 	
 	@Column(name="NAME")
 	private String name;
@@ -49,9 +49,10 @@ public class Product implements Serializable {
 		super();
 	}
 
-	public Product(long id, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
+	public Product(long id, Station stationId, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
 		super();
 		this.id = id;
+		this.stationId = stationId;
 		this.name = name;
 		this.productPrice = productPrice;
 		this.intendedCompletionTime = intendedCompletionTime;
@@ -66,6 +67,14 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
+	public Station getStationId() {
+		return stationId;
+	}
+	
+	public void setStationId(Station stationId) {
+		this.stationId = stationId;
+	}
+	
 	public String getName() {
 		return name;
 	}
