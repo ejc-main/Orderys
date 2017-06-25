@@ -1,17 +1,18 @@
 package com.revature.orderys.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.User;
-import com.revature.orderys.util.ConnectionUtil;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 public class BusinessDaoImpl {
 	
 	private EasyLogger logger = new EasyLogger();
@@ -21,12 +22,13 @@ public class BusinessDaoImpl {
 	  this.sessionFactory = sessionFactory;
 	}
 	
-	public ArrayList<User> getAllBusinesses() {
-		ArrayList<User> businesses = null;
+	@SuppressWarnings("unchecked")
+	public List<Business> getAllBusinesses() {
+		List<Business> businesses = null;
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			businesses = (List<Business>) session.createCriteria(Business.class).list();
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
@@ -36,11 +38,11 @@ public class BusinessDaoImpl {
 		return businesses;
 	}
 	
-	public void createBusiness(User u) {
+	public void createBusiness(Business b) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			
+			session.save(b);
 			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
