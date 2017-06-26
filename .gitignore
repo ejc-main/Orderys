@@ -25,10 +25,10 @@ hs_err_pid*
 RemoteSystemsTempFiles/
 /Orderys/.settings
 /Orderys/target
-/Servers/.settings
 /Orderys/.project
 Orderys/src/main/resources/beans.xml
 /.vscode
 /.recommenders
 Orderys/.tern-project
 Orderys/log.txt
+/Servers
