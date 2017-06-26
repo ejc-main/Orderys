@@ -43,7 +43,6 @@ public class UserDaoImpl {
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}
-		
 	}
 	
 	public User getUserById(long id) {
