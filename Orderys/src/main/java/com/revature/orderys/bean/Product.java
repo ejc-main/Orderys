@@ -2,7 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,11 +20,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
 @Table(name="PRODUCT_TABLE")
+@Check(constraints = "PRODUCT_PRICE > 0")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 4341819973903627363L;
 
@@ -46,7 +48,7 @@ public class Product implements Serializable {
 	
 	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
-	private LocalDateTime intendedCompletionTime;
+	private Date intendedCompletionTime;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -63,7 +65,7 @@ public class Product implements Serializable {
 		super();
 	}
 
-	public Product(long id, Station station, String name, BigDecimal productPrice, LocalDateTime intendedCompletionTime, String description) {
+	public Product(long id, Station station, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
 		super();
 		this.id = id;
 		this.station = station;
@@ -105,11 +107,11 @@ public class Product implements Serializable {
 		this.productPrice = productPrice;
 	}
 
-	public LocalDateTime getIntendedCompletionTime() {
+	public Date getIntendedCompletionTime() {
 		return intendedCompletionTime;
 	}
 
-	public void setIntendedCompletionTime(LocalDateTime intendedCompletionTime) {
+	public void setIntendedCompletionTime(Date intendedCompletionTime) {
 		this.intendedCompletionTime = intendedCompletionTime;
 	}
 
