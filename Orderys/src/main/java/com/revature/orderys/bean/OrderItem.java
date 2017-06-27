@@ -1,12 +1,15 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +29,11 @@ public class OrderItem implements Serializable {
 	@Column(name="NOTE")
 	private String note;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="TIME_PLACED", nullable=false)
+	private Date timePlaced;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_FULFILLED")
 	private Date timeCompleted;
 	
@@ -36,16 +44,26 @@ public class OrderItem implements Serializable {
 		super();
 	}
 
-	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timeCompleted,
+	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timePlaced, Date timeCompleted,
 			String status) {
 		super();
 		this.orderItemKey = orderItemKey;
 		this.quantity = quantity;
 		this.note = note;
+		this.timePlaced = timePlaced;
 		this.timeCompleted = timeCompleted;
 		this.status = status;
 	}
 
+	/**
+	 * Sets timePlaced to the current time on creation of OrderItem
+	 * object.
+	 */
+	@PrePersist 
+	protected void onCreate() {
+		timePlaced = new Date();
+	}
+	
 	public OrderItemPrimaryKey getOrderItemKey() {
 		return orderItemKey;
 	}
@@ -69,7 +87,15 @@ public class OrderItem implements Serializable {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
+	
+	public Date getTimePlaced() {
+		return timePlaced;
+	}
+	
+	public void setTimePlaced(Date timePlaced) {
+		this.timePlaced = timePlaced;
+	}
+	
 	public Date getTimeCompleted() {
 		return timeCompleted;
 	}
@@ -85,4 +111,6 @@ public class OrderItem implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
 }
