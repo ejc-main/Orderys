@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -31,11 +31,11 @@ public class OrderItem implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_PLACED", nullable=false)
-	private LocalDateTime timePlaced;
+	private Date timePlaced;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_FULFILLED")
-	private LocalDateTime timeCompleted;
+	private Date timeCompleted;
 	
 	@Column(name="STATUS", nullable=false)
 	private String status;
@@ -44,7 +44,7 @@ public class OrderItem implements Serializable {
 		super();
 	}
 
-	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, LocalDateTime timePlaced, LocalDateTime timeCompleted,
+	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timePlaced, Date timeCompleted,
 			String status) {
 		super();
 		this.orderItemKey = orderItemKey;
@@ -61,7 +61,7 @@ public class OrderItem implements Serializable {
 	 */
 	@PrePersist 
 	protected void onCreate() {
-		timePlaced = LocalDateTime.now();
+		timePlaced = new Date();
 	}
 	
 	public OrderItemPrimaryKey getOrderItemKey() {
@@ -88,19 +88,19 @@ public class OrderItem implements Serializable {
 		this.note = note;
 	}
 	
-	public LocalDateTime getTimePlaced() {
+	public Date getTimePlaced() {
 		return timePlaced;
 	}
 	
-	public void setTimePlaced(LocalDateTime timePlaced) {
+	public void setTimePlaced(Date timePlaced) {
 		this.timePlaced = timePlaced;
 	}
 	
-	public LocalDateTime getTimeCompleted() {
+	public Date getTimeCompleted() {
 		return timeCompleted;
 	}
 
-	public void setTimeCompleted(LocalDateTime timeCompleted) {
+	public void setTimeCompleted(Date timeCompleted) {
 		this.timeCompleted = timeCompleted;
 	}
 
