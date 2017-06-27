@@ -13,6 +13,7 @@ public class MainTests {
 
 	@Test
 	public void test() {
+		System.out.println("Running MainTests.java");
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		//user test block
 		UserDao dao = (UserDao) ac.getBean("userDao");
