@@ -6,6 +6,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Embeddable
 public class OrderItemPrimaryKey implements Serializable {
 	

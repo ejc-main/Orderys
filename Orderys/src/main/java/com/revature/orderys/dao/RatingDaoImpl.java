@@ -1,14 +1,17 @@
 package com.revature.orderys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Rating;
+import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
@@ -23,75 +26,47 @@ public class RatingDaoImpl implements RatingDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Rating> getAllRatings() {
-		List<Rating> ratings = null;
+		List<Rating> ratings = new ArrayList<Rating>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
 			ratings = (List<Rating>) session.createCriteria(Rating.class).list();
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return ratings;
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createRating(Rating r) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
+			Session session = sessionFactory.getCurrentSession();
 			session.save(r);
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public Rating getRatingById(int id) {
-		Rating r = null;
+	public Rating getRatingById(long id) {
 		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return r;
+		return (Rating) session.get(Rating.class,id);
 	}
 	
 	public void updateRating(Rating r) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(r);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public void deleteRating(int id) {
-		Session session = sessionFactory.getCurrentSession();
+	public void deleteRating(Rating r) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(r);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
 }
