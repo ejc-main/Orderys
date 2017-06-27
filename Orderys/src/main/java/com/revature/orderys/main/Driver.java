@@ -5,7 +5,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Station;
+import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.StationDao;
+import com.revature.orderys.dao.UserDao;
 
 @Transactional
 public class Driver {
@@ -13,9 +15,9 @@ public class Driver {
 	public static void main(String[] args) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		//user test block
-//		UserDao dao = (UserDao) ac.getBean("userDao");
-//		User u = new User(1,"atat@gmail.com","atot","atot","afkaowk",User.Role.CUSTOMER);
-//		dao.createUser(u);
+		UserDao dao = (UserDao) ac.getBean("userDao");
+		User u = new User("wowot@gmail.com","wwwt","atot","afkaowk",User.Role.CUSTOMER);
+		dao.createUser(u);
 		
 //		ArrayList<User> users=(ArrayList<User>) dao.getAllUsers();
 //		for(User user:users){
@@ -26,8 +28,8 @@ public class Driver {
 //		dao.deleteUser(u);
 		
 		//station test block
-		StationDao dao = (StationDao) ac.getBean("stationDao");
-		Station s = new Station();
+//		StationDao dao = (StationDao) ac.getBean("stationDao");
+//		Station s = new Station();
 		
 		ac.close();
 	}

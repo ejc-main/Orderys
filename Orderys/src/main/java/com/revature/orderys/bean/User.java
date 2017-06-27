@@ -103,6 +103,16 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.role = role;
 	}
+	
+
+	public User(String email, String passwordHash, String firstName, String lastName, Role role) {
+		super();
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
 
 	public long getId() {
 		return id;
