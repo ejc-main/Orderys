@@ -29,7 +29,6 @@ RemoteSystemsTempFiles/
 /Orderys/target
 /Orderys/.project
 Orderys/src/main/resources/beans.xml
-Orderys/.classpath
 /.vscode
 /.recommenders
 Orderys/.tern-project
