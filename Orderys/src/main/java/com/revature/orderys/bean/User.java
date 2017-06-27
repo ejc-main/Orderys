@@ -193,4 +193,11 @@ public class User implements Serializable {
 	public void setBusinessManaged(Business businessManaged) {
 		this.businessManaged = businessManaged;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", passwordHash=" + passwordHash + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", role=" + role + ", employeeStations=" + employeeStations + ", orders="
+				+ orders + ", ratings=" + ratings + ", businessManaged=" + businessManaged + "]";
+	}
 }

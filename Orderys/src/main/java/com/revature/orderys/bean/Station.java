@@ -76,4 +76,10 @@ public class Station implements Serializable {
 	public void setEmployees(List<User> employees) {
 		this.employees = employees;
 	}
+
+	@Override
+	public String toString() {
+		return "Station [id=" + id + ", business=" + business + ", stationName=" + stationName + ", employees="
+				+ employees + "]";
+	}
 }
