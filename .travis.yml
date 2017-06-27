@@ -31,7 +31,9 @@ jobs:
         sonarcloud:
           organization: "960fb8b985ac055761700793ae7c90c5"
           token: $SONARCLOUD_TOKEN
-      script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+      script:
+        - cd Orderys
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
       
 
 
