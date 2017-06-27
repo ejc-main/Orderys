@@ -19,7 +19,7 @@ git push origin your-current-branch-name
 ```
 4. Create a new feature branch by branching from the dev branch. (The actual rules for branch names can be found https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html. Personally, I prefer to stick to 'kebab case' for my branch names, which is just lowercase letters, numbers, and dashes to separate words.)
 ```
-git checkout -b your-descriptive-branch-name -t origin/dev
+git checkout -b your-descriptive-branch-name
 ```
 5. Do some work, then commit your changes. Make sure the changes you include in a single commit are all related, and make sure you describe the work with a good commit message. Check the status of your local repo if you aren't sure what you have changed or staged.
 ```
@@ -28,10 +28,6 @@ git add ./some/files/that ./you/changed
 git commit -m "DESCRIPTIVE COMMIT MESSAGE HERE"
 ```
 6. Before you try to push any of your own work, make sure you update the branch you are working on locally with any changes in the dev branch of the main repository.
-```
-git pull
-```
-or
 ```
 git pull origin dev
 ```

@@ -1,20 +1,28 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
-@Table(name="BUSINESS")
+@Table(name="BUSINESS_TABLE")
 public class Business implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1168516909188344278L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="businessSeq")
@@ -22,8 +30,9 @@ public class Business implements Serializable {
 	@Column(name="BUSINESS_ID")
 	private long id;
 	
-	@Column(name="MANAGER_ID")
-	private long managerId;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="USER_ID")
+	private User manager;
 	
 	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
@@ -43,15 +52,20 @@ public class Business implements Serializable {
 	@Column(name="ZIP")
 	private String zip;
 	
+	// TODO: Check annotation
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="STATION_ID")
+	private List<Station> stations;
+	
 	public Business() {
 		super();
 	}
 
-	public Business(long id, long managerId, String streetAddress1, String streetAddress2, String city, String state,
+	public Business(long id, User managerId, String streetAddress1, String streetAddress2, String city, String state,
 			String country, String zip) {
 		super();
 		this.id = id;
-		this.managerId = managerId;
+		this.manager = managerId;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
 		this.city = city;
@@ -68,12 +82,12 @@ public class Business implements Serializable {
 		this.id = id;
 	}
 
-	public long getManagerId() {
-		return managerId;
+	public User getManager() {
+		return manager;
 	}
 
-	public void setManagerId(long managerId) {
-		this.managerId = managerId;
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 
 	public String getStreetAddress1() {
@@ -122,5 +136,13 @@ public class Business implements Serializable {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+	
+	public List<Station> getStations() {
+		return stations;
+	}
+	
+	public void setStations(List<Station> stations) {
+		this.stations = stations;
 	}
 }

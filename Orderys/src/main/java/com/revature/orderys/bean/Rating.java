@@ -3,21 +3,20 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
-@Table(name="Rating")
+@Table(name="RATING_TABLE")
 public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
-	@Column(name="CUSTOMER_ID")
-	private long customerId;
-
-	@Id
-	@Column(name="PRODUCT_ID")
-	private long productId;
+	@EmbeddedId
+	private RatingPrimaryKey ratingKey;
 
 	@Column(name="RATING")
 	private short rating;
@@ -26,27 +25,18 @@ public class Rating implements Serializable {
 		super();
 	}
 
-	public Rating(long customerId, long productId, short rating) {
+	public Rating(RatingPrimaryKey ratingKey, short rating) {
 		super();
-		this.customerId = customerId;
-		this.productId = productId;
+		this.ratingKey = ratingKey;
 		this.rating = rating;
 	}
 
-	public long getCustomerId() {
-		return customerId;
+	public RatingPrimaryKey getRatingKey() {
+		return ratingKey;
 	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
-	public long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(long productId) {
-		this.productId = productId;
+	
+	public void setRatingId(RatingPrimaryKey ratingKey) {
+		this.ratingKey = ratingKey;
 	}
 
 	public short getRating() {

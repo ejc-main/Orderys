@@ -1,7 +1,7 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,16 +13,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="USER")
-public class User implements Serializable {
+import org.springframework.stereotype.Component;
 
-	private static final long serialVersionUID = 1L;
-	
+@Component
+@Entity
+@Table(name="USER_TABLE")
+public class User implements Serializable {
+	private static final long serialVersionUID = -5465335613036224628L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userSeq")
 	@SequenceGenerator(allocationSize=1, name="userSeq", sequenceName="USER_SEQ")
@@ -42,17 +46,29 @@ public class User implements Serializable {
 	private String lastName;
 	
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name="ROLE")
+	@Column(name="USER_ROLE")
 	private Role role;
 	
-	// TODO: Get feedback for fetch type
-	@ManyToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
-	private Set<Station> employeeStations;
+	private List<Station> employeeStations;
 	
-	enum Role {
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="ORDER_ID")
+	private List<Order> orders;
+	
+	@MapsId("ratingId")
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="orderItemId")
+	private List<Rating> ratings;
+	
+	@OneToOne
+	@JoinColumn(name="BUSINESS_ID")
+	private Business businessManaged;
+	
+	public static enum Role {
 		CUSTOMER,
 		EMPLOYEE,
 		MANAGER
@@ -62,11 +78,17 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(long id, String email, String passwordHash, String firstName, String lastName, Role role) {
+	public User(long id, String email, String firstName, String lastName, Role role) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.passwordHash = passwordHash;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
+	public User(String email, String firstName, String lastName, Role role) {
+		super();
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;
@@ -120,11 +142,35 @@ public class User implements Serializable {
 		this.role = role;
 	}	
 	
-	public Set<Station> getEmployeeStations() {
+	public List<Station> getEmployeeStations() {
 		return employeeStations;
 	}
 	
-	public void setEmployeeStations(Set<Station> employeeStations) {
+	public void setEmployeeStations(List<Station> employeeStations) {
 		this.employeeStations = employeeStations;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	
+	public Business getBusinessManaged() {
+		return businessManaged;
+	}
+	
+	public void setBusinessManaged(Business businessManaged) {
+		this.businessManaged = businessManaged;
 	}
 }

@@ -1,98 +1,71 @@
 package com.revature.orderys.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.User;
-import com.revature.orderys.util.ConnectionUtil;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 public class UserDaoImpl {
 	
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
 	
-	public ArrayList<User> getAllUsers() {
-		ArrayList<User> users = null;
-		Session session = ConnectionUtil.getSession();
+	@SuppressWarnings("unchecked")
+	public List<User> getAllUsers() {
+		List<User> users = new ArrayList<User>();
+		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			users = (List<User>) session.createCriteria(User.class).list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return users;
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createUser(User u) {
-		Session session = ConnectionUtil.getSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.save(u);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public User getUserById(int id) {
-		User u = null;
-		Session session = ConnectionUtil.getSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return u;
+	public User getUserById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (User) session.get(User.class,id);
 	}
 	
 	public void updateUser(User u) {
-		Session session = ConnectionUtil.getSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(u);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public void deleteUser(int id) {
-		Session session = ConnectionUtil.getSession();
+	public void deleteUser(User u) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(u);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 
 }

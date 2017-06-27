@@ -12,12 +12,9 @@ import java.time.LocalDateTime;
  */
 public class EasyLogger {
   
-  private static final String filename = "C:/Users/Eric/Employment/Revature/workspace/Eric_Christie_Code/ERS/"
-      + "src/com/revature/ers/util/log.txt";
-  private static final String debugLogfile = "C:/Users/Eric/Employment/Revature/workspace/Eric_Christie_Code/ERS/"
-      + "src/com/revature/ers/util/debug-log.txt";
-  private static final String serverLogfile = "C:/Users/Eric/Employment/Revature/workspace/Eric_Christie_Code/ERS/"
-      + "src/com/revature/ers/util/server-log.txt";
+  private static final String filename = "./log.txt";
+  private static final String debugLogfile = "./debug-log.txt";
+  private static final String serverLogfile = "./server-log.txt";
   
   // logging the server requests and responses should probably only be done while debugging
   

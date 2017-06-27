@@ -1,98 +1,72 @@
 package com.revature.orderys.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Station;
-import com.revature.orderys.util.ConnectionUtil;
+import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 public class StationDaoImpl {
 	
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	/* (non-Javadoc)
-	 * @see com.ex.dao.DAO#setSessionFactory(org.hibernate.SessionFactory)
-	 */
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
 	
-	public ArrayList<Station> getAllStations() {
-		ArrayList<Station> stations = null;
-		Session session = ConnectionUtil.getSession();
+	@SuppressWarnings("unchecked")
+	public List<Station> getAllStations() {
+		List<Station> stations = new ArrayList<Station>();
+		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			stations = (List<Station>) session.createCriteria(Station.class).list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return stations;
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createStation(Station s) {
-		Session session = ConnectionUtil.getSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.save(s);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public Station getStationById(int id) {
-		Station s = null;
-		Session session = ConnectionUtil.getSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return s;
+	public Station getStationById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Station) session.get(Station.class,id);
 	}
 	
 	public void updateStation(Station s) {
-		Session session = ConnectionUtil.getSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(s);
+		}catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public void deleteStation(int id) {
-		Session session = ConnectionUtil.getSession();
+	public void deleteStation(Station s) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(s);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 
 }

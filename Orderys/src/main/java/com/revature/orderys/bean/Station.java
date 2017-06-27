@@ -1,42 +1,47 @@
 package com.revature.orderys.bean;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
 @Table(name="STATION_TABLE")
 public class Station implements Serializable {
+	private static final long serialVersionUID = -529102517553725487L;
 
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@Column(name="STATION_ID")
 	private long id;
 	
-	@Column(name="BUSINESS_ID")
-	private long businessId;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="BUSINESS_ID")
+	private Business business;
 	
 	@Column(name="STATION_NAME")
 	private String stationName;
 	
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="employeeStations")
-	private Set<User> employees;
+	@ManyToMany(mappedBy="employeeStations")
+	private List<User> employees;
 	
 	public Station() {
 		super();
 	}
 
-	public Station(long id, long businessId, String stationName) {
+	public Station(long id, Business business, String stationName) {
 		super();
 		this.id = id;
-		this.businessId = businessId;
+		this.business = business;
 		this.stationName = stationName;
 	}
 
@@ -48,12 +53,12 @@ public class Station implements Serializable {
 		this.id = id;
 	}
 
-	public long getBusinessId() {
-		return businessId;
+	public Business getBusiness() {
+		return business;
 	}
 
-	public void setBusinessId(long businessId) {
-		this.businessId = businessId;
+	public void setBusiness(Business business) {
+		this.business = business;
 	}	
 	
 	public String getStationName() {
@@ -64,11 +69,11 @@ public class Station implements Serializable {
 		this.stationName = stationName;
 	}
 	
-	public Set<User> getEmployees() {
+	public List<User> getEmployees() {
 		return employees;
 	}
 	
-	public void setEmployees(Set<User> employees) {
+	public void setEmployees(List<User> employees) {
 		this.employees = employees;
 	}
 }
