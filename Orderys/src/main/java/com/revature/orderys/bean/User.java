@@ -27,6 +27,16 @@ import org.springframework.stereotype.Component;
 public class User implements Serializable {
 	private static final long serialVersionUID = -5465335613036224628L;
 
+	public User(long id, String email, String passwordHash, String firstName, String lastName, Role role) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="userSeq")
 	@SequenceGenerator(allocationSize=1, name="userSeq", sequenceName="USER_SEQ")
@@ -89,6 +99,16 @@ public class User implements Serializable {
 	public User(String email, String firstName, String lastName, Role role) {
 		super();
 		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+	}
+	
+
+	public User(String email, String passwordHash, String firstName, String lastName, Role role) {
+		super();
+		this.email = email;
+		this.passwordHash = passwordHash;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;

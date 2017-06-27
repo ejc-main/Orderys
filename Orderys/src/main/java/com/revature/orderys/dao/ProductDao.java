@@ -6,20 +6,20 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.orderys.bean.Rating;
+import com.revature.orderys.bean.Product;
 
-public interface RatingDao {
+public interface ProductDao {
 
 	void setSessionFactory(SessionFactory sessionFactory);
 
-	List<Rating> getAllRatings();
+	List<Product> getAllProducts();
 
-	void createRating(Rating r);
+	void createProduct(Product p);
 
-	Rating getRatingById(long id);
+	Product getProductById(long id);
 
-	void updateRating(Rating r);
+	void updateProduct(Product p);
 
-	void deleteRating(Rating r);
+	void deleteProduct(Product p);
 
 }

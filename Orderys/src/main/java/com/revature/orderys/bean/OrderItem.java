@@ -29,11 +29,11 @@ public class OrderItem implements Serializable {
 	@Column(name="NOTE")
 	private String note;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_PLACED", nullable=false)
 	private Date timePlaced;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_FULFILLED")
 	private Date timeCompleted;
 	

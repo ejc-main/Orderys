@@ -61,11 +61,11 @@ public class Business implements Serializable {
 		super();
 	}
 
-	public Business(long id, User managerId, String streetAddress1, String streetAddress2, String city, String state,
+	public Business(long id, User manager, String streetAddress1, String streetAddress2, String city, String state,
 			String country, String zip) {
 		super();
 		this.id = id;
-		this.manager = managerId;
+		this.manager = manager;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
 		this.city = city;
