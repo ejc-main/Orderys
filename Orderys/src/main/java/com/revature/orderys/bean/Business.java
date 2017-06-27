@@ -31,25 +31,25 @@ public class Business implements Serializable {
 	private long id;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USER_ID")
+	@JoinColumn(name="USER_ID", nullable=false, unique=true)
 	private User manager;
 	
-	@Column(name="STREET_ADDRESS_1")
+	@Column(name="STREET_ADDRESS_1", nullable=false)
 	private String streetAddress1;
 	
 	@Column(name="STREET_ADDRESS_2")
 	private String streetAddress2;
 	
-	@Column(name="CITY")
+	@Column(name="CITY", nullable=false)
 	private String city;
 	
-	@Column(name="STATE")
+	@Column(name="STATE", nullable=false)
 	private String state;
 	
-	@Column(name="COUNTRY")
+	@Column(name="COUNTRY", nullable=false)
 	private String country;
 	
-	@Column(name="ZIP")
+	@Column(name="ZIP", nullable=false)
 	private String zip;
 	
 	// TODO: Check annotation

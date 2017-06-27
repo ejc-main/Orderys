@@ -2,7 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -36,17 +38,15 @@ public class Product implements Serializable {
 	@JoinColumn(name="STATION_ID")
 	private Station station;
 	
-	@Column(name="NAME")
+	@Column(name="NAME", nullable=false)
 	private String name;
 	
-	@Column(name="BUSINESS_ID")
-	private long businessId;
-	
-	@Column(name="PRODUCT_PRICE")
+	@Column(name="PRODUCT_PRICE", nullable=false)
 	private BigDecimal productPrice;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
-	private Date intendedCompletionTime;
+	private LocalDateTime intendedCompletionTime;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -63,7 +63,7 @@ public class Product implements Serializable {
 		super();
 	}
 
-	public Product(long id, Station station, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
+	public Product(long id, Station station, String name, BigDecimal productPrice, LocalDateTime intendedCompletionTime, String description) {
 		super();
 		this.id = id;
 		this.station = station;
@@ -105,11 +105,11 @@ public class Product implements Serializable {
 		this.productPrice = productPrice;
 	}
 
-	public Date getIntendedCompletionTime() {
+	public LocalDateTime getIntendedCompletionTime() {
 		return intendedCompletionTime;
 	}
 
-	public void setIntendedCompletionTime(Date intendedCompletionTime) {
+	public void setIntendedCompletionTime(LocalDateTime intendedCompletionTime) {
 		this.intendedCompletionTime = intendedCompletionTime;
 	}
 
