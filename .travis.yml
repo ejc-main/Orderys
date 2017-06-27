@@ -10,15 +10,17 @@ branches:
     - dev
 
 # addons:
-# before_install:
+before_install:
+  - cd Orderys
+  - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
 # install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 # before_script:
-script: 
+script:
   - mvn test -B
 # before_cache:
 # after_success:
 # after_failure:
-before_deploy:
+# before_deploy:
 # after_deploy:
 # after_script:
 
