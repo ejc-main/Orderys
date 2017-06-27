@@ -33,20 +33,20 @@ public class User implements Serializable {
 	@Column(name="USER_ID")
 	private long id;
 	
-	@Column(name="EMAIL")
+	@Column(name="EMAIL", nullable=false, unique=true)
 	private String email;
 	
-	@Column(name="PASSWORD_HASH")
+	@Column(name="PASSWORD_HASH", nullable=false)
 	private String passwordHash;
 	
-	@Column(name="FIRST_NAME")
+	@Column(name="FIRST_NAME", nullable=false)
 	private String firstName;
 	
-	@Column(name="LAST_NAME")
+	@Column(name="LAST_NAME", nullable=false)
 	private String lastName;
 	
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name="USER_ROLE")
+	@Column(name="USER_ROLE", nullable=false)
 	private Role role;
 	
 	@OneToMany(fetch=FetchType.LAZY)

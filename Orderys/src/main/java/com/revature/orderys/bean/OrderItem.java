@@ -20,7 +20,7 @@ public class OrderItem implements Serializable {
 	@EmbeddedId	
 	OrderItemPrimaryKey orderItemKey;
 	
-	@Column(name="QUANTITY")
+	@Column(name="QUANTITY", nullable=false)
 	private int quantity;
 	
 	@Column(name="NOTE")
@@ -29,10 +29,7 @@ public class OrderItem implements Serializable {
 	@Column(name="TIME_FULFILLED")
 	private Date timeCompleted;
 	
-	@Column(name="PAYMENT_METHOD")
-	private short paymentMethod;
-	
-	@Column(name="STATUS")
+	@Column(name="STATUS", nullable=false)
 	private String status;
 	
 	public OrderItem() {
@@ -40,13 +37,12 @@ public class OrderItem implements Serializable {
 	}
 
 	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timeCompleted,
-			short paymentMethod, String status) {
+			String status) {
 		super();
 		this.orderItemKey = orderItemKey;
 		this.quantity = quantity;
 		this.note = note;
 		this.timeCompleted = timeCompleted;
-		this.paymentMethod = paymentMethod;
 		this.status = status;
 	}
 
@@ -80,14 +76,6 @@ public class OrderItem implements Serializable {
 
 	public void setTimeCompleted(Date timeCompleted) {
 		this.timeCompleted = timeCompleted;
-	}
-
-	public short getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(short paymentMethod) {
-		this.paymentMethod = paymentMethod;
 	}
 
 	public String getStatus() {

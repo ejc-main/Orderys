@@ -18,7 +18,7 @@ public class Rating implements Serializable {
 	@EmbeddedId
 	private RatingPrimaryKey ratingKey;
 
-	@Column(name="RATING")
+	@Column(name="RATING", nullable=false)
 	private short rating;
 
 	public Rating() {

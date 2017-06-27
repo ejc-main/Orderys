@@ -36,13 +36,13 @@ public class Product implements Serializable {
 	@JoinColumn(name="STATION_ID")
 	private Station station;
 	
-	@Column(name="NAME")
+	@Column(name="NAME", nullable=false)
 	private String name;
 	
-	@Column(name="BUSINESS_ID")
+	@Column(name="BUSINESS_ID", nullable=false)
 	private long businessId;
 	
-	@Column(name="PRODUCT_PRICE")
+	@Column(name="PRODUCT_PRICE", nullable=false)
 	private BigDecimal productPrice;
 	
 	@Column(name="INTENDED_COMPLETION_TIME")
