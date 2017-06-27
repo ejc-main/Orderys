@@ -44,7 +44,7 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_PRICE", nullable=false)
 	private BigDecimal productPrice;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
 	private LocalDateTime intendedCompletionTime;
 	

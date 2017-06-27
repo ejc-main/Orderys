@@ -1,11 +1,14 @@
 package com.revature.orderys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
@@ -25,77 +28,47 @@ public class OrderDaoImpl {
 	
 	@SuppressWarnings("unchecked")
 	public List<Order> getAllOrders() {
-		List<Order> orders = null;
+		List<Order> orders = new ArrayList<Order>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
 			orders = (List<Order>) session.createCriteria(Order.class).list();
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return orders;
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createOrder(Order o) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
+			Session session = sessionFactory.getCurrentSession();
 			session.save(o);
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
 	public Order getOrderById(int id) {
-		Order o = null;
 		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return o;
+		return (Order) session.get(Order.class,id);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Order> getOrdersByCustomer(User c) {
-		List<Order> orders = null;
+		List<Order> orders = new ArrayList<Order>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
+			orders = (List<Order>) session.createCriteria(User.class)
+					.add(Restrictions.eq("user.id", c.getId())).list();
 			
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return orders;
 	}
 	
 	public List<Order> getOrdersByBusiness(Business b) {
-		List<Order> orders = null;
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return orders;
+		return null;
 	}
 	
 	// TODO add methods for OrderItems
@@ -104,31 +77,21 @@ public class OrderDaoImpl {
 	// TODO add getOrderItemsByProduct
 	
 	public void updateOrder(Order o) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(o);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public void deleteOrder(int id) {
-		Session session = sessionFactory.getCurrentSession();
+	public void deleteOrder(Order o) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(o);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 
 }

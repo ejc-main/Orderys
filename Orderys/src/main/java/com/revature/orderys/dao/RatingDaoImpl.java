@@ -20,10 +20,12 @@ public class RatingDaoImpl implements RatingDao {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-  	public void setSessionFactory(SessionFactory sessionFactory) {
+  	@Override
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Rating> getAllRatings() {
 		List<Rating> ratings = new ArrayList<Rating>();
@@ -36,6 +38,7 @@ public class RatingDaoImpl implements RatingDao {
 		return ratings;
 	}
 	
+	@Override
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createRating(Rating r) {
 		try {
@@ -46,11 +49,13 @@ public class RatingDaoImpl implements RatingDao {
 		}
 	}
 	
+	@Override
 	public Rating getRatingById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Rating) session.get(Rating.class,id);
 	}
 	
+	@Override
 	public void updateRating(Rating r) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -60,6 +65,7 @@ public class RatingDaoImpl implements RatingDao {
 		}
 	}
 	
+	@Override
 	public void deleteRating(Rating r) {
 		try {
 			Session session = sessionFactory.getCurrentSession();

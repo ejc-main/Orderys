@@ -1,11 +1,13 @@
 package com.revature.orderys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
@@ -24,90 +26,51 @@ public class BusinessDaoImpl {
 	
 	@SuppressWarnings("unchecked")
 	public List<Business> getAllBusinesses() {
-		List<Business> businesses = null;
+		List<Business> businesses = new ArrayList<Business>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
 			businesses = (List<Business>) session.createCriteria(Business.class).list();
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return businesses;
 	}
 	
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createBusiness(Business b) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
+			Session session = sessionFactory.getCurrentSession();
 			session.save(b);
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
 	public Business getBusinessById(int id) {
-		Business b = null;
 		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return b;
+		return (Business) session.get(Business.class,id);
 	}
 	
 	public Business getBusinessByManager(User m) {
-		Business b = null;
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return b;
+		return null;
 	}
 	
 	public void updateBusiness(Business b) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(b);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 	
-	public void deleteBusiness(int id) {
-		Session session = sessionFactory.getCurrentSession();
+	public void deleteBusiness(Business b) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(b);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		
 	}
 
 }

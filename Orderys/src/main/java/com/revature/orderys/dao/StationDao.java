@@ -6,20 +6,20 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.orderys.bean.Rating;
+import com.revature.orderys.bean.Station;
 
-public interface RatingDao {
+public interface StationDao {
 
 	void setSessionFactory(SessionFactory sessionFactory);
 
-	List<Rating> getAllRatings();
+	List<Station> getAllStations();
 
-	void createRating(Rating r);
+	void createStation(Station s);
 
-	Rating getRatingById(long id);
+	Station getStationById(long id);
 
-	void updateRating(Rating r);
+	void updateStation(Station s);
 
-	void deleteRating(Rating r);
+	void deleteStation(Station s);
 
 }

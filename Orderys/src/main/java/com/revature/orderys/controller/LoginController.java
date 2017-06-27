@@ -8,6 +8,6 @@ import com.revature.orderys.service.UserService;
 @Controller
 public class LoginController {
 	
-	@Autowired
+
 	private UserService userService;
 }

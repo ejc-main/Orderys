@@ -1,144 +1,83 @@
 package com.revature.orderys.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
-import com.revature.orderys.bean.Station;
+
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
-public class ProductDaoImpl {
+public class ProductDaoImpl implements ProductDao {
 	
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
+
+	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
 	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Product> getAllProducts() {
-		List<Product> products = null;
+		List<Product> products = new ArrayList<Product>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
 			products = (List<Product>) session.createCriteria(Product.class).list();
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
 		return products;
 	}
-	
+
+
+	@Override
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createProduct(Product p) {
-		Session session = sessionFactory.getCurrentSession();
 		try {
-			Transaction tx = session.beginTransaction();
+			Session session = sessionFactory.getCurrentSession();
 			session.save(p);
-			tx.commit();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
+	}
 		
-	}
-	
-	public Product getProductById(int id) {
-		Product p = null;
+
+	@Override
+	public Product getProductById(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		return (Product) session.get(Product.class,id);
+	}
+
+
+	@Override
+	public void updateProduct(Product p) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(p);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		return p;
 	}
-	
-	public List<Product> getProductsByBusiness(Business b) {
-		List<Product> products = null;
-		Session session = sessionFactory.getCurrentSession();
+
+
+	@Override
+	public void deleteProduct(Product p) {
 		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
+			Session session = sessionFactory.getCurrentSession();
+			session.delete(p);
 		} catch (HibernateException ex) {
 			logger.catching(ex);
-		} finally {
-			session.close();
 		}
-		return products;
-	}
-	
-	public List<Product> getProductsByStation(Station s) {
-		List<Product> products = null;
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return products;
-	}
-	
-	public List<Product> getProductsByOrder(Station s) {
-		List<Product> products = null;
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		return products;
-	}
-	
-	public void updateProduct() {
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		
-	}
-	
-	public void deleteProduct(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			Transaction tx = session.beginTransaction();
-			
-			tx.commit();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		} finally {
-			session.close();
-		}
-		
 	}
 
 }
