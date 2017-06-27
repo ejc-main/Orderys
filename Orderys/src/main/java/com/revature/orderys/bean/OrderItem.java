@@ -111,4 +111,10 @@ public class OrderItem implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [orderItemKey=" + orderItemKey + ", quantity=" + quantity + ", note=" + note + ", timePlaced="
+				+ timePlaced + ", timeCompleted=" + timeCompleted + ", status=" + status + "]";
+	}
 }

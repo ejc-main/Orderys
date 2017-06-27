@@ -78,4 +78,10 @@ public class Order implements Serializable {
 	public void setPaymentMethod(short paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", customer=" + customer + ", paymentMethod=" + paymentMethod + ", orderItems="
+				+ orderItems + "]";
+	}
 }
