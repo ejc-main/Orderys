@@ -2,7 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -46,7 +46,7 @@ public class Product implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
-	private Date intendedCompletionTime;
+	private LocalDateTime intendedCompletionTime;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -63,7 +63,7 @@ public class Product implements Serializable {
 		super();
 	}
 
-	public Product(long id, Station station, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
+	public Product(long id, Station station, String name, BigDecimal productPrice, LocalDateTime intendedCompletionTime, String description) {
 		super();
 		this.id = id;
 		this.station = station;
@@ -105,11 +105,11 @@ public class Product implements Serializable {
 		this.productPrice = productPrice;
 	}
 
-	public Date getIntendedCompletionTime() {
+	public LocalDateTime getIntendedCompletionTime() {
 		return intendedCompletionTime;
 	}
 
-	public void setIntendedCompletionTime(Date intendedCompletionTime) {
+	public void setIntendedCompletionTime(LocalDateTime intendedCompletionTime) {
 		this.intendedCompletionTime = intendedCompletionTime;
 	}
 
