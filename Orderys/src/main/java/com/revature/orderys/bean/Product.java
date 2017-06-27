@@ -128,4 +128,11 @@ public class Product implements Serializable {
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", station=" + station + ", name=" + name + ", productPrice=" + productPrice
+				+ ", intendedCompletionTime=" + intendedCompletionTime + ", description=" + description + ", photoUrl="
+				+ photoUrl + ", ratings=" + ratings + "]";
+	}
 }

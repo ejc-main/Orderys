@@ -145,4 +145,11 @@ public class Business implements Serializable {
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
 	}
+
+	@Override
+	public String toString() {
+		return "Business [id=" + id + ", manager=" + manager + ", streetAddress1=" + streetAddress1
+				+ ", streetAddress2=" + streetAddress2 + ", city=" + city + ", state=" + state + ", country=" + country
+				+ ", zip=" + zip + ", stations=" + stations + "]";
+	}
 }
