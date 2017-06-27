@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	<!-- enable @Transactional -->
+	<tx:annotation-driven/>
+	<!-- enable autowiring -->
+	<context:component-scan base-package="com.revature.orderys"/>
+	
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="#{systemEnvironment['ORDERYS_DATABASE_URL']}"></property>
+		<property name="username" value="#{systemEnvironment['ORDERYS_DATABASE_USERNAME']}"></property>
+		<property name="password" value="#{systemEnvironment['ORDERYS_DATABASE_PASSWORD']}"></property>
+	</bean>
+	
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"></property>
+		<property name="packagesToScan" value="com.revature.orderys.bean"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+	class="org.springframework.orm.hibernate4.HibernateTransactionManager">	
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	
+	<bean id="myBusinessDao" class="com.revature.orderys.dao.BusinessDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="myOrderDao" class="com.revature.orderys.dao.OrderDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="myProductDao" class="com.revature.orderys.dao.ProductDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="myRatingDao" class="com.revature.orderys.dao.RatingDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="myStationDao" class="com.revature.orderys.dao.StationDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="myUserDao" class="com.revature.orderys.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+</beans>
