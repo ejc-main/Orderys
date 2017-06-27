@@ -36,7 +36,7 @@ public class Order implements Serializable {
 	@JoinColumn(name="USER_ID")
 	private User customer;
 	
-	@Column(name="PAYMENT_METHOD")
+	@Column(name="PAYMENT_METHOD", nullable=false)
 	private short paymentMethod;
 	
 	@MapsId("orderItemId")

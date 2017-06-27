@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +13,18 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDao{
 	
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
+	
+	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
@@ -35,6 +37,7 @@ public class UserDaoImpl {
 		return users;
 	}
 	
+	@Override
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createUser(User u) {
 		try {
@@ -44,12 +47,14 @@ public class UserDaoImpl {
 			logger.catching(ex);
 		}
 	}
-	
+		
+	@Override
 	public User getUserById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (User) session.get(User.class,id);
 	}
-	
+
+	@Override
 	public void updateUser(User u) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -58,7 +63,8 @@ public class UserDaoImpl {
 			logger.catching(ex);
 		}
 	}
-	
+
+	@Override
 	public void deleteUser(User u) {
 		try {
 			Session session = sessionFactory.getCurrentSession();

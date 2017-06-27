@@ -7,14 +7,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.User;
-import com.revature.orderys.dao.UserDaoImpl;
+import com.revature.orderys.dao.UserDao;
 
 @Transactional
 public class Driver {
 
 	public static void main(String[] args) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDaoImpl dao = (UserDaoImpl) ac.getBean("userDao");
+		UserDao dao = (UserDao) ac.getBean("userDao");
 //		User u = new User(1,"atat@gmail.com","atot","atot",User.Role.CUSTOMER);
 //		dao.createUser(u);
 		

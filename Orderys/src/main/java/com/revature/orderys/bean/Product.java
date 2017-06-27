@@ -2,7 +2,7 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,12 +17,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
 @Table(name="PRODUCT_TABLE")
+@Check(constraints = "PRODUCT_PRICE > 0")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 4341819973903627363L;
 
@@ -36,15 +40,13 @@ public class Product implements Serializable {
 	@JoinColumn(name="STATION_ID")
 	private Station station;
 	
-	@Column(name="NAME")
+	@Column(name="NAME", nullable=false)
 	private String name;
 	
-	@Column(name="BUSINESS_ID")
-	private long businessId;
-	
-	@Column(name="PRODUCT_PRICE")
+	@Column(name="PRODUCT_PRICE", nullable=false)
 	private BigDecimal productPrice;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
 	private Date intendedCompletionTime;
 	
