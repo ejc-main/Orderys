@@ -46,4 +46,9 @@ public class Rating implements Serializable {
 	public void setRating(short rating) {
 		this.rating = rating;
 	}
+
+	@Override
+	public String toString() {
+		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + "]";
+	}
 }
