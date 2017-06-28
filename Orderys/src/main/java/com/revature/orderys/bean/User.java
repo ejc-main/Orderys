@@ -59,18 +59,18 @@ public class User implements Serializable {
 	@Column(name="USER_ROLE", nullable=false)
 	private Role role;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
 	private List<Station> employeeStations;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="ORDER_ID")
 	private List<Order> orders;
 	
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="orderItemId")
 	private List<Rating> ratings;
 	
