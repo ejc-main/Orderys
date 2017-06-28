@@ -1,10 +1,8 @@
 package com.revature.orderys.test;
 
-import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
