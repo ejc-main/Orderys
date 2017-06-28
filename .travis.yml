@@ -1,5 +1,5 @@
 language: java
-# sudo: false
+sudo: false
 jdk: oraclejdk8
 
 notifications:
@@ -11,6 +11,11 @@ branches:
     - master
     - dev
 
+# jobs:
+#   include:
+#     - stage: test
+#     - stage: inspect
+
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -18,22 +23,24 @@ cache:
 
 addons:
   sonarcloud:
-    organization: "960fb8b985ac055761700793ae7c90c5"
-    token: $SONARCLOUD_TOKEN
+    organization: $SONARCLOUD_ORGANIZATION
+    token: 
+      secure: $SONARCLOUD_TOKEN
 before_install:
   - cd Orderys
-  - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
+  # - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
 # install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+install: true
 # before_script:
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
-  - mvn test -B
+  # - mvn test -B
 # before_cache:
 # after_success:
 # after_failure:
 # before_deploy:
+# deploy:
+#   skip_cleanup: true
 # after_deploy:
 # after_script:
 
-deploy:
-  skip_cleanup: true
