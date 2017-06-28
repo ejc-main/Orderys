@@ -46,4 +46,9 @@ public class RatingPrimaryKey implements Serializable {
 	public void setProductId(Product productId) {
 		this.productId = productId;
 	}
+
+	@Override
+	public String toString() {
+		return "RatingPrimaryKey [userId=" + userId + ", productId=" + productId + "]";
+	}
 }
