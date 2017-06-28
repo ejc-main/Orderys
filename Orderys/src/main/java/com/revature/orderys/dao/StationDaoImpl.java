@@ -29,7 +29,7 @@ public class StationDaoImpl implements StationDao {
 		List<Station> stations = new ArrayList<Station>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			stations = (List<Station>) session.createCriteria(Station.class).list();
+			stations = (List<Station>) session.createQuery("from Station").list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}

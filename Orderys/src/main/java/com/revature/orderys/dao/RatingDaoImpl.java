@@ -31,7 +31,7 @@ public class RatingDaoImpl implements RatingDao {
 		List<Rating> ratings = new ArrayList<Rating>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			ratings = (List<Rating>) session.createCriteria(Rating.class).list();
+			ratings = (List<Rating>) session.createQuery("from Rating").list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}
