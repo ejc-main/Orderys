@@ -34,3 +34,6 @@ Orderys/.tern-project
 Orderys/log.txt
 /Servers
 Orderys/bin
+
+node_modules
+npm-debug.log
