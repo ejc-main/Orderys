@@ -1,5 +1,8 @@
 # Orderys Collaboration Guide
-> Guidelines for version control, testing, and deployment.
+> Guidelines for development, version control, testing, and deployment.
+
+### Developing the AngularJS WebApp
+Try to adhere to the [AngularJS Style Guide] (https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md), but don't worry if it's too much trouble. Someone else will edit your work to make it conform.
 
 ### Using Git and GitHub
 1. Open your local repository (which is also your eclipse workspace for the project) in git bash. You should see the .git directory listed when you enter
