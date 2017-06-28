@@ -1,7 +1,7 @@
 # Orderys Collaboration Guide
 > Guidelines for version control, testing, and deployment.
 
-### Adding a new feature to the project
+### Using Git and GitHub
 1. Open your local repository (which is also your eclipse workspace for the project) in git bash. You should see the .git directory listed when you enter
 ```
 ls -al
@@ -19,7 +19,7 @@ git push origin your-current-branch-name
 ```
 4. Create a new feature branch by branching from the dev branch. (The actual rules for branch names can be found https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html. Personally, I prefer to stick to 'kebab case' for my branch names, which is just lowercase letters, numbers, and dashes to separate words.)
 ```
-git checkout -b your-descriptive-branch-name
+git checkout -b your-descriptive-branch-name origin/dev
 ```
 5. Do some work, then commit your changes. Make sure the changes you include in a single commit are all related, and make sure you describe the work with a good commit message. Check the status of your local repo if you aren't sure what you have changed or staged.
 ```
