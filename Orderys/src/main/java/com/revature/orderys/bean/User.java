@@ -65,8 +65,7 @@ public class User implements Serializable {
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
 	private List<Station> employeeStations;
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="ORDER_ID")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="customer")
 	private List<Order> orders;
 	
 	@MapsId("ratingId")

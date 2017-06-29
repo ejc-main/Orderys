@@ -13,12 +13,11 @@ import com.revature.orderys.dao.UserDao;
 
 import junit.framework.TestCase;
 
-@Transactional
 public class UserDaoTests extends TestCase {
 
 	
 	@Test
-	public static void testCreateUser() {
+	public void testCreateUser() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -47,7 +46,7 @@ public class UserDaoTests extends TestCase {
 		assertTrue(haveSamePropertyValues(copy, user));
 	}
 	
-	private static boolean haveSamePropertyValues(User expected, User actual) {
+	private boolean haveSamePropertyValues(User expected, User actual) {
 		boolean result = true;
 		
 		if(expected.getId() != actual.getId()) {
@@ -82,7 +81,7 @@ public class UserDaoTests extends TestCase {
 	}
 	
 	@Test
-	public static void testGetUserById() {
+	public void testGetUserById() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -94,7 +93,7 @@ public class UserDaoTests extends TestCase {
 	}
 	
 	@Test
-	public static void testGetAllUsers() {
+	public void testGetAllUsers() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -122,7 +121,7 @@ public class UserDaoTests extends TestCase {
 	}
 	
 	@Test
-	public static void testUpdateUser() {
+	public void testUpdateUser() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -144,7 +143,7 @@ public class UserDaoTests extends TestCase {
 	}
 	
 	@Test
-	public static void testDeleteUser() {
+	public void testDeleteUser() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		

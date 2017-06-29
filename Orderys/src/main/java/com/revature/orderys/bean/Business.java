@@ -162,6 +162,4 @@ public class Business implements Serializable {
 				+ ", streetAddress2=" + streetAddress2 + ", city=" + city + ", state=" + state + ", country=" + country
 				+ ", zip=" + zip + ", stations=" + stations + "]";
 	}
-
-	
 }
