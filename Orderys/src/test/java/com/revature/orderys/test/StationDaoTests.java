@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,10 +19,22 @@ import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
 public class StationDaoTests {
+	
+	private AbstractApplicationContext ac;
+
+	@Before
+	public void setUp() throws Exception {
+		ac = new ClassPathXmlApplicationContext("beans.xml");
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		ac.close();
+		ac = null;
+	}
 
 	@Test
-	public void testCreateStation() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
+	public void test() {
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
@@ -35,7 +48,7 @@ public class StationDaoTests {
 		userDao.createUser(user);
 		
 		Business business = new Business();
-		business.setName("name");
+		business.setName("testbiz");
 		business.setCity("anywhere");
 		business.setCountry("usa");
 		business.setState("wa");
@@ -57,9 +70,10 @@ public class StationDaoTests {
 		copy.setId(station.getId());
 		
 		assertTrue(haveSamePropertyValues(copy, station));
+		
 	}
 
-	private static boolean haveSamePropertyValues(Station expected, Station actual) {
+	private boolean haveSamePropertyValues(Station expected, Station actual) {
 		boolean result = true;
 		
 		if(expected.getId() != actual.getId()) {
@@ -73,6 +87,8 @@ public class StationDaoTests {
 		}
 		
 		return result;
+		
+		
 	}
 	
 	@Test

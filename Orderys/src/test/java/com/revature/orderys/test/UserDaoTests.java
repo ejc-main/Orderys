@@ -1,8 +1,14 @@
 package com.revature.orderys.test;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,18 +17,30 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.UserDao;
 
-import junit.framework.TestCase;
 
-public class UserDaoTests extends TestCase {
 
+@Transactional
+public class UserDaoTests /*extends TestCase */{
+	
+	private AbstractApplicationContext ac;
+
+	@Before
+	public void setUp() throws Exception {
+		this.ac = new ClassPathXmlApplicationContext("beans.xml");
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		this.ac.close();
+		this.ac = null;
+	}
 	
 	@Test
 	public void testCreateUser() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
 		User user = new User();
-		user.setEmail("a@b.com");
+		user.setEmail("1@example.com");
 		user.setPasswordHash("hash");
 		user.setFirstName("first");
 		user.setLastName("last");
@@ -82,10 +100,9 @@ public class UserDaoTests extends TestCase {
 	
 	@Test
 	public void testGetUserById() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
-		User user = new User(1, "a@b.com", "hash", "First", "Last", User.Role.CUSTOMER);
+		User user = new User(1, "1@example.com", "hash", "First", "Last", User.Role.CUSTOMER);
 		userDao.createUser(user);
 		user = userDao.getUserById(user.getId());
 		
@@ -94,11 +111,10 @@ public class UserDaoTests extends TestCase {
 	
 	@Test
 	public void testGetAllUsers() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
 		User user = new User();
-		user.setEmail("a@b.com");
+		user.setEmail("1@example.com");
 		user.setPasswordHash("hash");
 		user.setFirstName("first");
 		user.setLastName("last");
@@ -122,11 +138,10 @@ public class UserDaoTests extends TestCase {
 	
 	@Test
 	public void testUpdateUser() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
 		User user = new User();
-		user.setEmail("a@b.com");
+		user.setEmail("1@example.com");
 		user.setPasswordHash("hash");
 		user.setFirstName("first");
 		user.setLastName("last");
@@ -144,11 +159,10 @@ public class UserDaoTests extends TestCase {
 	
 	@Test
 	public void testDeleteUser() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
 		User user = new User();
-		user.setEmail("a@b.com");
+		user.setEmail("1@example.com");
 		user.setPasswordHash("hash");
 		user.setFirstName("first");
 		user.setLastName("last");
