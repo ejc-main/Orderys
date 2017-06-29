@@ -36,7 +36,7 @@ git pull origin dev
 ```
 7. Once your local feature branch is up-to-date with the dev branch, push your work to a new branch in the main repository.
 ```
-git push origin your-descriptive-branch-name
+git push -u origin your-descriptive-branch-name
 ```
 8. To get your work onto the dev branch in the main repository, open GitHub in your web browser and go to the page for the branch you just pushed. On that page, click the button next to the "Branch" dropdown menu that says "New pull request". When you come to a page that says "Open a pull request" make sure that you have selected "base: dev" and "compare: your-descriptive-branch-name", and that the branches are "Able to merge", and if that is the case, click the "Create pull request" button.
 9. After you've opened the pull request, leave the rest for someone else to handle. DON'T approve or merge your own pull requests.
