@@ -30,6 +30,9 @@ public class Business implements Serializable {
 	@Column(name="BUSINESS_ID")
 	private long id;
 	
+	@Column(name="BUSINESS_NAME", nullable=false)
+	private String name;
+	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID", nullable=false, unique=true)
 	private User manager;
@@ -61,10 +64,11 @@ public class Business implements Serializable {
 		super();
 	}
 
-	public Business(long id, User manager, String streetAddress1, String streetAddress2, String city, String state,
+	public Business(long id, String name, User manager, String streetAddress1, String streetAddress2, String city, String state,
 			String country, String zip) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.manager = manager;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
@@ -80,6 +84,14 @@ public class Business implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public User getManager() {
@@ -148,8 +160,10 @@ public class Business implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Business [id=" + id + ", manager=" + manager + ", streetAddress1=" + streetAddress1
+		return "Business [id=" + id + ", name=" + name + ", manager=" + manager + ", streetAddress1=" + streetAddress1
 				+ ", streetAddress2=" + streetAddress2 + ", city=" + city + ", state=" + state + ", country=" + country
 				+ ", zip=" + zip + ", stations=" + stations + "]";
 	}
+
+	
 }
