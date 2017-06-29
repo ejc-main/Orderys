@@ -31,13 +31,13 @@ addons:
       - dev
 before_install:
   - cd Orderys
-  # - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
+  - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
 # install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-install: true
+# install: true
 # before_script:
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
-  # - mvn test -B
+  - mvn test -B
 # before_cache:
 # after_success:
 # after_failure:
