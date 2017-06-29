@@ -1,6 +1,9 @@
 # Orderys Collaboration Guide
 > Guidelines for development, version control, testing, and deployment.
 
+### Writing JUnit Tests
+When testing any java classes that interact with the database, make sure your sessionFactory bean has the `hibernate.hbm2ddl.auto` set to `create`. You should also make the application context an uninitialized member variable of your test class, then load the application context in a method with the @Before annotation and close it in a method with the @After annotation. This prevents one test case from affecting another by ensuring that you start with an empty database in each test case.
+
 ### Developing the AngularJS WebApp
 Try to adhere to the [AngularJS Style Guide] (https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md), but don't worry if it's too much trouble. Someone else will edit your work to make it conform.
 
