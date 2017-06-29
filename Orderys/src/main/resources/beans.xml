@@ -22,6 +22,15 @@
 	<!-- url mapping for static content -->
 	<mvc:resources location="src/main/webapp/app/assets/" mapping="/static/**"/>
 	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/static/</value>
+		</property>
+		<property name="suffix">
+			<value>.html</value>
+		</property>
+	</bean>
+	
 	<!-- REST Content Negotiation -->
 	<!-- <bean id="contentNegotiationMAnager"
 		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
