@@ -1,10 +1,11 @@
 package com.revature.orderys.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping(value="/main")
 public class MainController {
 	
 	/*
@@ -13,10 +14,9 @@ public class MainController {
 	 * and handle any errors that might get thrown within any such methods.
 	 */
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String getMainPage() {
-		String response = "";
-		return response;
+		return "index";
 	}
 	
 }

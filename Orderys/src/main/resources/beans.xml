@@ -22,6 +22,11 @@
 	<!-- url mapping for static content -->
 	<mvc:resources location="src/main/webapp/app/assets/" mapping="/static/**"/>
 	
+	<!-- REST Content Negotiation -->
+	<!-- <bean id="contentNegotiationMAnager"
+		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
+	</bean> -->
+	
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="url" value="#{systemEnvironment['ORDERYS_DATABASE_URL']}"></property>
