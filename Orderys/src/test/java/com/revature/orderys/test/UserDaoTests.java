@@ -1,6 +1,10 @@
 package com.revature.orderys.test;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -14,7 +18,7 @@ import com.revature.orderys.dao.UserDao;
 import junit.framework.TestCase;
 
 @Transactional
-public class UserDaoTests extends TestCase {
+public class UserDaoTests /*extends TestCase */{
 
 	
 	@Test
