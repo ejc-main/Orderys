@@ -19,7 +19,7 @@
 	<tx:annotation-driven/>
 	<mvc:annotation-driven/>
 	
-	<!-- enable a url mapping for serving static content such as JavaScript, CSS, and images -->
+	<!-- url mapping for static content -->
 	<mvc:resources location="src/main/webapp/app/assets/" mapping="/static/**"/>
 	
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
