@@ -1,43 +1,26 @@
 package com.revature.orderys.test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.revature.orderys.bean.Business;
-import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
-public class StationDaoTests {
-	
-	private AbstractApplicationContext ac;
-
-	@Before
-	public void setUp() throws Exception {
-		ac = new ClassPathXmlApplicationContext("beans.xml");
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		ac.close();
-		ac = null;
-	}
+public class BusinessDaoTests {
 
 	@Test
-	public void test() {
-		StationDao stationDao = (StationDao) ac.getBean("stationDao");
+	public void testCreateBusiness() {
+		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -50,7 +33,7 @@ public class StationDaoTests {
 		userDao.createUser(user);
 		
 		Business business = new Business();
-		business.setName("testbiz");
+		business.setName("name");
 		business.setCity("anywhere");
 		business.setCountry("usa");
 		business.setState("wa");
@@ -58,45 +41,52 @@ public class StationDaoTests {
 		business.setZip("12344");
 		business.setManager(user);
 		
+		Business copy = new Business();
+		copy.setName(business.getName());
+		copy.setCity(business.getCity());
+		copy.setCountry(business.getCountry());
+		copy.setState(business.getState());
+		copy.setStreetAddress1(business.getStreetAddress1());
+		copy.setZip(business.getZip());
+		copy.setManager(business.getManager());
+		
 		businessDao.createBusiness(business);
+		copy.setId(business.getId());
 		
-		Station station = new Station();
-		station.setStationName("Default");
-		station.setBusiness(business);
-		
-		Station copy = new Station();
-		copy.setStationName(station.getStationName());
-		copy.setBusiness(station.getBusiness());
-		
-		stationDao.createStation(station);
-		copy.setId(station.getId());
-		
-		assertTrue(haveSamePropertyValues(copy, station));
-		
+		assertTrue(haveSamePropertyValues(copy, business));
 	}
 
-	private boolean haveSamePropertyValues(Station expected, Station actual) {
+	private boolean haveSamePropertyValues(Business expected, Business actual) {
 		boolean result = true;
 		
 		if(expected.getId() != actual.getId()) {
 			result = false;
 		}
-		if(expected.getBusiness().getId() != actual.getBusiness().getId()) {
+		if(!expected.getCity().equals(actual.getCity())) {
 			result = false;
 		}
-		if(!expected.getStationName().equals(actual.getStationName())) {
+		if(!expected.getCountry().equals(actual.getCountry())) {
+			result = false;
+		}
+		if(expected.getManager().getId() != actual.getManager().getId()) {
+			result = false;
+		}
+		if(!expected.getName().equals(actual.getName())) {
+			result = false;
+		}
+		if(!expected.getStreetAddress1().equals(actual.getStreetAddress1())) {
+			result = false;
+		}
+		if(!expected.getZip().equals(actual.getZip())) {
 			result = false;
 		}
 		
 		return result;
-		
-		
 	}
 	
 	@Test
-	public void testGetStationById() {
+	public void testGetBusinessById() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -119,20 +109,16 @@ public class StationDaoTests {
 		
 		businessDao.createBusiness(business);
 		
-		Station station = new Station();
-		station.setStationName("Default");
-		station.setBusiness(business);
-		stationDao.createStation(station);
+		business = businessDao.getBusinessById(business.getId());
 		
-		station = stationDao.getStationById(station.getId());
-		
-		assertNotNull(station);
+		assertNotNull(business);
 	}
 	
+	// TODO: Write test for getBusinessByManager when that method is implemented
+	
 	@Test
-	public void testUpdateStation() {
+	public void testUpdateBusiness() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -155,25 +141,67 @@ public class StationDaoTests {
 		
 		businessDao.createBusiness(business);
 		
-		Station station = new Station();
-		station.setStationName("Default");
-		station.setBusiness(business);
+		String newName = "Updated business name";
+		business.setName(newName);
 		
-		stationDao.createStation(station);
+		businessDao.updateBusiness(business);
+		business = businessDao.getBusinessById(business.getId());
 		
-		String newName = "New station name";
-		station.setStationName(newName);
-		
-		stationDao.updateStation(station);
-		station = stationDao.getStationById(station.getId());
-		
-		assertTrue(station.getStationName().equals(newName));
+		assertTrue(business.getName().equals(newName));
 	}
 	
 	@Test
-	public void testDeleteStation() {
+	public void testGetAllBusinesses() {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		StationDao stationDao = (StationDao) ac.getBean("stationDao");
+		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
+		UserDao userDao = (UserDao) ac.getBean("userDao");
+		
+		User user = new User();
+		user.setEmail("a@b.com");
+		user.setPasswordHash("hash");
+		user.setFirstName("first");
+		user.setLastName("last");
+		user.setRole(User.Role.MANAGER);
+		userDao.createUser(user);
+		
+		Business business1 = new Business();
+		business1.setName("name");
+		business1.setCity("anywhere");
+		business1.setCountry("usa");
+		business1.setState("wa");
+		business1.setStreetAddress1("123 Some Drive");
+		business1.setZip("12344");
+		business1.setManager(user);
+		
+		businessDao.createBusiness(business1);
+		
+		User user2 = new User();
+		user2.setEmail("a2@b.com");
+		user2.setPasswordHash("hash");
+		user2.setFirstName("first");
+		user2.setLastName("last");
+		user2.setRole(User.Role.MANAGER);
+		userDao.createUser(user2);
+		
+		Business business2 = new Business();
+		business2.setName("name");
+		business2.setCity("anywhere");
+		business2.setCountry("usa");
+		business2.setState("wa");
+		business2.setStreetAddress1("123 Some Drive");
+		business2.setZip("12344");
+		business2.setManager(user2);
+		
+		businessDao.createBusiness(business2);
+		
+		ArrayList<Business> allBusinesses = (ArrayList<Business>) businessDao.getAllBusinesses();
+		
+		assertEquals(2, allBusinesses.size());
+	}
+	
+	@Test
+	public void testDeleteBusiness() {
+		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
 		
@@ -195,70 +223,10 @@ public class StationDaoTests {
 		business.setManager(user);
 		
 		businessDao.createBusiness(business);
+		businessDao.deleteBusiness(business);
 		
-		Station station = new Station();
-		station.setStationName("Default");
-		station.setBusiness(business);
+		business = businessDao.getBusinessById(business.getId());
 		
-		assertTrue(station != null);
-		
-		stationDao.createStation(station);
-		station = stationDao.getStationById(station.getId());
-		long id = station.getId();
-		
-		stationDao.deleteStation(station);
-		
-		station = stationDao.getStationById(id);
-		
-		assertTrue(station == null);
-	}
-	
-	@Test
-	public void testGetAllStations() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		StationDao stationDao = (StationDao) ac.getBean("stationDao");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
-		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.MANAGER);
-		userDao.createUser(user);
-		
-		Business business = new Business();
-		business.setName("name");
-		business.setCity("anywhere");
-		business.setCountry("usa");
-		business.setState("wa");
-		business.setStreetAddress1("123 Some Drive");
-		business.setZip("12344");
-		business.setManager(user);
-		
-		businessDao.createBusiness(business);
-
-		Station station1 = new Station();
-		station1.setStationName("Station 1");
-		station1.setBusiness(business);
-		
-		stationDao.createStation(station1);
-
-		Station station2 = new Station();
-		station2.setStationName("Station 2");
-		station2.setBusiness(business);
-
-		stationDao.createStation(station2);
-		
-		Station station3 = new Station();
-		station3.setStationName("Station 3");
-		station3.setBusiness(business);
-		
-		stationDao.createStation(station3);
-		
-		ArrayList<Station> allStations = (ArrayList<Station>) stationDao.getAllStations();
-		
-		assertEquals(3, allStations.size());
+		assertTrue(business == null);
 	}
 }

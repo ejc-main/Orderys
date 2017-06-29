@@ -55,9 +55,7 @@ public class Business implements Serializable {
 	@Column(name="ZIP", nullable=false)
 	private String zip;
 	
-	// TODO: Check annotation
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="STATION_ID")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="business")
 	private List<Station> stations;
 	
 	public Business() {
@@ -164,6 +162,4 @@ public class Business implements Serializable {
 				+ ", streetAddress2=" + streetAddress2 + ", city=" + city + ", state=" + state + ", country=" + country
 				+ ", zip=" + zip + ", stations=" + stations + "]";
 	}
-
-	
 }

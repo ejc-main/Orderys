@@ -17,7 +17,7 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
-public class OrderDaoImpl {
+public class OrderDaoImpl implements OrderDao {
 	
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
@@ -26,6 +26,7 @@ public class OrderDaoImpl {
 	  this.sessionFactory = sessionFactory;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Order> getAllOrders() {
 		List<Order> orders = new ArrayList<Order>();
@@ -38,6 +39,7 @@ public class OrderDaoImpl {
 		return orders;
 	}
 	
+	@Override
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
 	public void createOrder(Order o) {
 		try {
@@ -48,25 +50,28 @@ public class OrderDaoImpl {
 		}
 	}
 	
-	public Order getOrderById(int id) {
+	@Override
+	public Order getOrderById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Order) session.get(Order.class,id);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Order> getOrdersByCustomer(User c) {
 		List<Order> orders = new ArrayList<Order>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			orders = (List<Order>) session.createCriteria(User.class)
-					.add(Restrictions.eq("user.id", c.getId())).list();
-			
+			orders = session
+					.createQuery("from Order order where order.customer.id = " + c.getId())
+					.list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}
 		return orders;
 	}
 	
+	@Override
 	public List<Order> getOrdersByBusiness(Business b) {
 		return null;
 	}
@@ -76,6 +81,7 @@ public class OrderDaoImpl {
 	// TODO add getOrderItemsByOrder
 	// TODO add getOrderItemsByProduct
 	
+	@Override
 	public void updateOrder(Order o) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -85,6 +91,7 @@ public class OrderDaoImpl {
 		}
 	}
 	
+	@Override
 	public void deleteOrder(Order o) {
 		try {
 			Session session = sessionFactory.getCurrentSession();

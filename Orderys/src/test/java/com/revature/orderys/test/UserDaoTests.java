@@ -18,6 +18,7 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.UserDao;
 
 
+
 @Transactional
 public class UserDaoTests /*extends TestCase */{
 	

@@ -30,7 +30,6 @@ public class Station implements Serializable {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="BUSINESS_ID")
 	private Business business;
 	
 	@Column(name="STATION_NAME", nullable=false)
