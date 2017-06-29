@@ -24,8 +24,11 @@ cache:
 addons:
   sonarcloud:
     organization: $SONARCLOUD_ORGANIZATION
-    token: 
-      secure: $SONARCLOUD_TOKEN
+    token: $SONARCLOUD_TOKEN
+    # github_token: # in case we want to run sonarscan on pull requests
+    branches:
+      - master
+      - dev
 before_install:
   - cd Orderys
   # - mvn install:install-file -Dfile=src/lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
