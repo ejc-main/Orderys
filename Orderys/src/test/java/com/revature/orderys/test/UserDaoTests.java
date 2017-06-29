@@ -118,7 +118,6 @@ public class UserDaoTests extends TestCase {
 		user3.setEmail("dsaff@lk.com");
 		
 		userDao.createUser(user3);
-		
 		ArrayList<User> users = (ArrayList<User>) userDao.getAllUsers();
 		
 		assertEquals(3, users.size());
