@@ -21,6 +21,8 @@ public class Rating implements Serializable {
 	@Column(name="RATING", nullable=false)
 	private short rating;
 
+	// TODO: consider adding comment/review property to this pojo
+
 	public Rating() {
 		super();
 	}
