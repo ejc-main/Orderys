@@ -29,11 +29,12 @@ public class UserDaoImpl implements UserDao{
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
 		Session session = sessionFactory.getCurrentSession();
-		try {
-			users = (List<User>) session.createCriteria(User.class).list();
-		} catch (HibernateException ex) {
+		try{
+		users = (List<User>) session.createQuery("from User").list();
+		}catch(HibernateException ex){
 			logger.catching(ex);
 		}
+		
 		return users;
 	}
 	

@@ -1,0 +1,37 @@
+{
+  "name": "orderys-client",
+  "version": "0.0.1",
+  "description": "The client for the Orderys application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jserve": "jserve --port 8888 --json src/test/webapp/json/db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NullTerminus/Orderys.git"
+  },
+  "keywords": [
+    "AngularJS",
+    "Orderys",
+    "Revature",
+    "NullTerminus"
+  ],
+  "contributors": [
+    "Chantel Boor",
+    "Jim Champ",
+    "Eric Christie",
+    "Mark Worth"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NullTerminus/Orderys/issues"
+  },
+  "homepage": "https://github.com/NullTerminus/Orderys",
+  "devDependencies": {
+    "fake-json-api-server": "^1.0.1",
+    "jserve": "^2.0.2",
+    "json-server": "^0.10.1",
+    "json-server2": "^0.10.2"
+  }
+}

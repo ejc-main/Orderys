@@ -21,6 +21,8 @@ public class Rating implements Serializable {
 	@Column(name="RATING", nullable=false)
 	private short rating;
 
+	// TODO: consider adding comment/review property to this pojo
+
 	public Rating() {
 		super();
 	}
@@ -45,5 +47,10 @@ public class Rating implements Serializable {
 
 	public void setRating(short rating) {
 		this.rating = rating;
+	}
+
+	@Override
+	public String toString() {
+		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + "]";
 	}
 }

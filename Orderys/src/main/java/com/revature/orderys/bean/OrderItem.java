@@ -34,9 +34,10 @@ public class OrderItem implements Serializable {
 	private Date timePlaced;
 	
 	//@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="TIME_FULFILLED")
+	@Column(name="TIME_FULFILLED") // TODO: change column name to TIME_COMPLETED
 	private Date timeCompleted;
 	
+	// TODO: make this an enum
 	@Column(name="STATUS", nullable=false)
 	private String status;
 	
@@ -110,5 +111,11 @@ public class OrderItem implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [orderItemKey=" + orderItemKey + ", quantity=" + quantity + ", note=" + note + ", timePlaced="
+				+ timePlaced + ", timeCompleted=" + timeCompleted + ", status=" + status + "]";
 	}
 }

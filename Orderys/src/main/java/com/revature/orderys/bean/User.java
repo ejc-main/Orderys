@@ -59,18 +59,18 @@ public class User implements Serializable {
 	@Column(name="USER_ROLE", nullable=false)
 	private Role role;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
 	private List<Station> employeeStations;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="ORDER_ID")
 	private List<Order> orders;
 	
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="orderItemId")
 	private List<Rating> ratings;
 	
@@ -192,5 +192,12 @@ public class User implements Serializable {
 	
 	public void setBusinessManaged(Business businessManaged) {
 		this.businessManaged = businessManaged;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", passwordHash=" + passwordHash + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", role=" + role + ", employeeStations=" + employeeStations + ", orders="
+				+ orders + ", ratings=" + ratings + ", businessManaged=" + businessManaged + "]";
 	}
 }

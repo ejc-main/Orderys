@@ -32,7 +32,7 @@ public class ProductDaoImpl implements ProductDao {
 		List<Product> products = new ArrayList<Product>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			products = (List<Product>) session.createCriteria(Product.class).list();
+			products = (List<Product>) session.createQuery("from Product").list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}

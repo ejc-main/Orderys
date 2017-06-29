@@ -6,10 +6,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -21,10 +24,12 @@ public class Station implements Serializable {
 	private static final long serialVersionUID = -529102517553725487L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="stationSeq")
+	@SequenceGenerator(allocationSize=1, name="stationSeq", sequenceName="STATION_SEQ")
 	@Column(name="STATION_ID")
 	private long id;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
 	private Business business;
 	
@@ -75,5 +80,11 @@ public class Station implements Serializable {
 	
 	public void setEmployees(List<User> employees) {
 		this.employees = employees;
+	}
+
+	@Override
+	public String toString() {
+		return "Station [id=" + id + ", business=" + business + ", stationName=" + stationName + ", employees="
+				+ employees + "]";
 	}
 }
