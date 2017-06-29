@@ -54,7 +54,7 @@ public class StationDaoTests {
 		assertTrue(haveSamePropertyValues(copy, station));
 	}
 
-	private static boolean haveSamePropertyValues(Station expected, Station actual) {
+	private boolean haveSamePropertyValues(Station expected, Station actual) {
 		boolean result = true;
 		
 		if(expected.getId() != actual.getId()) {
