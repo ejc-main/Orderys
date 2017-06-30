@@ -6,11 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-<<<<<<< HEAD
 import org.springframework.stereotype.Repository;
-=======
-import org.hibernate.criterion.Restrictions;
->>>>>>> 6528192f9be6a662d10c5cbf304120da1a7db4ae
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
