@@ -1,12 +1,11 @@
 package com.revature.orderys.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+//import org.springframework.stereotype.Controller;
 
-import com.revature.orderys.service.UserService;
+//import com.revature.orderys.service.UserService;
 
-@Controller
+//@Controller
 public class LoginController {
 	
-	private UserService userService;
+//	private UserService userService;
 }

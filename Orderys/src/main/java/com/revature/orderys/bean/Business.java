@@ -58,6 +58,9 @@ public class Business implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="business")
 	private List<Station> stations;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderedAt") 
+	private List<OrderItem> orderItems;
+	
 	public Business() {
 		super();
 	}
