@@ -79,4 +79,7 @@
 	<bean id="userDao" class="com.revature.orderys.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
+	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
 </beans>
