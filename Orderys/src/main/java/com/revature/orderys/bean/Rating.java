@@ -21,19 +21,23 @@ public class Rating implements Serializable {
 	@Column(name="RATING", nullable=false)
 	private short rating;
 
-	// TODO: consider adding comment/review property to this pojo
-
+	@Column(name="REVIEW")
+	private String review;
+	
 	public Rating() {
 		super();
+		
+		this.review = "";
 	}
 
-	public Rating(RatingPrimaryKey ratingKey, short rating) {
+	public Rating(RatingPrimaryKey ratingKey, short rating, String review) {
 		super();
 		this.ratingKey = ratingKey;
 		this.rating = rating;
+		this.review = review;
 	}
 
-	public RatingPrimaryKey getRatingKey() {
+	public RatingPrimaryKey getRatingId() {
 		return ratingKey;
 	}
 	
@@ -49,8 +53,16 @@ public class Rating implements Serializable {
 		this.rating = rating;
 	}
 
+	public String getReview() {
+		return review;
+	}
+	
+	public void setComment(String review) {
+		this.review = review;
+	}
+
 	@Override
 	public String toString() {
-		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + "]";
+		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + ", review=" + review + "]";
 	}
 }

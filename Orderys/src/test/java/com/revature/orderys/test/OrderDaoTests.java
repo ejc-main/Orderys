@@ -116,11 +116,11 @@ public class OrderDaoTests {
 		orderDao.createOrder(order2);
 		
 		User user2 = new User();
-		user.setEmail("aa@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.CUSTOMER);
+		user2.setEmail("aa@b.com");
+		user2.setPasswordHash("hash");
+		user2.setFirstName("first");
+		user2.setLastName("last");
+		user2.setRole(User.Role.CUSTOMER);
 		
 		ArrayList<Order> allOrders = (ArrayList<Order>) orderDao.getOrdersByCustomer(user);
 		

@@ -6,10 +6,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -29,24 +33,35 @@ public class OrderItem implements Serializable {
 	@Column(name="NOTE")
 	private String note;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_PLACED", nullable=false)
 	private Date timePlaced;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="TIME_FULFILLED") // TODO: change column name to TIME_COMPLETED
+	@Column(name="TIME_COMPLETED")
 	private Date timeCompleted;
 	
-	// TODO: make this an enum
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="STATUS", nullable=false)
-	private String status;
+	private Status status;
+	
+	@OneToOne
+	@JoinColumn(name="USER_ID")
+	private User completedBy;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Business orderedAt;
+	
+	// TODO: Change once we decide what we want
+	static enum Status {
+		PENDING,
+		COMPLETED
+	}
 	
 	public OrderItem() {
 		super();
 	}
 
 	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timePlaced, Date timeCompleted,
-			String status) {
+			Status status) {
 		super();
 		this.orderItemKey = orderItemKey;
 		this.quantity = quantity;
@@ -105,11 +120,11 @@ public class OrderItem implements Serializable {
 		this.timeCompleted = timeCompleted;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
