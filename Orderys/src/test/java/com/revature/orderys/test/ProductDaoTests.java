@@ -27,43 +27,14 @@ public class ProductDaoTests {
 
 	private AbstractApplicationContext ac;
 	
-	private UserDao userDao;
-	private BusinessDao businessDao;
-	private StationDao stationDao;
 	private ProductDao productDao;
 	
-	private User user;
-	private Business business;
-	private Station station;
 	private Product product;
 	
 	@Before
 	public void setUp() throws Exception {
 		ac = new ClassPathXmlApplicationContext("beans.xml");
-		userDao = (UserDao) ac.getBean("userDao");
-		businessDao = (BusinessDao) ac.getBean("businessDao");
-		stationDao = (StationDao) ac.getBean("stationDao");
 		productDao = (ProductDao) ac.getBean("productDao");
-		
-		user = new User();
-		user.setEmail("test@email.com");
-		user.setFirstName("Mary");
-		user.setLastName("Berry");
-		user.setPasswordHash("pwdhsh");
-		user.setRole(User.Role.MANAGER);
-		
-		business = new Business();
-		business.setName("RestaurMart");
-		business.setCity("Anytown");
-		business.setCountry("USA");
-		business.setState("WA");
-		business.setStreetAddress1("123 Long Drive");
-		business.setZip("12344");
-		business.setManager(user);
-		
-		station = new Station();
-		station.setStationName("Default Station");
-		station.setBusiness(business);
 		
 		product = new Product();
 		product.setName("Garlicky Potato Wedges");
@@ -75,15 +46,7 @@ public class ProductDaoTests {
 		ac.close();
 		
 		ac = null;
-		
-		user = null;
-		business = null;
-		station = null;
 		product = null;
-		
-		userDao = null;
-		businessDao = null;
-		stationDao = null;
 		productDao = null;
 	}
 
