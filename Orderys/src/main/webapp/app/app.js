@@ -1,0 +1,1 @@
+var orderysApp = angular.module('orderysApp',[]);

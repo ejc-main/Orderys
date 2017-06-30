@@ -5,8 +5,6 @@
 <meta charset="ISO-8859-1">
 <title>Orderys</title>
 
-<!-- AngularJS CDN, put in projects that use Angular -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-3.2.1.js"
@@ -28,18 +26,18 @@
 
 
 
-<link rel="stylesheet" type="text/css" href="CSS/MainStyle.css">
-
+<link rel="stylesheet" type="text/css" href="../orderys-app.css">
 
 </head>
-<body ng-app="orderysApp" ng-controller="orderysCtrl">
+<body>
 
+	<div ng-include="'cHome.html'"></div>
 
 	<div class="container">
 		
 	<!--Web site Banner -->
 		<div class="row" style="border-bottom-style: solid; border-width: 5px;  border-color: #212121;">
-			<img src = "Images/Main Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
+			<img src = "../app/assets/img/Main Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
 		</div>
 		
 		<!--Main content-->
@@ -50,7 +48,7 @@
 				
 				<!--Profile pic and username -->
 				<div class="thumbnail">
-      				<img src="Images/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
+      				<img src="../app/assets/img/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
         					<h4 style="text-align:center">User Name</h4>
       					</div>
@@ -74,9 +72,6 @@
 			<!-- main content for page -->
 			<div class="col-xs-6">
 			
-			<div data-ng-include data-src="'cHome.html'"></div>
-			
-			
 			</div>
 			
 			<!-- side bar right -->
@@ -90,20 +85,6 @@
 	<div class="footer">
 		<h4>footer here</h4>
 	</div>
-	
-	<script>
-
-	var model = {message : "Hello"};
-
-	var orderysApp = angular.module("orderysApp",[]);
-
-	orderysApp.controller("orderysCtrl", function($scope){
-
-		$scope.m = model;
-		
-	});
-	
-	</script>
 	
 </body>
 
