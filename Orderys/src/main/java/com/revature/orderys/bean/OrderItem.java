@@ -6,6 +6,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -33,9 +39,18 @@ public class OrderItem implements Serializable {
 	@Column(name="TIME_COMPLETED")
 	private Date timeCompleted;
 	
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="STATUS", nullable=false)
 	private Status status;
 	
+	@OneToOne
+	@JoinColumn(name="USER_ID")
+	private User completedBy;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Business orderedAt;
+	
+	// TODO: Change once we decide what we want
 	static enum Status {
 		PENDING,
 		COMPLETED
