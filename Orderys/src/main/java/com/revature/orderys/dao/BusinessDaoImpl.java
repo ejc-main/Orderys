@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +15,7 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
+@Repository
 public class BusinessDaoImpl implements BusinessDao {
 	
 	private EasyLogger logger = new EasyLogger();
