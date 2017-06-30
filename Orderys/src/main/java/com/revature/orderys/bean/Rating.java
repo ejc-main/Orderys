@@ -60,4 +60,9 @@ public class Rating implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public String toString() {
+		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + ", comment=" + comment + "]";
+	}
 }
