@@ -54,10 +54,10 @@ public class Product implements Serializable {
 	
 	@Column(name="PHOTO_URL")
 	private String photoUrl;
-	
+
 	@MapsId("ratingId")
 	@OneToMany(fetch=FetchType.LAZY) 
-	@JoinColumn(name="orderItemId")
+	@JoinColumn(name="orderItemId")	
 	private List<Rating> ratings;
 	
 	public Product() {
