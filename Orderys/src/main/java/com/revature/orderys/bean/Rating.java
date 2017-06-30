@@ -21,23 +21,23 @@ public class Rating implements Serializable {
 	@Column(name="RATING", nullable=false)
 	private short rating;
 
-	@Column(name="COMMENT")
-	private String comment;
+	@Column(name="REVIEW")
+	private String review;
 	
 	public Rating() {
 		super();
 		
-		this.comment = "";
+		this.review = "";
 	}
 
-	public Rating(RatingPrimaryKey ratingKey, short rating, String comment) {
+	public Rating(RatingPrimaryKey ratingKey, short rating, String review) {
 		super();
 		this.ratingKey = ratingKey;
 		this.rating = rating;
-		this.comment = comment;
+		this.review = review;
 	}
 
-	public RatingPrimaryKey getRatingKey() {
+	public RatingPrimaryKey getRatingId() {
 		return ratingKey;
 	}
 	
@@ -53,16 +53,16 @@ public class Rating implements Serializable {
 		this.rating = rating;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getReview() {
+		return review;
 	}
 	
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComment(String review) {
+		this.review = review;
 	}
 
 	@Override
 	public String toString() {
-		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + ", comment=" + comment + "]";
+		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + ", review=" + review + "]";
 	}
 }
