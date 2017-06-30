@@ -14,8 +14,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 	<!-- enable autowiring -->
-	<context:component-scan base-package="com.revature.orderys.*"/>
-	<context:annotation-config/>
+	<context:component-scan base-package="com.revature.orderys"/>
+	
 	<tx:annotation-driven/>
 	<mvc:annotation-driven/>
 	
@@ -32,7 +32,7 @@
 	</bean>
 	
 	<!-- REST Content Negotiation -->
-	<!-- <bean id="contentNegotiationManager"
+	<!-- <bean id="contentNegotiationMAnager"
 		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
 	</bean> -->
 	

@@ -14,8 +14,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 	<!-- enable autowiring -->
-	<context:component-scan base-package="com.revature.orderys"/>
-	
+	<context:component-scan base-package="com.revature.orderys.*"/>
+	<context:annotation-config/>
 	<tx:annotation-driven/>
 	<mvc:annotation-driven/>
 	
@@ -24,7 +24,7 @@
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/static/</value>
+			<value>/app/</value>
 		</property>
 		<property name="suffix">
 			<value>.html</value>
@@ -32,7 +32,7 @@
 	</bean>
 	
 	<!-- REST Content Negotiation -->
-	<!-- <bean id="contentNegotiationMAnager"
+	<!-- <bean id="contentNegotiationManager"
 		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
 	</bean> -->
 	
