@@ -54,6 +54,12 @@ public class UserDaoImpl implements UserDao{
 		Session session = sessionFactory.getCurrentSession();
 		return (User) session.get(User.class,id);
 	}
+	
+	@Override
+	public User getUserByEmail(String email){
+		Session session = sessionFactory.getCurrentSession();
+		return (User) session.get(User.class,email);
+	}
 
 	@Override
 	public void updateUser(User u) {
