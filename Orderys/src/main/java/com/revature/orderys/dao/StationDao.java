@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Station;
 
 public interface StationDao {
@@ -21,5 +22,7 @@ public interface StationDao {
 	void updateStation(Station s);
 
 	void deleteStation(Station s);
+
+	List<Station> getAllStationsByBusiness(Business b);
 
 }

@@ -6,13 +6,16 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
+@Repository
 public class StationDaoImpl implements StationDao {
 	
 	private EasyLogger logger = new EasyLogger();
@@ -29,7 +32,7 @@ public class StationDaoImpl implements StationDao {
 		List<Station> stations = new ArrayList<Station>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			stations = (List<Station>) session.createQuery("from Station").list();
+			stations =(List<Station>)session.createQuery("from Station").list();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}
@@ -51,6 +54,19 @@ public class StationDaoImpl implements StationDao {
 	public Station getStationById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Station) session.get(Station.class,id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Station> getAllStationsByBusiness(Business b) {
+		List<Station> stations = new ArrayList<Station>();
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			stations = (List<Station>) session.createQuery("from Station s where s.business.id="+b.getId()).list();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		}
+		return stations;
 	}
 	
 	@Override
