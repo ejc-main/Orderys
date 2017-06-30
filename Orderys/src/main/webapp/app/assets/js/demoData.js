@@ -1,4 +1,4 @@
-{
+var data = {
   "exampleCustomer": {
     "id": 1,
     "email": "customer@email.com",
