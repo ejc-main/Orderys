@@ -8,8 +8,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -29,24 +27,26 @@ public class OrderItem implements Serializable {
 	@Column(name="NOTE")
 	private String note;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TIME_PLACED", nullable=false)
 	private Date timePlaced;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="TIME_FULFILLED") // TODO: change column name to TIME_COMPLETED
+	@Column(name="TIME_COMPLETED")
 	private Date timeCompleted;
 	
-	// TODO: make this an enum
 	@Column(name="STATUS", nullable=false)
-	private String status;
+	private Status status;
+	
+	static enum Status {
+		PENDING,
+		COMPLETED
+	}
 	
 	public OrderItem() {
 		super();
 	}
 
 	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timePlaced, Date timeCompleted,
-			String status) {
+			Status status) {
 		super();
 		this.orderItemKey = orderItemKey;
 		this.quantity = quantity;
@@ -105,11 +105,11 @@ public class OrderItem implements Serializable {
 		this.timeCompleted = timeCompleted;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
