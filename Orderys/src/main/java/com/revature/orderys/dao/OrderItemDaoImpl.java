@@ -6,16 +6,19 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.OrderItem;
+import com.revature.orderys.bean.OrderItemPrimaryKey;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
-public class OrderItemDaoImpl {
+@Repository
+public class OrderItemDaoImpl implements OrderItemDao {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
@@ -23,6 +26,7 @@ public class OrderItemDaoImpl {
 	  this.sessionFactory = sessionFactory;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<OrderItem> getAllOrderItems() {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
@@ -38,6 +42,7 @@ public class OrderItemDaoImpl {
 		return orderItems;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<OrderItem> getOrderItemsByBusiness(Business business) {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
@@ -56,6 +61,7 @@ public class OrderItemDaoImpl {
 		return orderItems;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<OrderItem> getOrderItemsByOrder(Order order) {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
@@ -73,6 +79,7 @@ public class OrderItemDaoImpl {
 		return orderItems;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<OrderItem> getOrderItemByEmployee(User user) {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
@@ -90,6 +97,7 @@ public class OrderItemDaoImpl {
 		return orderItems;
 	}
 	
+	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void createOrderItem(OrderItem orderItem) {
 		try {
@@ -102,11 +110,13 @@ public class OrderItemDaoImpl {
 	}
 	
 	// TODO: This will need fixed. Look into finding out how to query junction tables.
-	public OrderItem getOrderItemById(long id) {
+	@Override
+	public OrderItem getOrderItemByKey(OrderItemPrimaryKey key) {
 		Session session = sessionFactory.getCurrentSession();
-		return (OrderItem) session.get(OrderItem.class, id);
+		return (OrderItem) session.get(OrderItem.class, key);
 	}
 	
+	@Override
 	public void updateOrderItem(OrderItem orderItem) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
@@ -117,6 +127,7 @@ public class OrderItemDaoImpl {
 		}
 	}
 	
+	@Override
 	public void deleteOrderItem(OrderItem orderItem) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
