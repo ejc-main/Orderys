@@ -6,14 +6,15 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Product;
-
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
+@Repository
 public class ProductDaoImpl implements ProductDao {
 	
 	private EasyLogger logger = new EasyLogger();

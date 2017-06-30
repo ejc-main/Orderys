@@ -26,6 +26,11 @@ public class OrderItemPrimaryKey implements Serializable {
 		super();
 	}
 
+	public OrderItemPrimaryKey(Order order, Product product) {
+		this.order = order;
+		this.product = product;
+	}
+	
 	public Order getOrder() {
 		return order;
 	}

@@ -13,18 +13,18 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
-	<!-- enable autowiring -->
-	<context:component-scan base-package="com.revature.orderys.*"/>
-	<context:annotation-config/>
-	<tx:annotation-driven/>
 	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.revature.orderys.*"/>
+	<!-- <context:annotation-config/> -->
+	<tx:annotation-driven/>
+	
 	
 	<!-- url mapping for static content -->
 	<mvc:resources location="src/main/webapp/app/assets/" mapping="/static/**"/>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/app/</value>
+			<value>/WEB_INF/app/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>
@@ -77,6 +77,9 @@
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
 	<bean id="userDao" class="com.revature.orderys.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
 </beans>
