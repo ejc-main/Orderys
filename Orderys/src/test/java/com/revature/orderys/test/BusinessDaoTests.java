@@ -223,9 +223,11 @@ public class BusinessDaoTests {
 		business.setManager(user);
 		
 		businessDao.createBusiness(business);
+		
+		long id = business.getId();
 		businessDao.deleteBusiness(business);
 		
-		business = businessDao.getBusinessById(business.getId());
+		business = businessDao.getBusinessById(id);
 		
 		assertTrue(business == null);
 	}
