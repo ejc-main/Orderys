@@ -16,7 +16,7 @@ public class Rating implements Serializable {
 	private static final long serialVersionUID = -8703568968425115709L;
 
 	@EmbeddedId
-	private RatingPrimaryKey ratingKey;
+	private RatingPrimaryKey ratingId;
 
 	@Column(name="RATING", nullable=false)
 	private short rating;
@@ -30,19 +30,19 @@ public class Rating implements Serializable {
 		this.comment = "";
 	}
 
-	public Rating(RatingPrimaryKey ratingKey, short rating, String comment) {
+	public Rating(RatingPrimaryKey ratingId, short rating, String comment) {
 		super();
-		this.ratingKey = ratingKey;
+		this.ratingId = ratingId;
 		this.rating = rating;
 		this.comment = comment;
 	}
 
-	public RatingPrimaryKey getRatingKey() {
-		return ratingKey;
+	public RatingPrimaryKey getRatingId() {
+		return ratingId;
 	}
 	
 	public void setRatingId(RatingPrimaryKey ratingKey) {
-		this.ratingKey = ratingKey;
+		this.ratingId = ratingKey;
 	}
 
 	public short getRating() {
@@ -63,6 +63,6 @@ public class Rating implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Rating [ratingKey=" + ratingKey + ", rating=" + rating + ", comment=" + comment + "]";
+		return "Rating [ratingId=" + ratingId + ", rating=" + rating + ", comment=" + comment + "]";
 	}
 }

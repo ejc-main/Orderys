@@ -36,7 +36,7 @@ public class StationDaoTests {
 	}
 
 	@Test
-	public void test() {
+	public void testCreateStation() {
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
@@ -95,7 +95,6 @@ public class StationDaoTests {
 	
 	@Test
 	public void testGetStationById() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
@@ -131,7 +130,6 @@ public class StationDaoTests {
 	
 	@Test
 	public void testUpdateStation() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
@@ -172,7 +170,6 @@ public class StationDaoTests {
 	
 	@Test
 	public void testDeleteStation() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
@@ -215,7 +212,6 @@ public class StationDaoTests {
 	
 	@Test
 	public void testGetAllStations() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		StationDao stationDao = (StationDao) ac.getBean("stationDao");
 		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
 		UserDao userDao = (UserDao) ac.getBean("userDao");
