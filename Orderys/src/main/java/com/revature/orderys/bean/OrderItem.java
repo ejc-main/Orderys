@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -51,13 +50,14 @@ public class OrderItem implements Serializable {
 	private Business orderedAt;
 	
 	// TODO: Change once we decide what we want
-	static enum Status {
+	public static enum Status {
 		PENDING,
 		COMPLETED
 	}
 	
 	public OrderItem() {
 		super();
+		timePlaced = new Date();
 	}
 
 	public OrderItem(OrderItemPrimaryKey orderItemKey, int quantity, String note, Date timePlaced, Date timeCompleted,
@@ -69,15 +69,6 @@ public class OrderItem implements Serializable {
 		this.timePlaced = timePlaced;
 		this.timeCompleted = timeCompleted;
 		this.status = status;
-	}
-
-	/**
-	 * Sets timePlaced to the current time on creation of OrderItem
-	 * object.
-	 */
-	@PrePersist 
-	protected void onCreate() {
-		timePlaced = new Date();
 	}
 	
 	public OrderItemPrimaryKey getOrderItemKey() {
