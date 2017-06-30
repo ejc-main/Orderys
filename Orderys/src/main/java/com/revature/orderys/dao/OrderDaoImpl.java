@@ -62,7 +62,7 @@ public class OrderDaoImpl implements OrderDao {
 		List<Order> orders = new ArrayList<Order>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			orders = session
+			orders = (List<Order>) session
 					.createQuery("from Order order where order.customer.id = " + c.getId())
 					.list();
 		} catch (HibernateException ex) {
