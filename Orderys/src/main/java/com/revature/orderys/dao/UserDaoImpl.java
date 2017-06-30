@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
+@Repository
 public class UserDaoImpl implements UserDao{
 	
 	private EasyLogger logger = new EasyLogger();
@@ -53,6 +55,12 @@ public class UserDaoImpl implements UserDao{
 	public User getUserById(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (User) session.get(User.class,id);
+	}
+	
+	@Override
+	public User getUserByEmail(String email){
+		Session session = sessionFactory.getCurrentSession();
+		return (User) session.get(User.class,email);
 	}
 
 	@Override
