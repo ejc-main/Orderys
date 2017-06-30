@@ -46,9 +46,8 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_PRICE", nullable=false)
 	private BigDecimal productPrice;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INTENDED_COMPLETION_TIME")
-	private Date intendedCompletionTime;
+	private long intendedCompletionTime;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -65,7 +64,7 @@ public class Product implements Serializable {
 		super();
 	}
 
-	public Product(long id, Station station, String name, BigDecimal productPrice, Date intendedCompletionTime, String description) {
+	public Product(long id, Station station, String name, BigDecimal productPrice, long intendedCompletionTime, String description) {
 		super();
 		this.id = id;
 		this.station = station;
@@ -107,11 +106,11 @@ public class Product implements Serializable {
 		this.productPrice = productPrice;
 	}
 
-	public Date getIntendedCompletionTime() {
+	public long getIntendedCompletionTime() {
 		return intendedCompletionTime;
 	}
 
-	public void setIntendedCompletionTime(Date intendedCompletionTime) {
+	public void setIntendedCompletionTime(long intendedCompletionTime) {
 		this.intendedCompletionTime = intendedCompletionTime;
 	}
 
