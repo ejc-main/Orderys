@@ -17,6 +17,7 @@
 	<context:component-scan base-package="com.revature.orderys.*"/>
 	<!-- <context:annotation-config/> -->
 	<tx:annotation-driven/>
+	<context:annotation-config/>
 	
 	
 	<!-- url mapping for static content -->
@@ -24,7 +25,7 @@
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/WEB_INF/app/</value>
+			<value>/WEB-INF/app/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>

@@ -1,7 +1,5 @@
 package com.revature.orderys.test;
 
-import static org.junit.Assert.fail;
-
 import java.math.BigDecimal;
 
 import org.junit.After;
