@@ -25,8 +25,7 @@
 	crossorigin="anonymous"></script>
 
 
-
-<link rel="stylesheet" type="text/css" href="../orderys-app.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
 
 </head>
 <body>

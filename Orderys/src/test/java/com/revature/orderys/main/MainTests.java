@@ -34,9 +34,9 @@ public class MainTests {
 	public static void main(String[] args) {
 		Service service = new Service();
 //		service.addNewUser("email", "passwordHash", "firstName", "lastName", "CUSTOMER");
-		User u = service.getUserById(1);
-		System.out.println(u.getEmail());
-		System.out.println("stop");
+//		User u = service.getUserById(1);
+//		System.out.println(u.getEmail());
+//		System.out.println("stop");
 		
 	}
 
