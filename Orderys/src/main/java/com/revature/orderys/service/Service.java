@@ -20,12 +20,12 @@ import com.revature.orderys.dao.UserDao;
 public class Service {
 	
 	
-	public User getUserById(long id){
+	public User getUserById(long id) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao uDao = (UserDao) ac.getBean("userDao");
 		return uDao.getUserById(id);
 	}
-	public User loginUser(String email,String passwordHash){
+	public User loginUser(String email,String passwordHash) {
 		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
 		UserDao uDao = (UserDao) ac.getBean("userDao");
 		User u = uDao.getUserByEmail(email);
