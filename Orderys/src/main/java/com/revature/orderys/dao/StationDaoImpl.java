@@ -21,7 +21,6 @@ public class StationDaoImpl implements StationDao {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
