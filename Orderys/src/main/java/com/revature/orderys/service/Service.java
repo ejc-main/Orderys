@@ -1,10 +1,12 @@
 package com.revature.orderys.service;
 
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
@@ -14,7 +16,7 @@ import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
-@org.springframework.stereotype.Service
+@Component
 public class Service {
 	
 	
