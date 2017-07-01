@@ -1,11 +1,15 @@
-orderysApp.controller('buisnessCtrl', 
+orderysApp.controller('profileController', 
 function($scope, $http, dataFactory) {
-	
-	$scope.results = dataFactory.getData(
-			//Passed in the Callback Function
-			function(response){
-				console.log(response.data)
-				$scope.result = response.data;
-			});
-	
+	$scope.userId = 1;
+	$scope.getUser = function() {
+		$http.get('user/' + $scope.userId)
+			.then(
+				function(res) {
+					$scope.user.firstname = res;
+				},
+				function(res) {
+					console.log('error');
+				}
+			);
+	};
 });

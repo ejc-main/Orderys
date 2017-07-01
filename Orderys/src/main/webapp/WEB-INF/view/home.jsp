@@ -55,7 +55,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
 
 </head>
-<body ng-app="orderysApp" ng-controller="buisnessCtrl">
+<body ng-app="orderysApp">
 	<div class="container">
 		
 	<!--Web site Banner -->
@@ -70,10 +70,10 @@
 			<div class="col-xs-3">
 				
 				<!--Profile pic and username -->
-				<div class="thumbnail" style ="height:120px">
+				<div class="thumbnail" style ="height:120px" ng-controller="profileController">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
-        					<h4 style="text-align:center">{{ result.exampleCustomer.firstname}}</h4>
+        					<h4 style="text-align:center">{{ user.firstname }} {{ user.lastname }}</h4>
       					</div>
     			</div>
     			
