@@ -20,8 +20,6 @@ public class UserDaoImpl implements UserDao{
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-	
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}

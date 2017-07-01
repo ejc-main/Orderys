@@ -21,7 +21,6 @@ public class ProductDaoImpl implements ProductDao {
 	private SessionFactory sessionFactory;
 
 
-	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}

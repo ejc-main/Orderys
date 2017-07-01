@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Rating;
+import com.revature.orderys.bean.RatingPrimaryKey;
 import com.revature.orderys.util.EasyLogger;
 
 @Transactional
@@ -20,7 +21,6 @@ public class RatingDaoImpl implements RatingDao {
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-  	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -50,9 +50,9 @@ public class RatingDaoImpl implements RatingDao {
 	}
 	
 	@Override
-	public Rating getRatingById(long id) {
+	public Rating getRatingByKey(RatingPrimaryKey key) {
 		Session session = sessionFactory.getCurrentSession();
-		return (Rating) session.get(Rating.class,id);
+		return (Rating) session.get(Rating.class, key);
 	}
 	
 	@Override
