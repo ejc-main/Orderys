@@ -3,10 +3,9 @@ package com.revature.orderys.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.orderys.bean.Rating;
+import com.revature.orderys.bean.RatingPrimaryKey;
 
 public interface RatingDao {
 
@@ -16,7 +15,7 @@ public interface RatingDao {
 
 	void createRating(Rating r);
 
-	Rating getRatingById(long id);
+	Rating getRatingByKey(RatingPrimaryKey key);
 
 	void updateRating(Rating r);
 

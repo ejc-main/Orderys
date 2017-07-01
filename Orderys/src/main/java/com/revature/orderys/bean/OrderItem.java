@@ -119,6 +119,22 @@ public class OrderItem implements Serializable {
 		this.status = status;
 	}
 
+	public User getCompletedBy() {
+		return completedBy;
+	}
+	
+	public void setCompletedBy(User completedBy) {
+		this.completedBy = completedBy;
+	}
+	
+	public Business getOrderedAt() {
+		return orderedAt;
+	}
+	
+	public void setOrderedAt(Business orderedAt) {
+		this.orderedAt = orderedAt;
+	}
+	
 	@Override
 	public String toString() {
 		return "OrderItem [orderItemKey=" + orderItemKey + ", quantity=" + quantity + ", note=" + note + ", timePlaced="
