@@ -33,7 +33,9 @@
 		<button ng-click="postUser()">Add User</button>
 
 		<input type="number" placeholder="User ID" ng-model="userId">
-		<button ng-click="getUser()"></button>
+		<button ng-click="getUser()">Get User</button>
+		<h2 ng-model=""></h2>
+
 		
 		
 
@@ -43,10 +45,25 @@
 		testApp.controller('dummyCtrl', function($scope, $http) {
 			$scope.getUser = function() {
 				$http.get('user/' + $scope.userId)
-					.then(function(res) {}, function(res) {});
+					.then(
+						function(res) {
+
+						},
+						function(res) {
+							console.log('error');
+						}
+					);
 			};
 			$scope.postUser() = function() {
-				$http.post('user').then()
+				$http.post('user')
+					.then(
+						function(res) {
+
+						},
+						function(res) {
+							console.log('error');
+						}
+					);
 			}
 		});
 	</script>

@@ -27,27 +27,6 @@
 	<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/revature-orderys/favicon-144.png">
 	<!--<meta name="msapplication-config" content="https://s3.amazonaws.com/revature-orderys/browserconfig.xml">-->
 
-<<<<<<< HEAD:Orderys/src/main/webapp/WEB-INF/app/home.jsp
-	<!-- For me to see and adjust page layout not for actual site -->
-	<!-- JQuery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.js"
-		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-		crossorigin="anonymous">
-	</script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-		crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
-	<!-- AngularJS CDN, put in projects that use Angular -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<!--  Routing -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
-	<link rel="stylesheet" type="text/css" href="./orderys-app.css">
-=======
 <meta charset="ISO-8859-1">
 <title>Orderys</title>
 
@@ -73,7 +52,6 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
 
->>>>>>> 27e8b0085764834f3077ed5834c8454827f0adfc:Orderys/src/main/webapp/WEB-INF/view/home.jsp
 </head>
 <body ng-app="orderysApp" ng-controller="buisnessCtrl">
 	<div class="container">
