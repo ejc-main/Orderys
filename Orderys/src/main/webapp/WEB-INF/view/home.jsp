@@ -189,9 +189,9 @@
 		<h4>footer here</h4>
 	</div>
 	
-	<script src ="./app.js"></script>
-	<script src ="./assets/js/control.js"></script>
-	<script src ="./assets/js/serviceFactory.js"></script>
+	<script src ="<%=request.getContextPath()%>/resources/app.js"></script>
+	<script src ="<%=request.getContextPath()%>/resources/js/control.js"></script>
+	<script src ="<%=request.getContextPath()%>/resources/js/serviceFactory.js"></script>
 
 </body>
 </body>
