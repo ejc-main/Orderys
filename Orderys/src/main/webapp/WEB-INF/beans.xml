@@ -21,11 +21,11 @@
 	
 	
 	<!-- url mapping for static content -->
-	<mvc:resources location="src/main/webapp/app/assets/" mapping="/static/**"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/WEB-INF/app/</value>
+			<value>/WEB-INF/view/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>
@@ -52,7 +52,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<!--  <prop key="hibernate.hbm2ddl.auto">create</prop>-->
 			</props>
 		</property>
 	</bean>
