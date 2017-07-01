@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,135 +15,70 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
-import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
 public class BusinessDaoTests {
+	private AbstractApplicationContext ac;
+	
+	private UserDao userDao;
+	private BusinessDao businessDao;
+	
+	private User user;
+	private Business business;
 
-	@Test
-	public void testCreateBusiness() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
+	@Before
+	public void setUp() {
+		ac = new ClassPathXmlApplicationContext("beans.xml");
+		userDao = (UserDao) ac.getBean("userDao");
+		businessDao = (BusinessDao) ac.getBean("businessDao");
 		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
+		user = new User();
+		user.setEmail("fake.email@fraudulent.com");
+		user.setPasswordHash("pwdhash");
+		user.setFirstName("Frank");
+		user.setLastName("Banks");
 		user.setRole(User.Role.MANAGER);
 		userDao.createUser(user);
 		
-		Business business = new Business();
-		business.setName("name");
-		business.setCity("anywhere");
-		business.setCountry("usa");
-		business.setState("wa");
-		business.setStreetAddress1("123 Some Drive");
+		business = new Business();
+		business.setName("Frank's House of Franks");
+		business.setCity("White Oaks");
+		business.setCountry("USA");
+		business.setState("WA");
+		business.setStreetAddress1("123 Lily Circle");
 		business.setZip("12344");
 		business.setManager(user);
-		
-		Business copy = new Business();
-		copy.setName(business.getName());
-		copy.setCity(business.getCity());
-		copy.setCountry(business.getCountry());
-		copy.setState(business.getState());
-		copy.setStreetAddress1(business.getStreetAddress1());
-		copy.setZip(business.getZip());
-		copy.setManager(business.getManager());
-		
-		businessDao.createBusiness(business);
-		copy.setId(business.getId());
-		
-		assertTrue(haveSamePropertyValues(copy, business));
 	}
-
-	private boolean haveSamePropertyValues(Business expected, Business actual) {
-		boolean result = true;
+	
+	@After
+	public void tearDown() {
+		ac.close();
+		ac = null;
 		
-		if(expected.getId() != actual.getId()) {
-			result = false;
-		}
-		if(!expected.getCity().equals(actual.getCity())) {
-			result = false;
-		}
-		if(!expected.getCountry().equals(actual.getCountry())) {
-			result = false;
-		}
-		if(expected.getManager().getId() != actual.getManager().getId()) {
-			result = false;
-		}
-		if(!expected.getName().equals(actual.getName())) {
-			result = false;
-		}
-		if(!expected.getStreetAddress1().equals(actual.getStreetAddress1())) {
-			result = false;
-		}
-		if(!expected.getZip().equals(actual.getZip())) {
-			result = false;
-		}
+		userDao = null;
+		businessDao = null;
 		
-		return result;
+		user = null;
+		business = null;
 	}
 	
 	@Test
-	public void testGetBusinessById() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
-		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.MANAGER);
-		userDao.createUser(user);
-		
-		Business business = new Business();
-		business.setName("name");
-		business.setCity("anywhere");
-		business.setCountry("usa");
-		business.setState("wa");
-		business.setStreetAddress1("123 Some Drive");
-		business.setZip("12344");
-		business.setManager(user);
-		
+	public void testCreateAndGetBusiness() {		
 		businessDao.createBusiness(business);
 		
-		business = businessDao.getBusinessById(business.getId());
+		long id = business.getId();
+		business = businessDao.getBusinessById(id);
 		
 		assertNotNull(business);
 	}
-	
+
 	// TODO: Write test for getBusinessByManager when that method is implemented
 	
 	@Test
-	public void testUpdateBusiness() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
-		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.MANAGER);
-		userDao.createUser(user);
-		
-		Business business = new Business();
-		business.setName("name");
-		business.setCity("anywhere");
-		business.setCountry("usa");
-		business.setState("wa");
-		business.setStreetAddress1("123 Some Drive");
-		business.setZip("12344");
-		business.setManager(user);
-		
+	public void testUpdateBusiness() {		
 		businessDao.createBusiness(business);
 		
-		String newName = "Updated business name";
+		String newName = "China Star";
 		business.setName(newName);
 		
 		businessDao.updateBusiness(business);
@@ -152,44 +89,23 @@ public class BusinessDaoTests {
 	
 	@Test
 	public void testGetAllBusinesses() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
-		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.MANAGER);
-		userDao.createUser(user);
-		
-		Business business1 = new Business();
-		business1.setName("name");
-		business1.setCity("anywhere");
-		business1.setCountry("usa");
-		business1.setState("wa");
-		business1.setStreetAddress1("123 Some Drive");
-		business1.setZip("12344");
-		business1.setManager(user);
-		
-		businessDao.createBusiness(business1);
+		businessDao.createBusiness(business);
 		
 		User user2 = new User();
-		user2.setEmail("a2@b.com");
+		user2.setEmail("management@business.com");
 		user2.setPasswordHash("hash");
-		user2.setFirstName("first");
-		user2.setLastName("last");
+		user2.setFirstName("Sue");
+		user2.setLastName("Lu");
 		user2.setRole(User.Role.MANAGER);
 		userDao.createUser(user2);
 		
 		Business business2 = new Business();
-		business2.setName("name");
-		business2.setCity("anywhere");
-		business2.setCountry("usa");
-		business2.setState("wa");
-		business2.setStreetAddress1("123 Some Drive");
-		business2.setZip("12344");
+		business2.setName("Salty Susan's Hot Dog Shack");
+		business2.setCity("Gemfield");
+		business2.setCountry("USA");
+		business2.setState("CO");
+		business2.setStreetAddress1("1273 SW Industrial Way");
+		business2.setZip("12432");
 		business2.setManager(user2);
 		
 		businessDao.createBusiness(business2);
@@ -200,28 +116,7 @@ public class BusinessDaoTests {
 	}
 	
 	@Test
-	public void testDeleteBusiness() {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao businessDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao userDao = (UserDao) ac.getBean("userDao");
-		
-		User user = new User();
-		user.setEmail("a@b.com");
-		user.setPasswordHash("hash");
-		user.setFirstName("first");
-		user.setLastName("last");
-		user.setRole(User.Role.MANAGER);
-		userDao.createUser(user);
-		
-		Business business = new Business();
-		business.setName("name");
-		business.setCity("anywhere");
-		business.setCountry("usa");
-		business.setState("wa");
-		business.setStreetAddress1("123 Some Drive");
-		business.setZip("12344");
-		business.setManager(user);
-		
+	public void testDeleteBusiness() {		
 		businessDao.createBusiness(business);
 		
 		long id = business.getId();
