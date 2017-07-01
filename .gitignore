@@ -32,7 +32,7 @@ RemoteSystemsTempFiles/
 /.recommenders
 Orderys/.tern-project
 Orderys/log.txt
-/Servers
+/Servers*
 Orderys/bin
 
 node_modules
