@@ -4,14 +4,17 @@ package com.revature.orderys.service;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
+import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
+import com.revature.orderys.dao.OrderDao;
 import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
@@ -26,6 +29,7 @@ public class Service implements Serializable {
 	private UserDao UDao;
 	private ProductDao productDao;
 	private StationDao SDao;
+	private OrderDao ODao;
 	
 	public Service() {
 		super();
@@ -45,6 +49,10 @@ public class Service implements Serializable {
 	
 	public void setSDao(StationDao sDao) {
 		this.SDao = sDao;
+	}
+	
+	public void setODao(OrderDao orderDao) {
+		this.ODao = orderDao;
 	}
 	// Begin User Services
 	
@@ -74,7 +82,7 @@ public class Service implements Serializable {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
 		if(u.getPasswordHash().equals(user.getPasswordHash())) {
-			return user;
+			return u;
 		}
 		else {
 			throw new InvalidCredentialsException("User entered incorrect email or password.");
@@ -82,21 +90,39 @@ public class Service implements Serializable {
 		
 	}
 	
+	// TODO; Untested
+	public List<Business> getAllBusinesses() {
+		return BDao.getAllBusinesses();
+	}
+	
+	// TODO: Untested
+	public List<Product> getMenu(Business business) {
+		return productDao.getAllProductsByBusiness(business);
+	}
+	
+	public List<Order> getAllOrders(User user) {
+		return null;
+	}
+	
 	// End User Services
 	
 	// Start Business Services
 	
+	// TODO: Untested
 	// TODO: Implement some types of checks on business.
 	public Business registerBusiness(Business business) {
 		BDao.createBusiness(business);
 		return business;
 	}
 	
+	// TODO: Untested
 	// TODO: Implement necessary checks on product; handle errors.
 	public Product addMenuItem(Product product) {
 		productDao.createProduct(product);
 		return product;
 	}
+	
+	
 	
 	// End Business Services
 	
