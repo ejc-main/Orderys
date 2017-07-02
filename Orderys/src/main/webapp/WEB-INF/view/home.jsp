@@ -60,10 +60,10 @@
 		
 			<!--Side bar left -->
 			<div class="col-xs-3" ng-controller="profileController">
-				<input type="hidden" id="userId" ng-model="userId" value="${user.id}">
+				<input type="hidden" id="userId" value="${user.id}">
 				
 				<!--Profile pic and username -->
-				<div class="thumbnail" style ="height:120px" ng-model="${user.id}">
+				<div class="thumbnail" style ="height:120px">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
         					<h4 style="text-align:center" >{{User.firstName }} {{User.lastName }}</h4>
@@ -97,7 +97,7 @@
 				<!--  <button class="button">Profile</button>
 				<br>
 				<br>  -->
-				<form action="/logout">
+				<form action="logout">
 				<button type="submit" class="button">Logout</button>
 				</form>
 				

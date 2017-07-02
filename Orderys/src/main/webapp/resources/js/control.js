@@ -1,15 +1,20 @@
+
+var usr = document.getElementById("userId").value;
+
+
 orderysApp.controller('profileController', 
 function($scope, $http, dataFactory) {
 	
-	$scope.userId;
 	$scope.User;
 	
-	dataFactory.getUser($scope.userId).success(function (data) {
+	console.log(usr);
+	
+	dataFactory.getUser(usr).success(function (data) {
 		console.log(data);
 		$scope.User = data;
 	});
 	
-	$scope.isManager = function() {
+/*	$scope.isManager = function() {
 	   
 		var role = $scope.User.role;
 		
@@ -35,7 +40,7 @@ function($scope, $http, dataFactory) {
 		{
 			return false;
 		}
-	}
+	}*/
 	
 });
 

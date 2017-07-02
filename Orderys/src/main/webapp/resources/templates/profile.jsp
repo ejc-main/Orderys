@@ -95,7 +95,7 @@
 				<!--  <button class="button">Profile</button>
 				<br>
 				<br>  -->
-				<form action="/logout">
+				<form action="logout">
 				<button type="submit" class="button">Logout</button>
 				</form>
 				
