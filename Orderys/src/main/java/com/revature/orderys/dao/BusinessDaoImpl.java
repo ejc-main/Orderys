@@ -31,6 +31,7 @@ public class BusinessDaoImpl implements BusinessDao, Serializable {
 		super();
 	}
 	
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}

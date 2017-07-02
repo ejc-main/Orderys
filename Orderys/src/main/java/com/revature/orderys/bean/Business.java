@@ -17,6 +17,26 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Maps the fields of a table in the Orderys database. This table represents
+ * a business where users can place orders.
+ * 
+ * The business table has a number of required (non-nullable) fields:
+ * <ul>
+ * 	<li>name</li>
+ * 	<li>manager</li>
+ * 	<li>streetAddress1</li>
+ * 	<li>city</li>
+ * 	<li>state</li>
+ * 	<li>country</li>
+ * 	<li>zip</li>
+ * </ul>
+ * <br>
+ * Of these, manager must be a unique object.
+ * 
+ * @author Null Terminators
+ *
+ */
 @Component
 @Entity
 @Table(name="BUSINESS_TABLE")

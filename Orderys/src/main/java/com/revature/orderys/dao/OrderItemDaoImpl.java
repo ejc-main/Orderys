@@ -18,6 +18,7 @@ import com.revature.orderys.bean.OrderItemPrimaryKey;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
+@Transactional
 @Repository
 public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 	/**
@@ -40,7 +41,9 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
-			orderItems = (List<OrderItem>) session.createCriteria(OrderItem.class).list();
+			orderItems = (List<OrderItem>) session	
+											.createQuery("from OrderItem")
+											.list();
 		}
 		catch(HibernateException e) {
 			logger.catching(e);

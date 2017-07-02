@@ -13,12 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Maps the fields of a table in the Orderys database. The table represents an order
+ * that is placed by a customer. The order is comprised of several order items.
+ * <br>
+ * Of the fields represented by this class, only {@code paymentMethod} is required.
+ * 
+ * @author Null Terminators
+ */
 @Component
 @Entity
 @Table(name="ORDER_TABLE")
