@@ -51,7 +51,7 @@ public class LandingController {
 				session.setAttribute("user", user);
 				return "home";
 			} catch (InvalidCredentialsException ex) {
-				session.setAttribute("loginAttempted",
+				session.setAttribute("loginError",
 						"The username and password you provided were incorrect.");
 				return "landing";
 			}
@@ -79,11 +79,11 @@ public class LandingController {
 				session.setAttribute("user", user);
 				return "home";
 			} catch (EmailNotUniqueException ex) {
-				session.setAttribute("registrationAttempted",
+				session.setAttribute("registrationError",
 						"Registration failed. The email address you provided is already in use.");
 				return "landing";
 			} catch (InvalidCredentialsException ex) {
-				session.setAttribute("loginAttempted", "Please login to your new account.");
+				session.setAttribute("newLoginError", "Please login to your new account.");
 				return "landing";
 			}
 		}

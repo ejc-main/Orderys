@@ -39,6 +39,12 @@
 			<div class="col-xs-6">
 				<!-- Login -->
 				<div>
+					<c:if test="${not empty loginError}">
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							${loginError}
+						</div>
+					</c:if>
 					<!-- Login header -->
 					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
 					<h3>Login</h3>
@@ -62,6 +68,18 @@
 			<div class="col-xs-6">
 				<!-- Registration form -->
 				<div>
+					<c:if test="${not empty registrationError}">
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							${registrationError}
+						</div>
+					</c:if>
+					<c:if test="${not empty newLoginError}">
+						<div class="alert alert-warning alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							${newLoginError}
+						</div>
+					</c:if>
 					<!-- Login header -->
 					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
 						<h3>Register</h3>
