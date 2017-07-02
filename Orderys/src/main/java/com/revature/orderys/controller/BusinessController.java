@@ -30,8 +30,7 @@ public class BusinessController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public ArrayList<Business> getAllBusinesses() {
-		//TODO:implement return 
-		return null;
+		return (ArrayList<Business>) service.getAllBusinesses();
 	}
 	
 	//city, country, state, name, streetAddress1, zip, manager
