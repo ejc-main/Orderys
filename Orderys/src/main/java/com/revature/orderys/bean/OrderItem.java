@@ -49,10 +49,10 @@ public class OrderItem implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Business orderedAt;
 	
-	// TODO: Change once we decide what we want
-	public static enum Status {
-		PENDING,
-		COMPLETED
+	public enum Status {
+		ACTIVE,
+		COMPLETED, 
+		CANCELLED
 	}
 	
 	public OrderItem() {
