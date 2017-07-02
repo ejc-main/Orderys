@@ -12,6 +12,7 @@ import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
+import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 import com.revature.orderys.exceptions.EmailNotUniqueException;
@@ -23,21 +24,28 @@ public class Service implements Serializable {
 	
 	private BusinessDao businessDao;
 	private UserDao userDao;
+	private ProductDao productDao;
 	private StationDao SDao;
 	
-	public void setBDao(BusinessDao bDao) {
-		this.businessDao = bDao;
-	}
-	public void setUDao(UserDao uDao) {
-		this.userDao = uDao;
-	}
-	public void setSDao(StationDao sDao) {
-		this.SDao = sDao;
-	}
 	public Service() {
 		super();
 	}
 	
+	public void setBusinessDao(BusinessDao bDao) {
+		this.businessDao = bDao;
+	}
+	
+	public void setUserDao(UserDao uDao) {
+		this.userDao = uDao;
+	}
+	
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+	
+	public void setSDao(StationDao sDao) {
+		this.SDao = sDao;
+	}
 	// Begin User Services
 	
 	// TODO: Untested
@@ -84,10 +92,13 @@ public class Service implements Serializable {
 		return business;
 	}
 	
-	
+	// TODO: Implement necessary checks on product; handle errors.
+	public Product addMenuItem(Product product) {
+		productDao.createProduct(product);
+		return product;
+	}
 	
 	// End Business Services
-	
 	
 	public User getUserById(long id){
 		User u=userDao.getUserById(id);
