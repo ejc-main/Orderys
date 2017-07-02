@@ -68,7 +68,14 @@ public class BusinessDaoImpl implements BusinessDao, Serializable {
 	
 	@Override
 	public Business getBusinessByManager(User m) {
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		Business business = new Business();
+		try {
+			business = (Business) session.createQuery("from Business b where b.user.id="+m.getId()).list();
+		} catch (HibernateException ex) {
+			logger.catching(ex);
+		}
+		return business;
 	}
 	
 	@Override
