@@ -79,6 +79,25 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
+	public User addNewUser(String email,String passwordHash,String firstName, String lastName) throws EmailNotUniqueException {		
+		if(UDao.getUserByEmail(email) == null) {
+			User user = new User();
+			user.setRole(User.Role.CUSTOMER);
+			user.setEmail(email);
+			user.setPasswordHash(passwordHash);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			UDao.createUser(user);
+	
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ email + " already exists...");
+		}
+	}
+	
+	// TODO: Untested
 	public User updateUser(User user) {
 		UDao.updateUser(user);
 		
@@ -95,7 +114,18 @@ public class Service implements Serializable {
 		else {
 			throw new InvalidCredentialsException("User entered incorrect email or password.");
 		}
+	}
+	
+	// TODO: Untested
+	public User loginUser(String email, String hash) throws InvalidCredentialsException {
+		User u = UDao.getUserByEmail(email.trim());
 		
+		if(u.getPasswordHash().equals(hash)) {
+			return u;
+		}
+		else {
+			throw new InvalidCredentialsException("User entered incorrect email or password.");
+		}
 	}
 	
 	// TODO; Untested
@@ -109,8 +139,13 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public List<Order> getAllOrders(User user) {
+	public List<Order> getAllUserOrders(User user) {
 		return ODao.getOrdersByCustomer(user);
+	}
+	
+	public Order placeOrder(Order order) {
+		ODao.createOrder(order);
+		return order;
 	}
 	
 	// End User Services
@@ -137,8 +172,25 @@ public class Service implements Serializable {
 		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
 	}
 	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public OrderItem updateOrderItem(OrderItem orderItem) {
+		OIDao.updateOrderItem(orderItem);
+		return orderItem;
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public Station createStation(Station station) {
+		SDao.createStation(station);
+		return station;
+	}
 	// End Business Services
 	
+	
+	
+	
+	// TODO: Triage
 	// Start old code:
 	
 	public User getUserById(long id){
