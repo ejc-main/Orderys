@@ -14,15 +14,6 @@
 	<link rel="icon" type="image/png" sizes="64x64" href="https://s3.amazonaws.com/revature-orderys/favicon-64.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="https://s3.amazonaws.com/revature-orderys/favicon-32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="https://s3.amazonaws.com/revature-orderys/favicon-16.png">
-	<link rel="apple-touch-icon" href="https://s3.amazonaws.com/revature-orderys/favicon-57.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="https://s3.amazonaws.com/revature-orderys/favicon-114.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="https://s3.amazonaws.com/revature-orderys/favicon-72.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="https://s3.amazonaws.com/revature-orderys/favicon-144.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="https://s3.amazonaws.com/revature-orderys/favicon-60.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="https://s3.amazonaws.com/revature-orderys/favicon-120.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="https://s3.amazonaws.com/revature-orderys/favicon-76.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="https://s3.amazonaws.com/revature-orderys/favicon-152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/revature-orderys/favicon-180.png">
 	<meta name="msapplication-TileColor" content="#FFFFFF">
 	<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/revature-orderys/favicon-144.png">
 	<!--<meta name="msapplication-config" content="https://s3.amazonaws.com/revature-orderys/browserconfig.xml">-->
@@ -96,7 +87,7 @@
 				<button class="button">Home</button>
 				<br>
 				<br>
-				<button class="button"> Profile</button>
+				<button class="button">Profile</button>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
@@ -175,7 +166,7 @@
 
 	<!-- footer for page -->
 	<div class="footer">
-		<h4>footer here</h4>
+		<h4></h4>
 	</div>
 	
 	<script src ="<%=request.getContextPath()%>/resources/app.js"></script>
