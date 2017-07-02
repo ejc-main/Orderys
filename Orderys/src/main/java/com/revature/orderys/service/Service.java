@@ -85,17 +85,10 @@ public class Service implements Serializable {
 //			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
-<<<<<<< HEAD
-			user.setEmail(email);
-			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-=======
 			user.setEmail(email.trim());
 			user.setPasswordHash(passwordHash);
 			user.setFirstName(firstName.trim());
 			user.setLastName(lastName.trim());
->>>>>>> 97eada57208ba68328fe86e4367d8ae00c5c70d4
 			UDao.createUser(user);
 	
 			return user;
