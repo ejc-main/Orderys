@@ -25,7 +25,7 @@ public class LandingController {
 		this.service = service;
 	}
 	
-	@RequestMapping(value={}, method=RequestMethod.GET)
+	@RequestMapping(value={"","/","home", "landing"}, method=RequestMethod.GET)
 	public String getLandingPage(HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
