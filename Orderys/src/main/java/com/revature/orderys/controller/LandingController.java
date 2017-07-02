@@ -42,8 +42,15 @@ public class LandingController {
 		if (((User) session.getAttribute("user")) != null) {
 			return "home";
 		} else {
-			User user = service.loginUser(email, password);
-			
+			try {
+				User user = service.loginUser(email, password);
+				session.setAttribute("user", user);
+				return "home";
+			} catch (InvalidCredentialsException ex) {
+				session.setAttribute("loginAttempted",
+						"The username and password you provided were incorrect.");
+				return "landing";
+			}
 		}
     }
 	
@@ -57,9 +64,19 @@ public class LandingController {
 		if (((User) session.getAttribute("user")) != null) {
 			return "home";
 		} else {
-			service.addNewUser(email, password, firstname, lastname, "CUSTOMER");
-			User user = service.loginUser(email, password);
-			
+			try {
+				service.addNewUser(email, password, firstname, lastname, "CUSTOMER");
+				User user = service.loginUser(email, password);
+				session.setAttribute("user", user);
+				return "home";
+			} catch (EmailNotUniqueException ex) {
+				session.setAttribute("registrationAttempted",
+						"Registration failed. The email address you provided is already in use.");
+				return "landing";
+			} catch (InvalidCredentialsException ex) {
+				session.setAttribute("loginAttempted", "Please login to your new account.");
+				return "landing";
+			}
 		}
 	}
 	
