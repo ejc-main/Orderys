@@ -47,6 +47,8 @@
 			<!-- Displays login form -->
 			<div class="col-xs-4">
 			
+			<!-- Create user form -->
+			<div>
 			<!-- Login header -->
 			<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
 			<h3>Create Account</h3>
@@ -80,6 +82,7 @@
 			<!-- link to create new user -->
 			<a href="index.html" style="color: #212121;">already have an account? Login.</a>
 			
+			</div>
 			</div>
 			
 			</div>
