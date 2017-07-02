@@ -22,8 +22,8 @@ import com.revature.orderys.exceptions.InvalidCredentialsException;
 public class Service implements Serializable {
 	private static final long serialVersionUID = -5447849598788494638L;
 	
-	private BusinessDao businessDao;
-	private UserDao userDao;
+	private BusinessDao BDao;
+	private UserDao UDao;
 	private ProductDao productDao;
 	private StationDao SDao;
 	
@@ -31,12 +31,12 @@ public class Service implements Serializable {
 		super();
 	}
 	
-	public void setBusinessDao(BusinessDao bDao) {
-		this.businessDao = bDao;
+	public void setBDao(BusinessDao bDao) {
+		this.BDao = bDao;
 	}
 	
-	public void setUserDao(UserDao uDao) {
-		this.userDao = uDao;
+	public void setUDao(UserDao uDao) {
+		this.UDao = uDao;
 	}
 	
 	public void setProductDao(ProductDao productDao) {
@@ -50,9 +50,9 @@ public class Service implements Serializable {
 	
 	// TODO: Untested
 	public User addNewUser(User user) throws EmailNotUniqueException {		
-		if(userDao.getUserByEmail(user.getEmail()) == null) {
+		if(UDao.getUserByEmail(user.getEmail()) == null) {
 			user.setRole(User.Role.CUSTOMER);
-			userDao.createUser(user);
+			UDao.createUser(user);
 	
 			return user;
 		}
@@ -64,14 +64,14 @@ public class Service implements Serializable {
 	
 	// TODO: Untested
 	public User updateUser(User user) {
-		userDao.updateUser(user);
+		UDao.updateUser(user);
 		
 		return user;
 	}
 	
 	// TODO: Untested
 	public User loginUser(User user) throws InvalidCredentialsException {
-		User u = userDao.getUserByEmail(user.getEmail());
+		User u = UDao.getUserByEmail(user.getEmail());
 		
 		if(u.getPasswordHash().equals(user.getPasswordHash())) {
 			return user;
@@ -88,7 +88,7 @@ public class Service implements Serializable {
 	
 	// TODO: Implement some types of checks on business.
 	public Business registerBusiness(Business business) {
-		businessDao.createBusiness(business);
+		BDao.createBusiness(business);
 		return business;
 	}
 	
@@ -101,7 +101,7 @@ public class Service implements Serializable {
 	// End Business Services
 	
 	public User getUserById(long id){
-		User u=userDao.getUserById(id);
+		User u=UDao.getUserById(id);
 		System.out.println(u.toString());
 		return u;
 	}
@@ -120,18 +120,18 @@ public class Service implements Serializable {
 		u.setRole(User.Role.valueOf(role));
 		u.setId(10000L);
 		System.out.println(u.toString());
-		userDao.createUser(u);
+		UDao.createUser(u);
 		System.out.println("hi2");
 	}
 	
 	public void changeUserPassword(String email,String passwordHash){
-		User u = userDao.getUserByEmail(email);
+		User u = UDao.getUserByEmail(email);
 		u.setPasswordHash(passwordHash);
-		userDao.updateUser(u);
+		UDao.updateUser(u);
 	}
 	
 	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
-		User u = userDao.getUserByEmail(email);
+		User u = UDao.getUserByEmail(email);
 		Business b = new Business();
 		b.setManager(u);
 		b.setName(businessName);
@@ -149,7 +149,7 @@ public class Service implements Serializable {
 		if(streetAddress2!=null){
 			b.setStreetAddress2(streetAddress2);
 		}
-		businessDao.createBusiness(b);
+		BDao.createBusiness(b);
 	}
 	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
 		Product p = new Product();
@@ -158,8 +158,8 @@ public class Service implements Serializable {
 		p.setName(name);
 		BigDecimal num = new BigDecimal(price);
 		p.setProductPrice(num);
-		User m = userDao.getUserByEmail(managerEmail);
-		Business b = businessDao.getBusinessByManager(m);
+		User m = UDao.getUserByEmail(managerEmail);
+		Business b = BDao.getBusinessByManager(m);
 		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
 		Station sOut=new Station();
 		Station sDefault = new Station();
