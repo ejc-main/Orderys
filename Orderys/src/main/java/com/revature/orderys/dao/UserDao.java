@@ -9,7 +9,7 @@ import com.revature.orderys.bean.User;
 
 public interface UserDao {
 
-	void setSessionFactory(SessionFactory sessionFactory);
+
 
 	List<User> getAllUsers();
 

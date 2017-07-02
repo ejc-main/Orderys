@@ -10,7 +10,7 @@ import com.revature.orderys.bean.Rating;
 
 public interface RatingDao {
 
-	void setSessionFactory(SessionFactory sessionFactory);
+
 
 	List<Rating> getAllRatings();
 

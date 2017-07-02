@@ -1,5 +1,6 @@
 package com.revature.orderys.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,19 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
 @Repository
-public class OrderItemDaoImpl implements OrderItemDao {
+public class OrderItemDaoImpl implements OrderItemDao,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 566808802376368270L;
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 	  this.sessionFactory = sessionFactory;
 	}
+	
+	
 	
 	@Override
 	@SuppressWarnings("unchecked")

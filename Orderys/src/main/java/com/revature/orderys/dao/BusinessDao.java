@@ -11,7 +11,6 @@ import com.revature.orderys.bean.User;
 
 public interface BusinessDao {
 
-	void setSessionFactory(SessionFactory sessionFactory);
 
 	List<Business> getAllBusinesses();
 

@@ -1,5 +1,6 @@
 package com.revature.orderys.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,16 @@ import com.revature.orderys.util.EasyLogger;
 
 @Transactional
 @Repository
-public class RatingDaoImpl implements RatingDao {
+public class RatingDaoImpl implements RatingDao,Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7389265332017457536L;
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
-  	@Override
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

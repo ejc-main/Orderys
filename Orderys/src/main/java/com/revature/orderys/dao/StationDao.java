@@ -11,7 +11,7 @@ import com.revature.orderys.bean.Station;
 
 public interface StationDao {
 
-	void setSessionFactory(SessionFactory sessionFactory);
+
 
 	List<Station> getAllStations();
 

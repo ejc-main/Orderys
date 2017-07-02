@@ -10,7 +10,7 @@ import com.revature.orderys.bean.Product;
 
 public interface ProductDao {
 
-	void setSessionFactory(SessionFactory sessionFactory);
+
 
 	List<Product> getAllProducts();
 
