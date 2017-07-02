@@ -3,6 +3,7 @@ package com.revature.orderys.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import com.revature.orderys.exceptions.EmailNotUniqueException;
 import com.revature.orderys.exceptions.InvalidCredentialsException;
 import com.revature.orderys.service.Service;
 
+//@Controller
 public class LandingController {
 	
 	@Autowired
@@ -29,8 +31,10 @@ public class LandingController {
 	public String getLandingPage(HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
+			System.out.println("landing controller directing to home");
 			return "home";
 		} else {
+			System.out.println("landing controller directing to landing");
 			return "landing";
 		}
 	}
@@ -41,8 +45,10 @@ public class LandingController {
     		HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
+			System.out.println("landing controller directing to home");
 			return "home";
 		} else {
+			System.out.println("landing controller logging in");
 			try {
 				User credentials = new User();
 				credentials.setEmail(email);
@@ -66,8 +72,10 @@ public class LandingController {
     		HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
+			System.out.println("landing controller directing to home");
 			return "home";
 		} else {
+			System.out.println("landing controller registering");
 			try {
 				User newUser = new User();
 				newUser.setEmail(email);

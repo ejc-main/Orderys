@@ -93,12 +93,6 @@
 							${registrationError}
 						</div>
 					</c:if>
-					<c:if test="${not empty newLoginError}">
-						<div class="alert alert-warning alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							${newLoginError}
-						</div>
-					</c:if>
 					<!-- Login header -->
 					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
 						<h3>Register</h3>

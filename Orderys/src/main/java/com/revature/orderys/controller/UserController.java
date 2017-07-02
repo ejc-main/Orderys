@@ -35,20 +35,28 @@ public class UserController {
 		this.service = service;
 	}
 
-	@RequestMapping(method=RequestMethod.POST)
-	public void addUser(@RequestParam(name="email", required=true) String email,
-			@RequestParam(name="password", required=true) String password,
-			@RequestParam(name="firstname", required=true) String firstname,
-			@RequestParam(name="lastname", required=true) String lastname){
-			service.addNewUser(email, password, firstname, lastname, "CUSTOMER");
-
-	}
+//	@RequestMapping(method=RequestMethod.POST)
+//	public void addUser(@RequestParam(name="email", required=true) String email,
+//			@RequestParam(name="password", required=true) String password,
+//			@RequestParam(name="firstname", required=true) String firstname,
+//			@RequestParam(name="lastname", required=true) String lastname){
+//			service.addNewUser(email, password, firstname, lastname);
+//		
+//	}
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
 	public User getUser(@PathVariable long userId) {
 		User u = null;
 		u = service.getUserById(userId);
 		return u;
+	}
+	
+	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
+	public User updateUser(@RequestParam(name="email", required=true) String email,
+			@RequestParam(name="password", required=true) String password,
+			@RequestParam(name="firstname", required=true) String firstname,
+			@RequestParam(name="lastname", required=true) String lastname) {
+		
 	}
 
 }
