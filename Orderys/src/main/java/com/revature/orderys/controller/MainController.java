@@ -37,10 +37,10 @@ public class MainController {
 	public String getMainPage(HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) == null) {
-			System.out.println("main controller directing to landing");
+//			System.out.println("main controller directing to landing");
 			return "landing";
 		} else {
-			System.out.println("main controller directing to home");
+//			System.out.println("main controller directing to home");
 			return "home";
 		}
 	}
@@ -51,10 +51,10 @@ public class MainController {
     		HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
-			System.out.println("landing controller directing to home");
+//			System.out.println("landing controller directing to home");
 			return "home";
 		} else {
-			System.out.println("landing controller logging in");
+//			System.out.println("landing controller logging in");
 			try {
 				User credentials = new User();
 				credentials.setEmail(email);
@@ -78,10 +78,10 @@ public class MainController {
     		HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
-			System.out.println("landing controller directing to home");
+//			System.out.println("landing controller directing to home");
 			return "home";
 		} else {
-			System.out.println("landing controller registering");
+//			System.out.println("landing controller registering");
 			try {
 				User user = service.addNewUser(email, password, firstname, lastname);
 				session.setAttribute("user", user);
