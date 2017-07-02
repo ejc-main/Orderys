@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -71,7 +72,9 @@ public class BusinessDaoImpl implements BusinessDao, Serializable {
 		Session session = sessionFactory.getCurrentSession();
 		Business business = new Business();
 		try {
-			business = (Business) session.createQuery("from Business b where b.user.id="+m.getId()).list();
+			Query query = session.createQuery("from Business b where b.user.id=:managerId");
+			query.setLong("managerId", m.getId());
+			return (Business) query.uniqueResult();
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}

@@ -44,19 +44,20 @@ public class UserController {
 //		
 //	}
 	
-	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-	public User getUser(@PathVariable long userId) {
-		User u = null;
-		u = service.getUserById(userId);
-		return u;
-	}
-	
-	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-	public User updateUser(@RequestParam(name="email", required=true) String email,
-			@RequestParam(name="password", required=true) String password,
-			@RequestParam(name="firstname", required=true) String firstname,
-			@RequestParam(name="lastname", required=true) String lastname) {
-		
-	}
+//	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
+//	public User getUser(@PathVariable long userId) {
+//		User u = null;
+//		u = service.getUserById(userId);
+//		return u;
+//	}
+//	
+//	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
+//	public User updateUser(@RequestParam(name="email", required=true) String email,
+//			@RequestParam(name="password", required=true) String password,
+//			@RequestParam(name="firstname", required=true) String firstname,
+//			@RequestParam(name="lastname", required=true) String lastname,
+//			@RequestParam(name="") ) {
+//		
+//	}
 
 }
