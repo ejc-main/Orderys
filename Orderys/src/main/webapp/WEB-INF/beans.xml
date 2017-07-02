@@ -86,5 +86,6 @@
 		<property name="BDao" ref="businessDao"></property>
 		<property name="SDao" ref="stationDao"></property>
 		<property name="UDao" ref="userDao"></property>
+		<property name="productDao" ref="productDao"></property>
 	</bean>
 </beans>

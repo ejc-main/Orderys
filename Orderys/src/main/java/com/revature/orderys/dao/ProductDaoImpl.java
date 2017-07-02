@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
 import com.revature.orderys.util.EasyLogger;
 
@@ -45,6 +46,24 @@ public class ProductDaoImpl implements ProductDao,Serializable {
 		return products;
 	}
 
+	// TODO: Untested
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Product> getAllProductsByBusiness(Business business) {
+		List<Product> products = new ArrayList<Product>();
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			products = (List<Product>) session
+					.createQuery("from Product p where p.station.business.id = " + business.getId())
+					.list();
+		}
+		catch(HibernateException e) {
+			logger.catching(e);
+		}
+		
+		return products;
+	}
 
 	@Override
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
