@@ -2,7 +2,6 @@ package com.revature.orderys.main;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.orderys.bean.User;
 import com.revature.orderys.service.Service;
 
 @Transactional

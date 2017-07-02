@@ -1,5 +1,6 @@
 package com.revature.orderys.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,12 @@ import com.revature.orderys.util.EasyLogger;
 
 @Transactional
 @Repository
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl implements OrderDao, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3948917441646333723L;
 	private EasyLogger logger = new EasyLogger();
 	private SessionFactory sessionFactory;
 
@@ -26,6 +31,14 @@ public class OrderDaoImpl implements OrderDao {
 	  this.sessionFactory = sessionFactory;
 	}
 	
+	
+	
+	public OrderDaoImpl() {
+		super();
+	}
+
+
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Order> getAllOrders() {

@@ -1,12 +1,12 @@
 package com.revature.orderys.test;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;

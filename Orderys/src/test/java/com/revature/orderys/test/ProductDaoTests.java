@@ -14,14 +14,8 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
-import com.revature.orderys.bean.Station;
-import com.revature.orderys.bean.User;
-import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.ProductDao;
-import com.revature.orderys.dao.StationDao;
-import com.revature.orderys.dao.UserDao;
 
 public class ProductDaoTests {
 

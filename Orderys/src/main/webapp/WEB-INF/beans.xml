@@ -61,25 +61,31 @@
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
 	
-	<bean id="businessDao" class="com.revature.orderys.dao.BusinessDaoImpl">
+	<bean id="myBusinessDao" class="com.revature.orderys.dao.BusinessDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="orderDao" class="com.revature.orderys.dao.OrderDaoImpl">
+	<bean id="myOrderDao" class="com.revature.orderys.dao.OrderDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="productDao" class="com.revature.orderys.dao.ProductDaoImpl">
+	<bean id="myProductDao" class="com.revature.orderys.dao.ProductDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="ratingDao" class="com.revature.orderys.dao.RatingDaoImpl">
+	<bean id="myRatingDao" class="com.revature.orderys.dao.RatingDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="stationDao" class="com.revature.orderys.dao.StationDaoImpl">
+	<bean id="myStationDao" class="com.revature.orderys.dao.StationDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="userDao" class="com.revature.orderys.dao.UserDaoImpl">
+	<bean id="myUserDao" class="com.revature.orderys.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
-	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
+	<bean id="myOrderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
+	<bean id="myService" class="com.revature.orderys.service.Service">
+		<property name="uDao" ref="myUserDao"></property>
+		<property name="sDao" ref="myStationDao"></property>
+		<property name="bDao" ref="myBusinessDao"></property>
+	</bean>
+	
 </beans>

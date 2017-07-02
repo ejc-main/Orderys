@@ -1,11 +1,10 @@
 package com.revature.orderys.test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;

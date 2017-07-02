@@ -19,6 +19,8 @@ public class UserController {
 	@Autowired
 	Service service;
 	
+	
+	
 //	@GetMapping, @PostMapping
 //	@RequestBody, @ResponseBody
 	
@@ -27,6 +29,10 @@ public class UserController {
 //		
 //	}
 	
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 	@RequestMapping(method=RequestMethod.POST)
 	public void addUser(@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="password", required=true) String password,

@@ -1,9 +1,11 @@
 package com.revature.orderys.service;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,17 +19,33 @@ import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
 @Component
-public class Service {
+public class Service implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3589243035330646318L;
+//	@Autowired
+	BusinessDao bDao;
+//	@Autowired
+	StationDao sDao;
+//	@Autowired
+	UserDao uDao;
 	
-	
+
+
+	public void setBDao(BusinessDao bDao) {
+		this.bDao = bDao;
+	}
+	public void setSDao(StationDao sDao) {
+		this.sDao = sDao;
+	}
+	public void setUDao(UserDao uDao) {
+		this.uDao = uDao;
+	}
 	public User getUserById(long id) {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
 		return uDao.getUserById(id);
 	}
 	public User loginUser(String email,String passwordHash) {
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
 		User u = uDao.getUserByEmail(email);
 		if(u.getPasswordHash().equals(passwordHash)){
 			return u;
@@ -37,8 +55,6 @@ public class Service {
 		
 	}
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
 		User u = new User();
 		u.setEmail(email);
 		u.setPasswordHash(passwordHash);
@@ -49,17 +65,11 @@ public class Service {
 		System.out.println("hi2");
 	}
 	public void changeUserPassword(String email,String passwordHash){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
 		User u = uDao.getUserByEmail(email);
 		u.setPasswordHash(passwordHash);
 		uDao.updateUser(u);
 	}
 	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao bDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		StationDao sDao = (StationDao) ac.getBean("stationDao");
 		User u = uDao.getUserByEmail(email);
 		Business b = new Business();
 		b.setManager(u);
@@ -81,10 +91,6 @@ public class Service {
 		bDao.createBusiness(b);
 	}
 	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao bDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		StationDao sDao = (StationDao) ac.getBean("stationDao");
 		Product p = new Product();
 		p.setDescription(description);
 		//p.setIntendedCompletionTime(time);
