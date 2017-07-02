@@ -7,18 +7,21 @@ function($scope, $http, dataFactory) {
 	
 	$scope.User;
 	
-	console.log(usr);
 	
 	dataFactory.getUser(usr).success(function (data) {
-		console.log(data);
 		$scope.User = data;
 	});
 	
-/*	$scope.isManager = function() {
+	$scope.isManager = function() {
 	   
+		if($scope.User === undefined)
+		{
+			return false;
+		}
+		
 		var role = $scope.User.role;
 		
-		if(role.equals("MANAGER"))
+		if(role == "MANAGER")
 		{
 			return true;
 		}
@@ -28,11 +31,17 @@ function($scope, $http, dataFactory) {
 		}
 	}
 	
+	
 	$scope.isEmployee = function() {
-		   
+		
+		if($scope.User === undefined)
+		{
+			return false;
+		}
+		
 		var role = $scope.User.role;
 		
-		if(role.equals("EMPLOYEE"))
+		if(role == "EMPLOYEE")
 		{
 			return true;
 		}
@@ -40,7 +49,7 @@ function($scope, $http, dataFactory) {
 		{
 			return false;
 		}
-	}*/
+	}
 	
 });
 
