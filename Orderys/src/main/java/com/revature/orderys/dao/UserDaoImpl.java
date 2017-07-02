@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -65,7 +66,9 @@ public class UserDaoImpl implements UserDao,Serializable{
 	@Override
 	public User getUserByEmail(String email){
 		Session session = sessionFactory.getCurrentSession();
-		return (User) session.get(User.class,email);
+		Query query = session.createQuery("from User u where u.email=:user_email");
+		query.setString("user_email", email);
+		return (User) query.uniqueResult();
 	}
 
 	@Override
