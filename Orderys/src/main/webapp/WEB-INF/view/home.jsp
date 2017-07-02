@@ -73,7 +73,7 @@
 				<div class="thumbnail" style ="height:120px" >
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
-        					<h4 style="text-align:center">{{firstname }} {{lastname }}</h4>
+        					<h4 style="text-align:center" >{{User.firstName }} {{User.lastName }}</h4>
       					</div>
     			</div>
     			
@@ -96,7 +96,7 @@
 				<button class="button">Home</button>
 				<br>
 				<br>
-				<button class="button" ng-click="getUser()">Profile</button>
+				<button class="button"> Profile</button>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
@@ -155,28 +155,15 @@
 
 						<!-- list of order items -->
 						<ul style="height: 200px; overflow: auto;">
-							<li>
+							<li style="padding:5px">
 								<p>food</p>
 								<p>cost</p>
 								<button class="button">Remove</button> <br>
 							</li>
-							<li>
-								<p>food</p>
-								<p>cost</p>
-								<button class="button">Remove</button>
-							</li>
-							<br>
-							<li>
-								<p>food</p>
-								<p>cost</p>
-								<button class="button">Remove</button>
-							</li>
-							<br>
 						</ul>
 
 						<p>Tax: amount</p>
 						<p>Total: amount</p>
-						<br>
 						<button class="button">Checkout</button>
 
 					</div>

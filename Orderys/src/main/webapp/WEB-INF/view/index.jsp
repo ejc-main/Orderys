@@ -40,6 +40,8 @@
 			<!-- Displays login form -->
 			<div class="col-xs-4">
 			
+			<!-- Login -->
+			<div>
 			<!-- Login header -->
 			<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
 			<h3>Login</h3>
@@ -65,7 +67,47 @@
 			
 			<!-- link to create new user -->
 			<a href="createAccount.html" style="color: #212121;">Create an account.</a>
+			</div>
 			
+			
+			</div>
+			
+				<!-- Create user form -->
+			<div>
+			<!-- Login header -->
+			<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
+			<h3>Create Account</h3>
+			</div>
+			
+			<!-- Login Form -->
+			<div class="row" style="padding-left:20px"">
+			<form name="loginForm" action="createAccount" method="post">
+			
+			<h4>First Name</h4>
+			<input type="text" name="fName" placeholder="First Name" required="required">
+			<br>
+			
+			<h4>Last Name</h4>
+			<input type="text" name="lName" placeholder="Last Name" required="required">
+			<br>
+			
+			<h4>Email</h4>
+			<input type="text" name="email" placeholder="Email" required="required">
+			<br>
+			
+			<h4>Passsword</h4>
+			<input type="password" name="password" placeholder="Password" required="required">
+			
+			<br>
+			<br>
+			
+			<input type="submit" class="button" value="Create Account">
+			
+			</form>
+			<!-- link to create new user -->
+			<a href="index.html" style="color: #212121;">already have an account? Login.</a>
+			
+			</div>
 			</div>
 			
 			</div>
