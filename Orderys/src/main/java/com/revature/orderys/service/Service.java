@@ -86,7 +86,7 @@ public class Service implements Serializable {
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
-			user.setPasswordHash(passwordHash);
+			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
 			user.setFirstName(firstName.trim());
 			user.setLastName(lastName.trim());
 			UDao.createUser(user);
