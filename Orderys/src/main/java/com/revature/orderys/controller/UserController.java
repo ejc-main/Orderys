@@ -1,6 +1,6 @@
 package com.revature.orderys.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +16,11 @@ import com.revature.orderys.util.PasswordStorage.CannotPerformOperationException
 @RequestMapping(value="/user")
 public class UserController {
 	
-	@Autowired
 	Service service;
 	
-	
+	public void setService(Service service) {
+		this.service = service;
+	}
 	
 //	@GetMapping, @PostMapping
 //	@RequestBody, @ResponseBody
@@ -28,10 +29,6 @@ public class UserController {
 //	public void getUsers() {
 //		
 //	}
-	
-	public void setService(Service service) {
-		this.service = service;
-	}
 
 	@RequestMapping(method=RequestMethod.POST)
 	public void addUser(@RequestParam(name="email", required=true) String email,

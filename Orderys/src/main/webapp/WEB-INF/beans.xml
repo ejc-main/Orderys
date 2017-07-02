@@ -15,7 +15,6 @@
 	
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.revature.orderys.*"/>
-	<!-- <context:annotation-config/> -->
 	<tx:annotation-driven/>
 	<context:annotation-config/>
 	
@@ -34,7 +33,7 @@
 	
 	<!-- REST Content Negotiation -->
 	<!-- <bean id="contentNegotiationManager"
-		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 	</bean> -->
 	
 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -86,6 +85,13 @@
 		<property name="uDao" ref="myUserDao"></property>
 		<property name="sDao" ref="myStationDao"></property>
 		<property name="bDao" ref="myBusinessDao"></property>
+	</bean>
+	
+	<bean id="myMainController" class="com.revature.orderys.controller.MainController">
+		<property name="service" ref="myService"></property>
+	</bean>
+	<bean id="myUserController" class="com.revature.orderys.controller.UserController">
+		<property name="service" ref="myService"></property>
 	</bean>
 	
 </beans>
