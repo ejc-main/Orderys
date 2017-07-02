@@ -27,29 +27,35 @@
 	<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/revature-orderys/favicon-144.png">
 	<!--<meta name="msapplication-config" content="https://s3.amazonaws.com/revature-orderys/browserconfig.xml">-->
 
-	<!-- For me to see and adjust page layout not for actual site -->
+	<meta charset="ISO-8859-1">
+	<title>Orderys</title>
+
+
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"
 		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
 		crossorigin="anonymous">
 	</script>
+
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
+
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
+
 	<!-- AngularJS CDN, put in projects that use Angular -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<!--  Routing -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/revature-orderys/orderys-app.css">
-</head>
-<body ng-app="orderysApp" ng-controller="buisnessCtrl">
 
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
+
+</head>
+<body ng-app="orderysApp">
 	<div class="container">
 		
 	<!--Web site Banner -->
@@ -61,13 +67,13 @@
 		<div class="row">
 		
 			<!--Side bar left -->
-			<div class="col-xs-3">
+			<div class="col-xs-3" ng-controller="profileController">
 				
 				<!--Profile pic and username -->
-				<div class="thumbnail" style ="height:120px">
+				<div class="thumbnail" style ="height:120px" >
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
-        					<h4 style="text-align:center">{{ data.exampleCustomer.firstname}}</h4>
+        					<h4 style="text-align:center">{{firstname }} {{lastname }}</h4>
       					</div>
     			</div>
     			
@@ -90,7 +96,7 @@
 				<button class="button">Home</button>
 				<br>
 				<br>
-				<button class="button">Profile</button>
+				<button class="button" ng-click="getUser()">Profile</button>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
@@ -103,7 +109,7 @@
 			<!-- main content for page -->
 			<div class="col-xs-6">
 			
-			<h3 style="text-align:center">{{data.exampleBusiness.name}}</h3>
+			<h3 style="text-align:center">Business name</h3>
 				
 			<h4>Menu</h4>
 				
@@ -113,25 +119,24 @@
 				
 				
 				<!-- one panel element -->
-					<div class="panel panel-default" ng-repeat="product in data.exampleProducts">
-						<div class="panel-heading" role="tab" id="heading{{$index}}">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingOne">
 							<h4 class="panel-title">
 								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapse{{$index}}" aria-expanded="true"
-									aria-controls="collapse{{$index}}">{{product.name}}</a> <p style="float:right">{{product.price | currency}}</p>
+									href="#collapseOne" aria-expanded="true"
+									aria-controls="collapseOne"> Product name</a> <p style="float:right">Price</p>
 							</h4>
 						</div>
-						<div id="collapse{{$index}}" class="panel-collapse collapse"
-							role="tabpanel" aria-labelledby="heading{{$index}}">
+						<div id="collapseOne" class="panel-collapse collapse in"
+							role="tabpanel" aria-labelledby="headingOne">
 							<div class="panel-body">
 								</div>
 									<img alt="Menu Item Pic" src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" style="width:100px;height:100px; float:left">
-									<h5>{{product.name}}</h5>
-									<p>{{product.description}}</p>
-									<p>Estimated wait time: {{product.intendedCompletionTime}}</p>
-									<p>{{product.price | currency}}</p>
-									<button class="button" ng-click="addToOrder($index)">Add to Order</button>
-									<br>
+									<h5>Product Name</h5>
+									<p>Description</p>
+									<p>Estimated wait time</p>
+									<p>Price</p>
+									<button class="button">Add to Order</button>
 									<br>
 								</div>
 						</div>
@@ -150,15 +155,28 @@
 
 						<!-- list of order items -->
 						<ul style="height: 200px; overflow: auto;">
-							<li style="margin-bottom:10px;" ng-repeat="item in data.exampleOrderItem">
+							<li>
 								<p>food</p>
 								<p>cost</p>
-								<button class="button" ng-click="removeFromOrder($index)">Remove</button> <br>
+								<button class="button">Remove</button> <br>
 							</li>
+							<li>
+								<p>food</p>
+								<p>cost</p>
+								<button class="button">Remove</button>
+							</li>
+							<br>
+							<li>
+								<p>food</p>
+								<p>cost</p>
+								<button class="button">Remove</button>
+							</li>
+							<br>
 						</ul>
 
 						<p>Tax: amount</p>
 						<p>Total: amount</p>
+						<br>
 						<button class="button">Checkout</button>
 
 					</div>
@@ -173,131 +191,10 @@
 		<h4>footer here</h4>
 	</div>
 	
-	<script>
-	var orderysApp = angular.module('orderysApp',[]);
+	<script src ="<%=request.getContextPath()%>/resources/app.js"></script>
+	<script src ="<%=request.getContextPath()%>/resources/js/control.js"></script>
+	<script src ="<%=request.getContextPath()%>/resources/js/serviceFactory.js"></script>
 
-	var demoData = {
-	  "exampleCustomer": {
-	    "id": 1,
-	    "email": "customer@email.com",
-	    "firstname": "Custo",
-	    "lastname": "One",
-	    "role": "CUSTOMER",
-	    "orders": [],
-	    "ratings": []
-	  },
-	  "exampleEmployee": {
-	    "id": 2,
-	    "email": "employee@email.com",
-	    "firstname": "Emplo",
-	    "lastname": "Du",
-	    "role": "EMPLOYEE",
-	    "orders": [],
-	    "ratings": [],
-	    "stations": []
-	  },
-	  "exampleManager": {
-	    "id": 3,
-	    "email": "manager@email.com",
-	    "firstname": "Tre",
-	    "lastname": "Manag",
-	    "role": "MANAGER",
-	    "orders": [],
-	    "ratings": [],
-	    "stations": [],
-	    "business": {}
-	  },
-	  "exampleBusiness": {
-	    "id": 1,
-	    "name": "Food",
-	    "manager": {},
-	    "streetAddress1": "",
-	    "streetAddress2": "",
-	    "city": "",
-	    "state": "",
-	    "country": "",
-	    "zip": "",
-	    "stations": []
-	  },
-	  "exampleStation": {
-	    "id": 1,
-	    "business": {},
-	    "name": "",
-	    "employees": []
-	  },
-	  "exampleProducts": [{
-	    "id": 1,
-	    "station": {},
-	    "name": "Pizza",
-	    "price": 12.00,
-	    "description": "Awesome slice of pizza",
-	    "intendedCompletionTime": "???",
-	    "imageUrl": "",
-	    "ratings": []
-	  },{	   
-	    "id": 2,
-	    "station": {},
-	    "name": "Chicken",
-	    "price": 20.00,
-	    "description": "Dish made after slaying the legendary beast Jax Chixen",
-	    "intendedCompletionTime": "???",
-	    "imageUrl": "",
-	    "ratings": []
-	  }],
-	  "exampleOrder": {
-	    "id": 1,
-	    "customer": {},
-	    "paymentMethod": "?? paypal ??",
-	    "items": []
-	  },
-	  "exampleOrderItem": [{
-	    "order": {"???": "???"},
-	    "product": {},
-	    "note": "customization and stuff? this is set by the customer",
-	    "quantity": 5,
-	    "timePlaced": "???",
-	    "timeCompleted": "???",
-	    "completedBy": {
-	      "id": 2,
-	      "email": "employee@email.com",
-	      "firstname": "Emplo",
-	      "lastname": "Du",
-	      "role": "EMPLOYEE",
-	      "orders": [],
-	      "ratings": [],
-	      "stations": []
-	    },
-	    "status": "FULFILLED"
-	  }],
-	  "exampleRating": {
-	    "customer": {},
-	    "product": {},
-	    "rating": 4
-	  }
-	};
-
-	orderysApp.controller('buisnessCtrl', 
-			function($scope) {
-				
-				$scope.data = demoData;
-
-				$scope.addToOrder = function(index)
-				{
-					var item = $scope.data.exampleProducts[index];
-
-					console.log(item);
-				}
-
-				$scope.removeFromOrder = function(index)
-				{
-					var item = $scope.data.exampleOrderItem[index];
-
-					console.log(item)
-				}
-				
-			});
-
-	</script>
-	
+</body>
 </body>
 </html>

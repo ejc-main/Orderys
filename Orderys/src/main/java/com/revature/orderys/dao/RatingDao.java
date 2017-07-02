@@ -7,6 +7,7 @@ import com.revature.orderys.bean.RatingPrimaryKey;
 
 public interface RatingDao {
 
+
 	List<Rating> getAllRatings();
 
 	void createRating(Rating r);

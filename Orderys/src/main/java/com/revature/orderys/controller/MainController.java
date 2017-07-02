@@ -11,6 +11,7 @@ import com.revature.orderys.service.Service;
 public class MainController {
 	@Autowired
 	Service service;
+	
 	/*
 	 * Use the @RequestBody annotation to make a controller method serialize its output as 
 	 * a JSON string to be used as the HTTP response body. You should also be sure to catch 
@@ -22,6 +23,14 @@ public class MainController {
 //		return "index";
 //	}
 	
+	public MainController() {
+		super();
+	}
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 	@RequestMapping(value = {"","/","home"}, method = RequestMethod.GET)
     public String getHome() {
         return "home";
