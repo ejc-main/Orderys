@@ -9,6 +9,8 @@ import com.revature.orderys.bean.User;
 
 public interface BusinessDao {
 
+
+
 	List<Business> getAllBusinesses();
 
 	void createBusiness(Business b);

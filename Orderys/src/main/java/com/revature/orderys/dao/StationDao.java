@@ -7,6 +7,7 @@ import com.revature.orderys.bean.Station;
 
 public interface StationDao {
 
+
 	List<Station> getAllStations();
 
 	void createStation(Station s);

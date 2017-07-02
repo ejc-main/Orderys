@@ -1,6 +1,7 @@
 package com.revature.orderys.service;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -17,18 +18,41 @@ import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 
 @Component
-public class Service {
+public class Service implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5447849598788494638L;
+	
+	private BusinessDao BDao;
+	private UserDao UDao;
+	private StationDao SDao;
 	
 	
+	
+	
+	public void setBDao(BusinessDao bDao) {
+		this.BDao = bDao;
+	}
+	public void setUDao(UserDao uDao) {
+		this.UDao = uDao;
+	}
+	public void setSDao(StationDao sDao) {
+		this.SDao = sDao;
+	}
+	public Service() {
+		super();
+	}
 	public User getUserById(long id){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		return uDao.getUserById(id);
+		User u=UDao.getUserById(id);
+		System.out.println(u.toString());
+		return u;
+	}
+	public int getNum(){
+		return 2;
 	}
 	public User loginUser(String email,String passwordHash){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		User u = uDao.getUserByEmail(email);
+		User u = UDao.getUserByEmail(email);
 		if(u.getPasswordHash().equals(passwordHash)){
 			return u;
 		}else{
@@ -37,30 +61,24 @@ public class Service {
 		
 	}
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
 		User u = new User();
 		u.setEmail(email);
 		u.setPasswordHash(passwordHash);
 		u.setFirstName(firstName);
 		u.setLastName(lastName);
 		u.setRole(User.Role.valueOf(role));
-		uDao.createUser(u);
+		u.setId(10000L);
+		System.out.println(u.toString());
+		UDao.createUser(u);
 		System.out.println("hi2");
 	}
 	public void changeUserPassword(String email,String passwordHash){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		User u = uDao.getUserByEmail(email);
+		User u = UDao.getUserByEmail(email);
 		u.setPasswordHash(passwordHash);
-		uDao.updateUser(u);
+		UDao.updateUser(u);
 	}
 	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao bDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		StationDao sDao = (StationDao) ac.getBean("stationDao");
-		User u = uDao.getUserByEmail(email);
+		User u = UDao.getUserByEmail(email);
 		Business b = new Business();
 		b.setManager(u);
 		b.setName(businessName);
@@ -72,28 +90,24 @@ public class Service {
 		Station s = new Station();
 		s.setBusiness(b);
 		s.setStationName("default");
-		sDao.createStation(s);
-		ArrayList<Station> stations=(ArrayList<Station>)sDao.getAllStationsByBusiness(b);
+		SDao.createStation(s);
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
 		b.setStations(stations);
 		if(streetAddress2!=null){
 			b.setStreetAddress2(streetAddress2);
 		}
-		bDao.createBusiness(b);
+		BDao.createBusiness(b);
 	}
 	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
-		AbstractApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-		BusinessDao bDao = (BusinessDao) ac.getBean("businessDao");
-		UserDao uDao = (UserDao) ac.getBean("userDao");
-		StationDao sDao = (StationDao) ac.getBean("stationDao");
 		Product p = new Product();
 		p.setDescription(description);
 		//p.setIntendedCompletionTime(time);
 		p.setName(name);
 		BigDecimal num = new BigDecimal(price);
 		p.setProductPrice(num);
-		User m = uDao.getUserByEmail(managerEmail);
-		Business b = bDao.getBusinessByManager(m);
-		ArrayList<Station> stations=(ArrayList<Station>) sDao.getAllStationsByBusiness(b);
+		User m = UDao.getUserByEmail(managerEmail);
+		Business b = BDao.getBusinessByManager(m);
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
 		Station sOut=new Station();
 		Station sDefault = new Station();
 		for(Station s:stations ){

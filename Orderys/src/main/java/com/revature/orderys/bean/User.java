@@ -69,7 +69,7 @@ public class User implements Serializable {
 	private List<Order> orders;
 	
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="orderItemId")
 	private List<Rating> ratings;
 	

@@ -6,6 +6,7 @@ import com.revature.orderys.bean.User;
 
 public interface UserDao {
 
+
 	List<User> getAllUsers();
 
 	void createUser(User u);

@@ -82,4 +82,9 @@
 	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
 		<property name="sessionFactory" ref="mySessionFactory"></property>
 	</bean>
+	<bean id = "service" class="com.revature.orderys.service.Service">
+		<property name="BDao" ref="businessDao"></property>
+		<property name="SDao" ref="stationDao"></property>
+		<property name="UDao" ref="userDao"></property>
+	</bean>
 </beans>
