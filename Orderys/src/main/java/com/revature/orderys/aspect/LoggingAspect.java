@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 //@Aspect
 public class LoggingAspect {
 	
-	private static String filename; // can I specify this via dependency injection?
+	private static String filename = "./log.txt";
+	private static String serverLogfile = "./server-log.txt";
 	
 	@Pointcut("execution(* com.revature.orderys..* (..))")
 	public void pc() {}
