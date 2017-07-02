@@ -1,6 +1,5 @@
 package com.revature.orderys.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.revature.orderys.bean.User;
+import com.revature.orderys.exceptions.EmailNotUniqueException;
+import com.revature.orderys.exceptions.InvalidCredentialsException;
 import com.revature.orderys.service.Service;
 
 public class LandingController {
@@ -43,7 +44,10 @@ public class LandingController {
 			return "home";
 		} else {
 			try {
-				User user = service.loginUser(email, password);
+				User credentials = new User();
+				credentials.setEmail(email);
+				credentials.setPasswordHash(password);
+				User user = service.loginUser(credentials);
 				session.setAttribute("user", user);
 				return "home";
 			} catch (InvalidCredentialsException ex) {
@@ -65,8 +69,13 @@ public class LandingController {
 			return "home";
 		} else {
 			try {
-				service.addNewUser(email, password, firstname, lastname, "CUSTOMER");
-				User user = service.loginUser(email, password);
+				User newUser = new User();
+				newUser.setEmail(email);
+				newUser.setPasswordHash(password);
+				newUser.setFirstName(firstname);
+				newUser.setLastName(lastname);
+				service.addNewUser(newUser);
+				User user = service.loginUser(newUser);
 				session.setAttribute("user", user);
 				return "home";
 			} catch (EmailNotUniqueException ex) {
