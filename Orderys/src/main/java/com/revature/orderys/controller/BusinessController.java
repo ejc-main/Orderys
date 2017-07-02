@@ -30,7 +30,8 @@ public class BusinessController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public ArrayList<Business> getAllBusinesses() {
-		
+		//TODO:implement return 
+		return null;
 	}
 	
 	//city, country, state, name, streetAddress1, zip, manager
@@ -43,17 +44,21 @@ public class BusinessController {
 			@RequestParam(name="country", required=true) String country,
 			@RequestParam(name="", required=true) String zip,
 			HttpServletRequest request) {
+		//TODO:implement return 
+		return null;
 		
 	}
 	
 	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
 	public Business getBusiness(HttpServletRequest request) {
-		
+		//TODO:implement return 
+		return null;
 	}
 	
 	@RequestMapping(value="/{businessId}", method=RequestMethod.POST)
 	public Business updateBusiness() {
-		
+		//TODO:implement return 
+		return null;
 	}
 	
 }
