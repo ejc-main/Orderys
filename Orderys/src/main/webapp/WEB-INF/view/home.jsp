@@ -69,19 +69,21 @@
     			</div>
     			
 				<!-- Switch view for manager -->
+				<div ng-if="User.role == 'MANAGER'">
     			<ul class="nav nav-pills"> 
   					<li role="presentation" class = "active"><a href="#">Manager</a></li>
   					<li role="presentation"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
+				</div>
 				
-				<!-- 
-				<!-- Switch view for employees
+				<!-- Switch view for employees -->
+				<div>
 				<ul class="nav nav-pills"> 
   					<li role="presentation" class="active"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
-				 -->
+				</div>
 				
 				<br>
 				<button class="button">Home</button>
