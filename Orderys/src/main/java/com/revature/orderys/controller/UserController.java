@@ -38,14 +38,17 @@ public class UserController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public void addUser(@RequestParam(name="email", required=true) String email,
+	public User addUser(@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="password", required=true) String password,
 			@RequestParam(name="firstname", required=true) String firstname,
-			@RequestParam(name="lastname", required=true) String lastname){
+			@RequestParam(name="lastname", required=true) String lastname,
+			HttpSession session){
 		try {
-			User user = service.addNewUser(email, password, firstname, lastname);
+			return service.addNewUser(email, password, firstname, lastname);
 		} catch (EmailNotUniqueException e) {
-			
+			session.setAttribute("registrationError",
+					"Registration failed. The email address you provided is already in use.");
+			return null;
 		}
 		
 	}
@@ -57,18 +60,18 @@ public class UserController {
 		return u;
 	}
 	
-	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-	public User updateUser(@RequestParam(name="email", required=false) String email,
-			@RequestParam(name="password", required=false) String password,
-			@RequestParam(name="firstname", required=false) String firstname,
-			@RequestParam(name="lastname", required=false) String lastname,
-			@RequestParam(name="role", required=false) String role,
-			@RequestParam(name="orders", required=false) List<Order> orders,
-			@RequestParam(name="ratings", required=false) List<Rating> ratings,
-			@RequestParam(name="stations", required=false) List<Station> stations,
-			@RequestParam(name="business", required=false) Business business,
-			HttpSession session) {
-		User user = (User) session.getAttribute("user");
-	}
+//	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
+//	public User updateUser(@RequestParam(name="email", required=false) String email,
+//			@RequestParam(name="password", required=false) String password,
+//			@RequestParam(name="firstname", required=false) String firstname,
+//			@RequestParam(name="lastname", required=false) String lastname,
+//			@RequestParam(name="role", required=false) String role,
+//			@RequestParam(name="orders", required=false) List<Order> orders,
+//			@RequestParam(name="ratings", required=false) List<Rating> ratings,
+//			@RequestParam(name="stations", required=false) List<Station> stations,
+//			@RequestParam(name="business", required=false) Business business,
+//			HttpSession session) {
+//		User user = (User) session.getAttribute("user");
+//	}
 
 }
