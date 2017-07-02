@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -65,11 +67,10 @@ public class Service implements Serializable {
 	// Begin User Services
 	
 	// TODO: Untested
-	public User addNewUser(User user) throws EmailNotUniqueException {		
+	public User addNewUser(User user) throws EmailNotUniqueException {	
 		if(UDao.getUserByEmail(user.getEmail()) == null) {
 			user.setRole(User.Role.CUSTOMER);
 			UDao.createUser(user);
-	
 			return user;
 		}
 		else {
@@ -79,21 +80,22 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public User addNewUser(String email,String passwordHash,String firstName, String lastName) throws EmailNotUniqueException {		
+	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
+//			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
-			user.setEmail(email);
-			user.setPasswordHash(passwordHash);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
+			user.setEmail(email.trim());
+			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+			user.setFirstName(firstName.trim());
+			user.setLastName(lastName.trim());
 			UDao.createUser(user);
 	
 			return user;
 		}
 		else {
 			throw new EmailNotUniqueException("A user with email address "
-					+ email + " already exists...");
+					+ email.trim() + " already exists...");
 		}
 	}
 	
@@ -117,10 +119,10 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public User loginUser(String email, String hash) throws InvalidCredentialsException {
+	public User loginUser(String email, String password) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(email.trim());
 		
-		if(u.getPasswordHash().equals(hash)) {
+		if (BCrypt.checkpw(password, u.getPasswordHash())) {
 			return u;
 		}
 		else {
@@ -163,6 +165,13 @@ public class Service implements Serializable {
 	// TODO: Implement necessary checks on product; throw errors.
 	public Product addMenuItem(Product product) {
 		productDao.createProduct(product);
+		return product;
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks on product and throw exceptions
+	public Product updateMenuItem(Product product) {
+		productDao.updateProduct(product);
 		return product;
 	}
 	
