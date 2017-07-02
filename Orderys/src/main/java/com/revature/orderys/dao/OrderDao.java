@@ -17,7 +17,7 @@ public interface OrderDao {
 	List<Order> getOrdersByCustomer(User c);
 
 	List<Order> getOrdersByBusiness(Business b);
-
+	
 	void updateOrder(Order o);
 
 	void deleteOrder(Order o);

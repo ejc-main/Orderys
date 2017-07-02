@@ -71,6 +71,27 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 		return orderItems;
 	}
 	
+	// TODO: Untested
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<OrderItem> getOrderItemsByStatus(Business business, OrderItem.Status status) {
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			orderItems = (List<OrderItem>) session
+					.createQuery("from OrderItem oi where oi.station.business.id = "
+							+ business.getId() + " and oi.status = " 
+							+ status.ordinal())
+					.list();
+		}
+		catch(HibernateException e) {
+			logger.catching(e);
+		}
+		
+		return orderItems;
+	}
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<OrderItem> getOrderItemsByOrder(Order order) {
@@ -91,7 +112,7 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<OrderItem> getOrderItemByEmployee(User user) {
+	public List<OrderItem> getOrderItemsByEmployee(User user) {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 		Session session = sessionFactory.getCurrentSession();
 		
@@ -119,7 +140,6 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 		}
 	}
 	
-	// TODO: This will need fixed. Look into finding out how to query junction tables.
 	@Override
 	public OrderItem getOrderItemByKey(OrderItemPrimaryKey key) {
 		Session session = sessionFactory.getCurrentSession();

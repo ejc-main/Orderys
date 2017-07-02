@@ -86,7 +86,7 @@ public class OrderItemTests {
 		
 		item = new OrderItem();
 		item.setQuantity(3);
-		item.setStatus(OrderItem.Status.PENDING);
+		item.setStatus(OrderItem.Status.ACTIVE);
 		item.setOrderedAt(business);
 		item.setOrderItemKey(new OrderItemPrimaryKey(order, product));
 	}
@@ -112,7 +112,7 @@ public class OrderItemTests {
 	private void createSecondItem(Order order, Product product) {
 		item2 = new OrderItem();
 		item2.setQuantity(1);
-		item2.setStatus(OrderItem.Status.PENDING);
+		item2.setStatus(OrderItem.Status.ACTIVE);
 		item2.setOrderedAt(business2);
 		item2.setOrderItemKey(new OrderItemPrimaryKey(order, product));
 		
@@ -255,7 +255,7 @@ public class OrderItemTests {
 		createSecondItem(order2, product2);
 		itemDao.createOrderItem(item2);
 		
-		ArrayList<OrderItem> allItems = (ArrayList<OrderItem>) itemDao.getOrderItemByEmployee(user);
+		ArrayList<OrderItem> allItems = (ArrayList<OrderItem>) itemDao.getOrderItemsByEmployee(user);
 		
 		assertEquals(1, allItems.size());
 	}
