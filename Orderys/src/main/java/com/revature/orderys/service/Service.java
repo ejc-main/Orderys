@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -17,17 +15,18 @@ import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 import com.revature.orderys.exceptions.EmailNotUniqueException;
+import com.revature.orderys.exceptions.InvalidCredentialsException;
 
 @Component
 public class Service implements Serializable {
 	private static final long serialVersionUID = -5447849598788494638L;
 	
-	private BusinessDao BDao;
+	private BusinessDao businessDao;
 	private UserDao userDao;
 	private StationDao SDao;
 	
 	public void setBDao(BusinessDao bDao) {
-		this.BDao = bDao;
+		this.businessDao = bDao;
 	}
 	public void setUDao(UserDao uDao) {
 		this.userDao = uDao;
@@ -62,7 +61,32 @@ public class Service implements Serializable {
 		return user;
 	}
 	
+	// TODO: Untested
+	public User loginUser(User user) throws InvalidCredentialsException {
+		User u = userDao.getUserByEmail(user.getEmail());
+		
+		if(u.getPasswordHash().equals(user.getPasswordHash())) {
+			return user;
+		}
+		else {
+			throw new InvalidCredentialsException("User entered incorrect email or password.");
+		}
+		
+	}
+	
 	// End User Services
+	
+	// Start Business Services
+	
+	// TODO: Implement some types of checks on business.
+	public Business registerBusiness(Business business) {
+		businessDao.createBusiness(business);
+		return business;
+	}
+	
+	
+	
+	// End Business Services
 	
 	
 	public User getUserById(long id){
@@ -71,18 +95,9 @@ public class Service implements Serializable {
 		return u;
 	}
 	
+	// TODO: Remove?
 	public int getNum(){
 		return 2;
-	}
-	
-	public User loginUser(String email,String passwordHash){
-		User u = userDao.getUserByEmail(email);
-		if(u.getPasswordHash().equals(passwordHash)){
-			return u;
-		}else{
-			return null;
-		}
-		
 	}
 	
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
@@ -123,7 +138,7 @@ public class Service implements Serializable {
 		if(streetAddress2!=null){
 			b.setStreetAddress2(streetAddress2);
 		}
-		BDao.createBusiness(b);
+		businessDao.createBusiness(b);
 	}
 	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
 		Product p = new Product();
@@ -133,7 +148,7 @@ public class Service implements Serializable {
 		BigDecimal num = new BigDecimal(price);
 		p.setProductPrice(num);
 		User m = userDao.getUserByEmail(managerEmail);
-		Business b = BDao.getBusinessByManager(m);
+		Business b = businessDao.getBusinessByManager(m);
 		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
 		Station sOut=new Station();
 		Station sDefault = new Station();
