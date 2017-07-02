@@ -16,26 +16,21 @@ import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
+import com.revature.orderys.exceptions.EmailNotUniqueException;
 
 @Component
 public class Service implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5447849598788494638L;
 	
 	private BusinessDao BDao;
-	private UserDao UDao;
+	private UserDao userDao;
 	private StationDao SDao;
-	
-	
-	
 	
 	public void setBDao(BusinessDao bDao) {
 		this.BDao = bDao;
 	}
 	public void setUDao(UserDao uDao) {
-		this.UDao = uDao;
+		this.userDao = uDao;
 	}
 	public void setSDao(StationDao sDao) {
 		this.SDao = sDao;
@@ -43,16 +38,45 @@ public class Service implements Serializable {
 	public Service() {
 		super();
 	}
+	
+	// Begin User Services
+	
+	// TODO: Untested
+	public User addNewUser(User user) throws EmailNotUniqueException {		
+		if(userDao.getUserByEmail(user.getEmail()) == null) {
+			user.setRole(User.Role.CUSTOMER);
+			userDao.createUser(user);
+	
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ user.getEmail() + " already exists...");
+		}
+	}
+	
+	// TODO: Untested
+	public User updateUser(User user) {
+		userDao.updateUser(user);
+		
+		return user;
+	}
+	
+	// End User Services
+	
+	
 	public User getUserById(long id){
-		User u=UDao.getUserById(id);
+		User u=userDao.getUserById(id);
 		System.out.println(u.toString());
 		return u;
 	}
+	
 	public int getNum(){
 		return 2;
 	}
+	
 	public User loginUser(String email,String passwordHash){
-		User u = UDao.getUserByEmail(email);
+		User u = userDao.getUserByEmail(email);
 		if(u.getPasswordHash().equals(passwordHash)){
 			return u;
 		}else{
@@ -60,6 +84,7 @@ public class Service implements Serializable {
 		}
 		
 	}
+	
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
 		User u = new User();
 		u.setEmail(email);
@@ -69,16 +94,18 @@ public class Service implements Serializable {
 		u.setRole(User.Role.valueOf(role));
 		u.setId(10000L);
 		System.out.println(u.toString());
-		UDao.createUser(u);
+		userDao.createUser(u);
 		System.out.println("hi2");
 	}
+	
 	public void changeUserPassword(String email,String passwordHash){
-		User u = UDao.getUserByEmail(email);
+		User u = userDao.getUserByEmail(email);
 		u.setPasswordHash(passwordHash);
-		UDao.updateUser(u);
+		userDao.updateUser(u);
 	}
+	
 	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
-		User u = UDao.getUserByEmail(email);
+		User u = userDao.getUserByEmail(email);
 		Business b = new Business();
 		b.setManager(u);
 		b.setName(businessName);
@@ -105,7 +132,7 @@ public class Service implements Serializable {
 		p.setName(name);
 		BigDecimal num = new BigDecimal(price);
 		p.setProductPrice(num);
-		User m = UDao.getUserByEmail(managerEmail);
+		User m = userDao.getUserByEmail(managerEmail);
 		Business b = BDao.getBusinessByManager(m);
 		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
 		Station sOut=new Station();
