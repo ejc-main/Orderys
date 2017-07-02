@@ -93,5 +93,11 @@ public class MainController {
 			}
 		}
 	}
+	
+	@RequestMapping(value="/logout")
+	public String doLogout(HttpSession session) {
+		session.invalidate();
+		return "landing";
+	}
 
 }
