@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -14,52 +12,105 @@ import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
+import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
+import com.revature.orderys.exceptions.EmailNotUniqueException;
+import com.revature.orderys.exceptions.InvalidCredentialsException;
 
 @Component
 public class Service implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5447849598788494638L;
 	
 	private BusinessDao BDao;
 	private UserDao UDao;
+	private ProductDao productDao;
 	private StationDao SDao;
 	
-	
-	
+	public Service() {
+		super();
+	}
 	
 	public void setBDao(BusinessDao bDao) {
 		this.BDao = bDao;
 	}
+	
 	public void setUDao(UserDao uDao) {
 		this.UDao = uDao;
 	}
+	
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+	
 	public void setSDao(StationDao sDao) {
 		this.SDao = sDao;
 	}
-	public Service() {
-		super();
+	// Begin User Services
+	
+	// TODO: Untested
+	public User addNewUser(User user) throws EmailNotUniqueException {		
+		if(UDao.getUserByEmail(user.getEmail()) == null) {
+			user.setRole(User.Role.CUSTOMER);
+			UDao.createUser(user);
+	
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ user.getEmail() + " already exists...");
+		}
 	}
+	
+	// TODO: Untested
+	public User updateUser(User user) {
+		UDao.updateUser(user);
+		
+		return user;
+	}
+	
+	// TODO: Untested
+	public User loginUser(User user) throws InvalidCredentialsException {
+		User u = UDao.getUserByEmail(user.getEmail());
+		
+		if(u.getPasswordHash().equals(user.getPasswordHash())) {
+			return user;
+		}
+		else {
+			throw new InvalidCredentialsException("User entered incorrect email or password.");
+		}
+		
+	}
+	
+	// End User Services
+	
+	// Start Business Services
+	
+	// TODO: Implement some types of checks on business.
+	public Business registerBusiness(Business business) {
+		BDao.createBusiness(business);
+		return business;
+	}
+	
+	// TODO: Implement necessary checks on product; handle errors.
+	public Product addMenuItem(Product product) {
+		productDao.createProduct(product);
+		return product;
+	}
+	
+	// End Business Services
+	
 	public User getUserById(long id){
 		User u=UDao.getUserById(id);
 		System.out.println(u.toString());
 		return u;
 	}
+	
+	// TODO: Remove?
 	public int getNum(){
 		return 2;
 	}
-	public User loginUser(String email,String passwordHash){
-		User u = UDao.getUserByEmail(email);
-		if(u.getPasswordHash().equals(passwordHash)){
-			return u;
-		}else{
-			return null;
-		}
-		
-	}
+	
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
 		User u = new User();
 		u.setEmail(email);
@@ -72,11 +123,13 @@ public class Service implements Serializable {
 		UDao.createUser(u);
 		System.out.println("hi2");
 	}
+	
 	public void changeUserPassword(String email,String passwordHash){
 		User u = UDao.getUserByEmail(email);
 		u.setPasswordHash(passwordHash);
 		UDao.updateUser(u);
 	}
+	
 	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
 		User u = UDao.getUserByEmail(email);
 		Business b = new Business();
