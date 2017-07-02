@@ -1,15 +1,11 @@
 orderysApp.controller('profileController', 
 function($scope, $http, dataFactory) {
-	
-	$scope.userId = 1;
+	// $scope.userId = 1;
 	
 	dataFactory.getUser($scope.userId).success(function (data) {
-	   console.log(data);
+		console.log(data);
 		$scope.User = data;
-	 });
-
-	
-	
+	});
 });
 
 
