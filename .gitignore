@@ -35,6 +35,7 @@ Orderys/.tern-project
 Orderys/bin
 
 log.txt
+server-log.txt
 
 node_modules
 npm-debug.log
