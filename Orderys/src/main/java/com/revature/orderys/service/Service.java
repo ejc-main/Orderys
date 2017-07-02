@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
+import com.revature.orderys.bean.OrderItem;
 import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.dao.BusinessDao;
 import com.revature.orderys.dao.OrderDao;
+import com.revature.orderys.dao.OrderItemDao;
 import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
@@ -30,6 +32,7 @@ public class Service implements Serializable {
 	private ProductDao productDao;
 	private StationDao SDao;
 	private OrderDao ODao;
+	private OrderItemDao OIDao;
 	
 	public Service() {
 		super();
@@ -54,6 +57,11 @@ public class Service implements Serializable {
 	public void setODao(OrderDao orderDao) {
 		this.ODao = orderDao;
 	}
+	
+	public void setOIDao(OrderItemDao orderItemDao) {
+		this.OIDao = orderItemDao;
+	}
+	
 	// Begin User Services
 	
 	// TODO: Untested
@@ -100,13 +108,14 @@ public class Service implements Serializable {
 		return productDao.getAllProductsByBusiness(business);
 	}
 	
+	// TODO: Untested
 	public List<Order> getAllOrders(User user) {
-		return null;
+		return ODao.getOrdersByCustomer(user);
 	}
 	
 	// End User Services
 	
-	// Start Business Services
+	// Start Business Services:
 	
 	// TODO: Untested
 	// TODO: Implement some types of checks on business.
@@ -116,15 +125,21 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	// TODO: Implement necessary checks on product; handle errors.
+	// TODO: Implement necessary checks on product; throw errors.
 	public Product addMenuItem(Product product) {
 		productDao.createProduct(product);
 		return product;
 	}
 	
-	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw errors.
+	public List<OrderItem> viewActiveOrderItems(Business business) {
+		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
+	}
 	
 	// End Business Services
+	
+	// Start old code:
 	
 	public User getUserById(long id){
 		User u=UDao.getUserById(id);

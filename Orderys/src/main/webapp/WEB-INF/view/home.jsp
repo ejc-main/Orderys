@@ -1,3 +1,4 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,9 +60,9 @@
 		
 			<!--Side bar left -->
 			<div class="col-xs-3" ng-controller="profileController">
-				
+				<input type="hidden" id="userId" ng-model="userId" value="${user.id}">
 				<!--Profile pic and username -->
-				<div class="thumbnail" style ="height:120px" >
+				<div class="thumbnail" style ="height:120px" ng-model="${user.id}">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
         					<h4 style="text-align:center" >{{User.firstName }} {{User.lastName }}</h4>

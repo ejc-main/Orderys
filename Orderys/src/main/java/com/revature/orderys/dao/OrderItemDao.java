@@ -16,8 +16,10 @@ public interface OrderItemDao {
 
 	List<OrderItem> getOrderItemsByOrder(Order order);
 
-	List<OrderItem> getOrderItemByEmployee(User user);
+	List<OrderItem> getOrderItemsByEmployee(User user);
 
+	List<OrderItem> getOrderItemsByStatus(Business business, OrderItem.Status status);
+	
 	void createOrderItem(OrderItem orderItem);
 
 	OrderItem getOrderItemByKey(OrderItemPrimaryKey key);
