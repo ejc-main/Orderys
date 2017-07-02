@@ -79,6 +79,25 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
+	public User addNewUser(String email,String passwordHash,String firstName, String lastName) throws EmailNotUniqueException {		
+		if(UDao.getUserByEmail(email) == null) {
+			User user = new User();
+			user.setRole(User.Role.CUSTOMER);
+			user.setEmail(email);
+			user.setPasswordHash(passwordHash);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			UDao.createUser(user);
+	
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ email + " already exists...");
+		}
+	}
+	
+	// TODO: Untested
 	public User updateUser(User user) {
 		UDao.updateUser(user);
 		
@@ -95,7 +114,18 @@ public class Service implements Serializable {
 		else {
 			throw new InvalidCredentialsException("User entered incorrect email or password.");
 		}
+	}
+	
+	// TODO: Untested
+	public User loginUser(String email, String hash) throws InvalidCredentialsException {
+		User u = UDao.getUserByEmail(email.trim());
 		
+		if(u.getPasswordHash().equals(hash)) {
+			return u;
+		}
+		else {
+			throw new InvalidCredentialsException("User entered incorrect email or password.");
+		}
 	}
 	
 	// TODO; Untested
@@ -109,7 +139,7 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public List<Order> getAllOrders(User user) {
+	public List<Order> getAllUserOrders(User user) {
 		return ODao.getOrdersByCustomer(user);
 	}
 	
