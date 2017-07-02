@@ -52,10 +52,10 @@
 		<!--Main content-->
 		<div class="row">
 			<!--Not used on login-->
-			<!--<div class="col-xs-4"></div>-->
+			<div class="col-xs-1"></div>
 			
 			<!-- Displays login form -->
-			<div class="col-xs-6">
+			<div class="col-xs-5">
 				<!-- Login -->
 				<div>
 					<c:if test="${not empty loginError}">
@@ -84,7 +84,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-5">
 				<!-- Registration form -->
 				<div>
 					<c:if test="${not empty registrationError}">
@@ -104,7 +104,7 @@
 						<h3>Register</h3>
 					</div>
 					<!-- Login Form -->
-					<div class="row" style="padding-left:20px">
+					<div class="row" style="padding-left:20px; border-left:solid black 2px">
 						<form name="registerForm" action="register" method="post">
 							<h4>First Name</h4>
 							<input type="text" name="firstname" placeholder="First Name" required="required">
@@ -126,14 +126,14 @@
 				</div>
 			</div>
 			<!-- not used on login -->
-			<!--<div class="col-xs-4"></div>-->
+			<div class="col-xs-1"></div>
 		</div>
 
 	</div>
 
 	<!-- footer for page -->
 	<div class="footer">
-		<h4>footer here</h4>
+		<h4></h4>
 	</div>
 
 </body>

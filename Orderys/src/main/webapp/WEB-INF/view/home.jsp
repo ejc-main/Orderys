@@ -61,6 +61,7 @@
 			<!--Side bar left -->
 			<div class="col-xs-3" ng-controller="profileController">
 				<input type="hidden" id="userId" ng-model="userId" value="${user.id}">
+				
 				<!--Profile pic and username -->
 				<div class="thumbnail" style ="height:120px" ng-model="${user.id}">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
@@ -70,7 +71,7 @@
     			</div>
     			
 				<!-- Switch view for manager -->
-				<div ng-if="User.role == 'MANAGER'">
+				<div ng-if="isManager()">
     			<ul class="nav nav-pills"> 
   					<li role="presentation" class = "active"><a href="#">Manager</a></li>
   					<li role="presentation"><a href="#">Employee</a></li>
@@ -80,7 +81,7 @@
 				
 				<!-- Switch view for employees -->
 				<div>
-				<ul class="nav nav-pills"> 
+				<ul class="nav nav-pills" ng-if="isEmployee()"> 
   					<li role="presentation" class="active"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
@@ -96,7 +97,9 @@
 				<!--  <button class="button">Profile</button>
 				<br>
 				<br>  -->
-				<button class="button">Logout</button>
+				<form action="/logout">
+				<button type="submit" class="button">Logout</button>
+				</form>
 				
 			</div>
 			

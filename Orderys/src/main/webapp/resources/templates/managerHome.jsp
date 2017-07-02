@@ -105,7 +105,9 @@
 				</button>
 				<br>
 				<br>
-				<button class="button" style="width:200px">Logout</button>
+				<form action="/logout">
+				<button type="submit" class="button">Logout</button>
+				</form>
 				
 			</div>
 			
