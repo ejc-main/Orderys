@@ -31,9 +31,10 @@ RemoteSystemsTempFiles/
 /.vscode
 /.recommenders
 Orderys/.tern-project
-Orderys/log.txt
 /Servers
 Orderys/bin
+
+log.txt
 
 node_modules
 npm-debug.log
