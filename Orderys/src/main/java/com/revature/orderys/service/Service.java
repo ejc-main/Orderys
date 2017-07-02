@@ -83,17 +83,17 @@ public class Service implements Serializable {
 		if(UDao.getUserByEmail(email) == null) {
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
-			user.setEmail(email);
+			user.setEmail(email.trim());
 			user.setPasswordHash(passwordHash);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
+			user.setFirstName(firstName.trim());
+			user.setLastName(lastName.trim());
 			UDao.createUser(user);
 	
 			return user;
 		}
 		else {
 			throw new EmailNotUniqueException("A user with email address "
-					+ email + " already exists...");
+					+ email.trim() + " already exists...");
 		}
 	}
 	
@@ -163,6 +163,13 @@ public class Service implements Serializable {
 	// TODO: Implement necessary checks on product; throw errors.
 	public Product addMenuItem(Product product) {
 		productDao.createProduct(product);
+		return product;
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks on product and throw exceptions
+	public Product updateMenuItem(Product product) {
+		productDao.updateProduct(product);
 		return product;
 	}
 	
