@@ -113,6 +113,11 @@ public class Service implements Serializable {
 		return ODao.getOrdersByCustomer(user);
 	}
 	
+	public Order placeOrder(Order order) {
+		ODao.createOrder(order);
+		return order;
+	}
+	
 	// End User Services
 	
 	// Start Business Services:
@@ -137,8 +142,25 @@ public class Service implements Serializable {
 		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
 	}
 	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public OrderItem updateOrderItem(OrderItem orderItem) {
+		OIDao.updateOrderItem(orderItem);
+		return orderItem;
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public Station createStation(Station station) {
+		SDao.createStation(station);
+		return station;
+	}
 	// End Business Services
 	
+	
+	
+	
+	// TODO: Triage
 	// Start old code:
 	
 	public User getUserById(long id){
