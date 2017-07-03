@@ -107,8 +107,9 @@
 				
 			</div>
 			
+			<div ng-controller="menuController">
 			<!-- main content for page -->
-			<div class="col-xs-6" ng-controller="menuController">
+			<div class="col-xs-6">
 			
 			<h3 style="text-align:center">{{currentBusiness.name}}</h3>
 				
@@ -146,7 +147,7 @@
 				
 
 					<!-- side bar right -->
-					<div class="col-xs-3" ng-controller="orderController">
+					<div class="col-xs-3">
 
 						<h3 style="text-align: center">My Order</h3>
 						<br>
@@ -166,7 +167,9 @@
 
 					</div>
 
-
+				
+				</div>
+				
 				</div>
 
 			</div>

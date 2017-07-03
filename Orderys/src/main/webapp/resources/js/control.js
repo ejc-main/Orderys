@@ -1,6 +1,8 @@
 
 var usr = document.getElementById("userId").value;
 
+var order = {items : []};
+
 
 orderysApp.controller('profileController', 
 function($scope, $http, dataFactory) {
@@ -59,7 +61,7 @@ function($scope, $http, dataFactory) {
 			$scope.allBusiness; 
 			$scope.currentBusiness;
 			$scope.menuItems;
-			$scope.order;
+			$scope.order = order;
 			
 			dataFactory.getAllBusiness().success(function (data) {
 				$scope.allBusiness = data;
@@ -73,19 +75,27 @@ function($scope, $http, dataFactory) {
 				$scope.menuItems = data;
 			});
 			
+			$scope.addToOrder = function(index){
+				
+				var item = $scope.menuItems[index];
+				
+				$scope.order.push({
+					
+					id : item.id;
+					name : item.name;
+					price : item.productPrice;
+					
+				});
+				
+			}
+			
+			$scope.removeFromOrder(index)
+			{
+				$scope.order.splice(index,1);
+			}
+			
 });
 
-orderysApp.controller('orderController', 
-		function($scope, $http, dataFactory) {
-					
-			$scope.order;
-					
-					
-			dataFactory.getProduct(usr).success(function (data) {
-						$scope.order = data;
-					});
-					
-		});
 
 /*$scope.getUser = function() {
 	$http.get('user/' + $scope.userId)

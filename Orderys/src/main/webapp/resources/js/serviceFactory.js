@@ -11,7 +11,7 @@ orderysApp.factory('dataFactory', ['$http', function ($http) {
 			 	return $http.get('business/' + buisnessID)
 		 	},
 		  getProduct: function (buisnessID) {
-				 	return $http.get('product/' + buisnessID)
+				 	return $http.get('business/' + buisnessID + '/product')
 			 	},
 		  getOrderItemsUser: function (userId) {
 				        return $http.get('orderItemByUser/' + userId)
