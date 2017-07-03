@@ -10,19 +10,19 @@ import com.revature.orderys.bean.Order;
 @RequestMapping(value="/order")
 public class OrderController {
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
-	public Order createOrder() {
-		
-	}
-	
-	@RequestMapping(value="/{orderId}", method=RequestMethod.GET)
-	public Order getOrder() {
-		
-	}
-	
-	@RequestMapping(value="/{orderId}", method=RequestMethod.POST)
-	public Order updateOrder() {
-		
-	}
+//	@RequestMapping(value="", method=RequestMethod.POST)
+//	public Order createOrder() {
+//		
+//	}
+//	
+//	@RequestMapping(value="/{orderId}", method=RequestMethod.GET)
+//	public Order getOrder() {
+//		
+//	}
+//	
+//	@RequestMapping(value="/{orderId}", method=RequestMethod.POST)
+//	public Order updateOrder() {
+//		
+//	}
 	
 }

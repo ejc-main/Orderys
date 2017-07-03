@@ -60,16 +60,16 @@ public class BusinessController {
 		return null;
 	}
 	
-	@RequestMapping(value="/{businessId}/station")
-	
-	@RequestMapping(value="/{businessId}/station/{stationId}")
-	
-	@RequestMapping(value="/{businessId}/station/{stationId}/product")
-	
-	@RequestMapping(value="/{businessId}/station/{stationId}/product/{productId}")
-	
-	@RequestMapping(value="/{businessId}/station/{stationId}/employee")
-	
-	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}")
+//	@RequestMapping(value="/{businessId}/station")
+//	
+//	@RequestMapping(value="/{businessId}/station/{stationId}")
+//	
+//	@RequestMapping(value="/{businessId}/station/{stationId}/product")
+//	
+//	@RequestMapping(value="/{businessId}/station/{stationId}/product/{productId}")
+//	
+//	@RequestMapping(value="/{businessId}/station/{stationId}/employee")
+//	
+//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}")
 	
 }
