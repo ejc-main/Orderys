@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -67,22 +66,20 @@ public class Service implements Serializable {
 	// Begin User Services
 	
 	// TODO: Untested
-	public User addNewUser(User user) throws EmailNotUniqueException {	
-		if(UDao.getUserByEmail(user.getEmail()) == null) {
-			user.setRole(User.Role.CUSTOMER);
-			UDao.createUser(user);
-			return user;
-		}
-		else {
-			throw new EmailNotUniqueException("A user with email address "
-					+ user.getEmail() + " already exists...");
-		}
-	}
+//	public User addNewUser(User user) throws EmailNotUniqueException {	
+//		if(UDao.getUserByEmail(user.getEmail()) == null) {
+//			user.setRole(User.Role.CUSTOMER);
+//			UDao.createUser(user);
+//			return user;
+//		}
+//		else {
+//			throw new EmailNotUniqueException("A user with email address "
+//					+ user.getEmail() + " already exists...");
+//		}
+//	}
 	
-	// TODO: Untested
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
-//			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
@@ -108,15 +105,14 @@ public class Service implements Serializable {
 		return user;
 	}
 	
-	// TODO: Untested
 	public User loginUser(User user) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
-		if(BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
+		if(u != null && BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
 			return u;
 		}
 		else {
-			throw new InvalidCredentialsException("User entered incorrect email or password.");
+			throw new InvalidCredentialsException("Incorrect email or password.");
 		}
 	}
 	
@@ -124,7 +120,7 @@ public class Service implements Serializable {
 	public User loginUser(String email, String password) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(email.trim());
 		
-		if (BCrypt.checkpw(password, u.getPasswordHash())) {
+		if (u != null && BCrypt.checkpw(password, u.getPasswordHash())) {
 			return u;
 		}
 		else {

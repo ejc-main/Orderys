@@ -4,7 +4,7 @@ var usr = document.getElementById("userId").value;
 var order = {items : []};
 
 
-orderysApp.controller('profileController', 
+orderysApp.controller('navController', 
 function($scope, $http, dataFactory) {
 	
 	$scope.User;
