@@ -24,9 +24,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"
 		integrity="sha256-G+1+tim/HxoMbe2+rEPbXMlbqDTBm2V6vIe+Q/o6ccQ="
 		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"
 		integrity="sha256-FMocp8pp1WruAK6GtjNDtuGAALCt/dCsVtw7oSjvPX0="
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script>-->
 	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-permission/5.3.2/angular-permission.min.js"
 		integrity="sha256-009TS8j0z0dqNgoT6rXYYFrjL3A1ZMCUwCXtKztL8bo="
 		crossorigin="anonymous"></script>

@@ -42,7 +42,7 @@ public class MainController {
 		}
 	}
 	
-	@RequestMapping(value = {"", "/", "main", "home"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"", "/", "main"}, method = RequestMethod.GET)
 	public String getMainPage(HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) == null) {

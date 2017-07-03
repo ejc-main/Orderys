@@ -3,11 +3,31 @@ var orderysApp = angular.module('orderysApp', ['ngRoute']);
 // View routing w/ ngRoute
 orderysApp.config(function($routeProvider) {
   $routeProvider
-    .when('/customer', {})
-    .when('/restaurant/:businessId/menu', {})
-    .when('/employee', {})
-    .when('/manager', {})
-    .when('/profile', {})
+    .when('/customer', {
+      templateUrl: '/Orderys/resources/templates/customer-view.html',
+      controller: '',
+      resolve: {}
+    })
+    .when('/menu/:businessId', {
+      templateUrl: '/Orderys/resources/templates/restaurant-menu.html',
+      controller: '',
+      resolve: {}
+    })
+    .when('/employee', {
+      templateUrl: '/Orderys/resources/templates/employee-view.html',
+      controller: '',
+      resolve: {}
+    })
+    .when('/manager', {
+      templateUrl: '/Orderys/resources/templates/manager-view.html',
+      controller: '',
+      resolve: {}
+    })
+    .when('/profile', {
+      templateUrl: '/Orderys/resources/templates/profile.html',
+      controller: '',
+      resolve: {}
+    })
     .otherwise({
       redirectTo: '/customer'
     });

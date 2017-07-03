@@ -42,7 +42,9 @@
 				<button class="button">Home</button>
 				<br>
 				<br>
-				<button class="button">Profile</button>
+				<a href="#/profile">
+					<button class="button">Profile</button>
+				</a>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
