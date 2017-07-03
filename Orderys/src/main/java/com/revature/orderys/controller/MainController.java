@@ -60,17 +60,13 @@ public class MainController {
 			return "redirect:main";
 		} else {
 			try {
-				User credentials = new User();
-				credentials.setEmail(email);
-				credentials.setPasswordHash(password);
-				User user = service.loginUser(credentials);
+				User user = service.loginUser(email, password);
 				System.out.println("logged in as " + user);
 				session.setAttribute("user", user);
 				session.setMaxInactiveInterval(60 * 60);
 				return "redirect:main";
 			} catch (InvalidCredentialsException ex) {
-				session.setAttribute("loginError",
-						"The username and password you provided were incorrect.");
+				session.setAttribute("loginError", ex.getMessage());
 				return "redirect:landing";
 			}
 		}
