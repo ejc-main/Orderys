@@ -3,9 +3,12 @@ package com.revature.orderys.service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -184,6 +187,7 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
+	// TODO: Might be returning the same product that was entered
 	// TODO: Implement necessary checks on product and throw exceptions
 	public Product updateMenuItem(Product product) {
 		productDao.updateProduct(product);
@@ -248,8 +252,45 @@ public class Service implements Serializable {
 	
 	// End Business Services
 	
+	//Start Product Services
+	
+	//TODO:untested,using untested dao method
+	//returns long of seconds for average completion time
+	public long getProductAverageCompletionTime(Product product){
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		orderItems=(ArrayList<OrderItem>) OIDao.getOrderItemsByProduct(product);
+		long out=0;
+		for(OrderItem item:orderItems){
+			if(item.getStatus()==OrderItem.Status.COMPLETED){
+				out=out+(item.getTimeCompleted().getTime()- item.getTimePlaced().getTime())/1000;
+			}
+		}
+		return out;
+	}
 	
 	
+	//End Product Services
+	
+	//Start Employee Services
+	//TODO:untested
+	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
+		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
+	}
+	public ArrayList<OrderItem> getActiveOrderItems(User employee){
+		return (ArrayList<OrderItem>) OIDao.getActiveOrderItemsByBusiness(employee.getEmployeeStations().get(0).getBusiness());
+	}
+	//End Employee Services
+	
+	//Start Customer Services
+	//TODO:untested
+	public void cancelOrder(Order order){
+		ArrayList<OrderItem> orderitems=(ArrayList<OrderItem>) OIDao.getOrderItemsByOrder(order);
+		for(OrderItem orderitem : orderitems){
+			orderitem.setStatus(OrderItem.Status.CANCELLED);
+			OIDao.updateOrderItem(orderitem);
+		}
+	}
+	//End Customer Services
 	
 	// TODO: Triage
 	// Start old code:
@@ -260,10 +301,6 @@ public class Service implements Serializable {
 		return u;
 	}
 	
-	// TODO: Remove?
-	public int getNum(){
-		return 2;
-	}
 	
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
 		User u = new User();
