@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,18 +61,46 @@ public class UserController {
 		return u;
 	}
 	
-//	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-//	public User updateUser(@RequestParam(name="email", required=false) String email,
-//			@RequestParam(name="password", required=false) String password,
-//			@RequestParam(name="firstname", required=false) String firstname,
-//			@RequestParam(name="lastname", required=false) String lastname,
-//			@RequestParam(name="role", required=false) String role,
-//			@RequestParam(name="orders", required=false) List<Order> orders,
-//			@RequestParam(name="ratings", required=false) List<Rating> ratings,
-//			@RequestParam(name="stations", required=false) List<Station> stations,
-//			@RequestParam(name="business", required=false) Business business,
-//			HttpSession session) {
-//		User user = (User) session.getAttribute("user");
-//	}
+	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
+	public User updateUser(@RequestParam(name="email", required=false) String email,
+			@RequestParam(name="password", required=false) String password,
+			@RequestParam(name="firstname", required=false) String firstname,
+			@RequestParam(name="lastname", required=false) String lastname,
+			@RequestParam(name="role", required=false) String role,
+			@RequestParam(name="orders", required=false) List<Order> orders,
+			@RequestParam(name="ratings", required=false) List<Rating> ratings,
+			@RequestParam(name="stations", required=false) List<Station> stations,
+			@RequestParam(name="business", required=false) Business business,
+			HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if (email != null) {
+			user.setEmail(email);
+		}
+		if (password != null) {
+			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+		}
+		if (firstname != null) {
+			user.setFirstName(firstname);
+		}
+		if (lastname != null) {
+			user.setLastName(lastname);
+		}
+		if (role != null) {
+			user.setRole(User.Role.valueOf(role.toUpperCase()));
+		}
+		if (orders != null) {
+			user.setOrders(orders);
+		}
+		if (ratings != null) {
+			user.setRatings(ratings);
+		}
+		if (stations != null) {
+			user.setEmployeeStations(stations);
+		}
+		if (business != null) {
+			user.setBusinessManaged(business);
+		}
+		return service.updateUser(user);
+	}
 
 }
