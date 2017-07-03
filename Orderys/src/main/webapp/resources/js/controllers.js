@@ -9,7 +9,6 @@ function($scope, $http, dataFactory) {
 	
 	$scope.User;
 	
-	
 	dataFactory.getUser(usr).success(function (data) {
 		$scope.User = data;
 	});
@@ -53,6 +52,56 @@ function($scope, $http, dataFactory) {
 		}
 	}
 	
+	$scope.isCustomer = function() {
+		
+		if($scope.User === undefined)
+		{
+			return false;
+		}
+		
+		var role = $scope.User.role;
+		
+		if(role == "CUSTOMER")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+});
+
+orderysApp.controller('profileController', 
+		function($scope, $http, dataFactory) {
+			
+			$scope.User;
+			
+			dataFactory.getUser(usr).success(function (data) {
+				$scope.User = data;
+			});
+			
+			
+			$scope.isManager = function() {
+				   
+				if($scope.User === undefined)
+				{
+					return false;
+				}
+				
+				var role = $scope.User.role;
+				
+				if(role == "MANAGER")
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			
 });
 
 orderysApp.controller('menuController', 
@@ -81,9 +130,9 @@ function($scope, $http, dataFactory) {
 				
 				$scope.order.push({
 					
-					id : item.id;
-					name : item.name;
-					price : item.productPrice;
+					id : item.id,
+					name : item.name,
+					price : item.productPrice
 					
 				});
 				

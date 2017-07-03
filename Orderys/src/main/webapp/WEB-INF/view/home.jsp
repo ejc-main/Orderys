@@ -33,20 +33,23 @@
 				</div>
 				<!-- Switch view for employees -->
 
-				<div>
-					<ul class="nav nav-pills" ng-if="isEmployee()">
+				<div ng-if="isEmployee()">
+					<ul class="nav nav-pills">
 						<li role="presentation"><a href="#/customer">Customer</a></li>
 						<li role="presentation" class="active"><a href="#/employee">Employee</a></li>
 					</ul>
 				</div>
 				<br>
-				<form action="home">
+				
+				<div ng-if="isCustomer()">
+				<a href='#customer'>
 				<button type="submit" class="button">Home</button>
-				</form>
+				</a>
 				<br>
 				<br>
+				</div>
 
-				<a href="#/profile">
+				<a href='#profile'>
 					<button class="button">Profile</button>
 				</a>
 
@@ -55,67 +58,15 @@
 				<!--  <button class="button">Profile</button>
 				<br>
 				<br>  -->
+				
 				<form action="logout" method="post">
 					<button type="submit" class="button">Logout</button>
 				</form>
 			</div>
-
-
+			
 			<main id="router-outlet" ng-view></main>
-
-			<!-- main content for page -->
-			<div class="col-xs-6">
-			<h3 style="text-align:center">Business name</h3>
-
-			<h4>Menu</h4>
-				
-				<!-- Collapseable display for menu items -->
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="item in menuItems">
-				
-				
-				<!-- one panel element -->
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading{{$index}}">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapse{{$index}}" aria-expanded="false"
-									aria-controls="collapse{{$index}}">{{item.name}}</a> <p style="float:right">{{item.productPrice}}</p>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse"
-							role="tabpanel" aria-labelledby="heading{{$index}}">
-							<div class="panel-body">
-								</div>
-									<img alt="Menu Item Pic" src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" style="width:100px;height:100px; float:left">
-									<h5>{{item.name}}</h5>
-									<p>{{item.description}}</p>
-									<p>{{intendedCompletionTime}}</p>
-									<p>{{item.productPrice}}</p>
-									<button class="button">Add to Order</button>
-									<br>
-								</div>
-						</div>				
-					</div>
-				</div>
-				
-
-			<!-- side bar right -->
-			<div class="col-xs-3">
-				<h3 style="text-align: center">My Order</h3>
-				<br>
-				<!-- list of order items -->
-				<ul style="height: 200px; overflow: auto;">
-					<li style="padding:5px">
-						<p>food</p>
-						<p>cost</p>
-						<button class="button">Remove</button> <br>
-					</li>
-				</ul>
-				<p>Tax: amount</p>
-				<p>Total: amount</p>
-				<button class="button">Checkout</button>
-
-			</div>
+			
+			
 		</div>
 	</div>
 
