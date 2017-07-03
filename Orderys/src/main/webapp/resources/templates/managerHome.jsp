@@ -1,32 +1,49 @@
 <html>
 <head>
 
-<!-- For me to see and adjust page layout not for actual site -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Orderys</title>
 
-<meta charset="ISO-8859-1">
-<title>Orderys</title>
+	<link rel="shortcut icon" href="https://s3.amazonaws.com/revature-orderys/favicon.ico">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="https://s3.amazonaws.com/revature-orderys/favicon.ico">
+	<link rel="icon" type="image/png" sizes="196x196" href="https://s3.amazonaws.com/revature-orderys/favicon-192.png">
+	<link rel="icon" type="image/png" sizes="160x160" href="https://s3.amazonaws.com/revature-orderys/favicon-160.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="https://s3.amazonaws.com/revature-orderys/favicon-96.png">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://s3.amazonaws.com/revature-orderys/favicon-64.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://s3.amazonaws.com/revature-orderys/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://s3.amazonaws.com/revature-orderys/favicon-16.png">
+	<meta name="msapplication-TileColor" content="#FFFFFF">
+	<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/revature-orderys/favicon-144.png">
+	<!--<meta name="msapplication-config" content="https://s3.amazonaws.com/revature-orderys/browserconfig.xml">-->
 
-<!-- JQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.js"
-	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-	crossorigin="anonymous">
-</script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
-<link rel="stylesheet" type="text/css" href="/orderys-app.css">
+	<meta charset="ISO-8859-1">
+	<title>Orderys</title>
 
 
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous">
+	</script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+	<!-- AngularJS CDN, put in projects that use Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
 </head>
 <body>
 
@@ -35,7 +52,7 @@
 		
 	<!--Web site Banner -->
 		<div class="row" style="border-bottom-style: solid; border-width: 5px;  border-color: #212121;">
-			<img src = "../assets/img/Main Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
+			<img src = "https://s3.amazonaws.com/revature-orderys/Main+Banner.png" alt="Orderys" style="width:400px;height:116px;"/>
 		</div>
 		
 		<!--Main content-->
@@ -47,7 +64,7 @@
 				
 				<!--Profile pic and username -->
 				<div class="thumbnail" style ="height:120px">
-      				<img src="Images/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
+					<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
         					<h4 style="text-align:center">User Name</h4>
       					</div>
@@ -88,7 +105,9 @@
 				</button>
 				<br>
 				<br>
-				<button class="button" style="width:200px">Logout</button>
+				<form action="logout">
+				<button type="submit" class="button">Logout</button>
+				</form>
 				
 			</div>
 			
@@ -101,7 +120,7 @@
 			<!-- one menu item on manager side -->
 			<li style="border-bottom:1px solid black;">
 			
-			<img alt="Menu Item Pic" src="Images/MainLogo.png" style="width:100px;height:100px; float:left">
+			<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
 			<h5>Product Name</h5>
 			<p>Description</p>
 			<p>Estimated wait time</p>
@@ -111,7 +130,6 @@
 			<!-- default taht it starts on -->
 				<option disabled selected>Change Station</option>
 				
-				
  				<option value="station1">Station 1</option>
   				<option value="station2">Station 2</option>
   				<option value="station3">Station 3</option>
@@ -120,31 +138,6 @@
 			<button class="button">Delete</button>
 			<br>
 			<br>
-			</li>
-			
-			<!-- one menu item on manager side -->
-			<li style="border-bottom:1px solid black;">
-			
-			<img alt="Menu Item Pic" src="Images/MainLogo.png" style="width:100px;height:100px; float:left">
-			<h5>Product Name</h5>
-			<p>Description</p>
-			<p>Estimated wait time</p>
-			<p>Price</p>
-			
-			<select>
-			<!-- default taht it starts on -->
-				<option disabled selected>Change Station</option>
-				
-				
- 				<option value="station1">Station 1</option>
-  				<option value="station2">Station 2</option>
-  				<option value="station3">Station 3</option>
-			</select>
-			<button class="button">Update</button>
-			<button class="button">Delete</button>
-			<br>
-			<br>
-			
 			</li>
 			
 			</ul>
@@ -192,7 +185,7 @@
 
 	<!-- footer for page -->
 	<div class="footer">
-		<h4>footer here</h4>
+		<h4></h4>
 	</div>
 	
 	
@@ -211,7 +204,7 @@
       <!-- Create menu item form -->
         <form name="menuItemCreate">
         
-        	<img name="uploadedImg" alt="Menu Item Pic" src="Images/MainLogo.png" style="width:150px;height:150px; float:left">
+        	<img name="uploadedImg" alt="Menu Item Pic" src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" style="width:150px;height:150px; float:left">
 			Product Name <input type = "text" name="pName" placeholder="Product Name" style="float:right" required=required> <br><br>
 			Description <input type = "text" name="discription" placeholder="Discription" style="float:right" required=required> <br><br>
 			Estimated wait time <input type = "text" name="time" placeholder="00:00" style="float:right" required=required> <br><br>
