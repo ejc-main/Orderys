@@ -1,15 +1,17 @@
 var orderysApp = angular.module('orderysApp', ['ngRoute']);
 
 // View routing w/ ngRoute
-// orderysApp.config(function($routeProvider) {
-//   $routeProvider
-//     .when('/customer', {})
-//     .when('/employee', {})
-//     .when('/manager', {})
-//     .when('', {})
-//     .when('', {})
-//     .otherwise({});
-// });
+orderysApp.config(function($routeProvider) {
+  $routeProvider
+    .when('/customer', {})
+    .when('/restaurant/:businessId/menu', {})
+    .when('/employee', {})
+    .when('/manager', {})
+    .when('/profile', {})
+    .otherwise({
+      redirectTo: '/customer'
+    });
+});
 
 // var demoData = {
 //   "exampleCustomer": {

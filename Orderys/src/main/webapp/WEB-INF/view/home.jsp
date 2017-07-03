@@ -53,7 +53,7 @@
 				</form>
 			</div>
 
-			<ui-view></ui-view>
+			<main id="router-outlet" ng-view></main>
 
 			<!-- main content for page -->
 			<div class="col-xs-6">
