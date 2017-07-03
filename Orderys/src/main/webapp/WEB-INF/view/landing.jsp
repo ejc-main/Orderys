@@ -45,10 +45,7 @@
 </head>
 <body>
 	<div class="container">
-		<!--Web site Banner -->
-		<div class="row" style="border-bottom-style: solid; border-width: 5px;  border-color: #212121;">
-			<img src = "https://s3.amazonaws.com/revature-orderys/Main+Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
-		</div>
+		<%@ include file="banner.jspf" %>
 		<!--Main content-->
 		<div class="row">
 			<!--Not used on login-->
@@ -58,16 +55,16 @@
 			<div class="col-xs-5">
 				<!-- Login -->
 				<div>
+					<!-- Login header -->
+					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
+					<h3>Login</h3>
+					</div>
 					<c:if test="${not empty loginError}">
 						<div class="alert alert-danger alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							${loginError}
 						</div>
 					</c:if>
-					<!-- Login header -->
-					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
-					<h3>Login</h3>
-					</div>
 					<!-- Login Form -->
 					<div class="row" style="padding-left:20px">
 						<form name="loginForm" action="login" method="post">
@@ -85,19 +82,19 @@
 				</div>
 			</div>
 			<div class="col-xs-5">
-				<!-- Registration form -->
+				<!-- Registration -->
 				<div>
+					<!-- Registration header -->
+					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
+						<h3>Register</h3>
+					</div>
 					<c:if test="${not empty registrationError}">
 						<div class="alert alert-danger alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							${registrationError}
 						</div>
 					</c:if>
-					<!-- Login header -->
-					<div class="row" style="background-color:#212121; color:#efecec; padding-left:20px">
-						<h3>Register</h3>
-					</div>
-					<!-- Login Form -->
+					<!-- Registration Form -->
 					<div class="row" style="padding-left:20px; border-left:solid black 2px">
 						<form name="registerForm" action="register" method="post">
 							<h4>First Name</h4>
@@ -125,10 +122,7 @@
 
 	</div>
 
-	<!-- footer for page -->
-	<div class="footer">
-		<h4></h4>
-	</div>
+	<%@ include file="footer.jspf" %>
 
 </body>
 

@@ -10,7 +10,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -26,6 +25,7 @@ import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 import com.revature.orderys.exceptions.EmailNotUniqueException;
+import com.revature.orderys.exceptions.InvalidBusinessException;
 import com.revature.orderys.exceptions.InvalidCredentialsException;
 
 @Component
@@ -82,10 +82,8 @@ public class Service implements Serializable {
 		}
 	}
 	
-	// TODO: Untested
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
-//			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
@@ -111,7 +109,6 @@ public class Service implements Serializable {
 		return user;
 	}
 	
-	// TODO: Untested
 	public User loginUser(User user) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
@@ -169,14 +166,49 @@ public class Service implements Serializable {
 	
 	// TODO: Untested
 	// TODO: Implement some types of checks on business.
-	public Business registerBusiness(Business business) {
-		User manager = business.getManager();
-		manager.setRole(User.Role.MANAGER);
-		// TODO: Find out if the user's businessManaged field is automatically set by
-		// Hibernate.
-		UDao.updateUser(manager);
-		BDao.createBusiness(business);
-		return business;
+	public Business registerBusiness(Business business) throws InvalidBusinessException {		
+		boolean isValidBusiness = true;
+		
+		String errorMessage = "";
+		
+		if(business.getCity() == null || business.getCity().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid city\n";
+		}
+		if(business.getCountry() == null || business.getCountry().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid country\n";
+		}
+		if(business.getName() == null || business.getName().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid name\n";
+		}
+		if(business.getState() == null || business.getState().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid state\n";
+		}
+		if(business.getStreetAddress1() == null || business.getStreetAddress1().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid street address\n";
+		}
+		if(business.getZip() == null || business.getZip().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid zip";
+		}
+		
+		if(isValidBusiness) {
+			User manager = business.getManager();
+			manager.setRole(User.Role.MANAGER);
+			// TODO: Find out if the user's businessManaged field is automatically set by
+			// Hibernate.
+			UDao.updateUser(manager);
+			BDao.createBusiness(business);
+			return business;
+		}
+		else {
+			throw new InvalidBusinessException(errorMessage);
+		}
+		
 	}
 	
 	// TODO: Untested
