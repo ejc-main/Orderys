@@ -1,0 +1,106 @@
+**all endpoints should use json in the request and response bodies**
+
+    USER CONTROLLER:
+/user
+[NOT NEEDED] GET: get list of all users
+[NOT NEEDED - this is handled by registration method in MainController] POST: add new user 
+
+/user/{userId}
+GET: get information for a user with the given id
+POST: update information for a user with the given id
+
+/user/{userId}/rating
+GET: get list of ratings submitted by a user
+POST: submit a new rating as the user with the given id
+
+/user/{userId}/rating/{productId}
+GET: get a rating of a specific product submitted by a user
+POST: update (modify) a product rating submitted by a user
+
+/user/{userId}/order
+GET: get list of all orders placed by a user
+POST: place a new order as the user with the given id
+
+/user/{userId}/order/{orderId}
+GET: get the details about a specific order placed by the user with the given id
+POST: update (cancel) a specific order placed by the user with the given id
+
+    BUSINESS CONTROLLER
+/business
+GET: get list of all businesses
+POST: add a new business
+
+/business/{businessId}
+GET: get information and menu for a specific business
+POST: update the information or menu for a specific business
+
+/business/{businessId}/station
+GET: get list of stations for a specific business
+POST: add a new station for a business
+
+/business/{businessId}/station/{stationId}
+GET: get details for a station of a business
+POST: update details for a station of a business
+DELETE: remove a station
+
+/business/{businessId}/product
+GET: get list of products provided by a business (maybe just products associated with the default station)
+POST: add a product to the menu (or default station) of a business
+
+/business/{businessId}/employee
+GET: get list of all employees associated with a business (or the default station of the business)
+POST: add a user as an employee of a business (possibly assign them to the default station)
+
+/business/{businessId}/employee/{employeeId}
+GET: get information about a specific employee
+DELETE: fire an employee (or remove them from a business for some other reason)
+
+    STATION CONTROLLER
+/station/{stationId}
+GET: get details for a station of a business
+POST: update details for a station of a business
+DELETE: remove a station
+
+/station/{stationId}/product
+GET: get list of products that a station is responsible for
+POST: add a new product to a stations responsibilities
+
+/station/{stationId}/employee
+GET: get list of employees assigned to a station
+POST: assign an employee to a station
+
+/station/{stationId}/employee/{employeeId}
+GET: get information about an employee assigned to a station
+DELETE: remove an employee from a station, but not from the business
+
+    PRODUCT CONTROLLER
+/product
+GET: get list of all products (might be useful for searching all products from all businesses)
+ 
+/product/{productId}
+GET: get information about a product
+POST: update information about a product
+DELETE: remove a product from the menu it belongs to
+
+/product/{productId}/rating
+GET: get list of all ratings for a product
+POST: submit a rating for a product
+
+/product/{productId}/rating/{userId}
+[NOT NEEDED] GET: 
+[NOT NEEDED] POST: 
+
+    ORDER CONTROLLER
+/order/{orderId}
+GET: get the details about a specific order
+POST: update (cancel) a specific order
+
+/order/{orderId}/item
+GET: get list of order items in an order
+[NOT NEEDED?] POST: add an order item to an order 
+(would it be best to not allow the items of an order to be modified?
+ - basically orders would be 'assembled' client-side before being submitted)
+
+/order/{orderId}/item/{productId}
+GET: get details for a specific order item in an order
+POST: update (mark as completed) a specific order item in an order

@@ -35,68 +35,118 @@ public class UserController {
 		this.service = service;
 	}
 
-	@RequestMapping(value="", method=RequestMethod.POST)
-	public User addUser(@RequestParam(name="email", required=true) String email,
-			@RequestParam(name="password", required=true) String password,
-			@RequestParam(name="firstname", required=true) String firstname,
-			@RequestParam(name="lastname", required=true) String lastname,
-			HttpSession session){
-		try {
-			return service.addNewUser(email, password, firstname, lastname);
-		} catch (EmailNotUniqueException ex) {
-			session.setAttribute("registrationError", ex.getMessage());
-			return null;
-		}
-		
-	}
+//	/*
+//	 * [NOT NEEDED - this is handled by registration method in MainController] POST: add new user
+//	 */
+//	@RequestMapping(value="", method=RequestMethod.POST)
+//	public User addUser(@RequestParam(name="email", required=true) String email,
+//			@RequestParam(name="password", required=true) String password,
+//			@RequestParam(name="firstname", required=true) String firstname,
+//			@RequestParam(name="lastname", required=true) String lastname,
+//			HttpSession session){
+//		try {
+//			return service.addNewUser(email, password, firstname, lastname);
+//		} catch (EmailNotUniqueException ex) {
+//			session.setAttribute("registrationError", ex.getMessage());
+//			return null;
+//		}
+//	}
+//	
+//	/*
+//	 * GET: get information for a user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
+//	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
+//		User u = null;
+//		u = service.getUserById(userId);
+//		return u;
+//	}
+//	
+//	/*
+//	 * POST: update information for a user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
+//	public User updateUser(@PathVariable(value="userId") long userId,
+//			@RequestParam(name="email", required=false) String email,
+//			@RequestParam(name="password", required=false) String password,
+//			@RequestParam(name="firstname", required=false) String firstname,
+//			@RequestParam(name="lastname", required=false) String lastname,
+//			@RequestParam(name="role", required=false) String role,
+//			@RequestParam(name="orders", required=false) List<Order> orders,
+//			@RequestParam(name="ratings", required=false) List<Rating> ratings,
+//			@RequestParam(name="stations", required=false) List<Station> stations,
+//			@RequestParam(name="business", required=false) Business business,
+//			HttpSession session) {
+//		User user = (User) session.getAttribute("user");
+//		if (email != null) {
+//			user.setEmail(email);
+//		}
+//		if (password != null) {
+//			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+//		}
+//		if (firstname != null) {
+//			user.setFirstName(firstname);
+//		}
+//		if (lastname != null) {
+//			user.setLastName(lastname);
+//		}
+//		if (role != null) {
+//			user.setRole(User.Role.valueOf(role.toUpperCase()));
+//		}
+//		if (orders != null) {
+//			user.setOrders(orders);
+//		}
+//		if (ratings != null) {
+//			user.setRatings(ratings);
+//		}
+//		if (stations != null) {
+//			user.setEmployeeStations(stations);
+//		}
+//		if (business != null) {
+//			user.setBusinessManaged(business);
+//		}
+//		return service.updateUser(user);
+//	}
+//	
+//	/*
+//	 * GET: get list of ratings submitted by a user
+//	 */
+//	@RequestMapping(value="/{userId}/rating", method=RequestMethod.GET)
+//	
+//	/*
+//	 * POST: submit a new rating as the user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}/rating", method=RequestMethod.POST)
+//	
+//	/*
+//	 * GET: get a rating of a specific product submitted by a user
+//	 */
+//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.GET)
+//	
+//	/*
+//	 * POST: update (modify) a product rating submitted by a user
+//	 */
+//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.POST)
+//	
+//	/*
+//	 * GET: get list of all orders placed by a user
+//	 */
+//	@RequestMapping(value="/{userId}/order", method=RequestMethod.GET)
+//	
+//	/*
+//	 * POST: place a new order as the user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}/order", method=RequestMethod.POST)
+//	
+//	/*
+//	 * GET: get the details about a specific order placed by the user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}/order/{orderID}", method=RequestMethod.GET)
+//	
+//	/*
+//	 * POST: update (cancel) a specific order placed by the user with the given id
+//	 */
+//	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.POST)
 	
-	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
-		User u = null;
-		u = service.getUserById(userId);
-		return u;
-	}
-	
-	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-	public User updateUser(@RequestParam(name="email", required=false) String email,
-			@RequestParam(name="password", required=false) String password,
-			@RequestParam(name="firstname", required=false) String firstname,
-			@RequestParam(name="lastname", required=false) String lastname,
-			@RequestParam(name="role", required=false) String role,
-			@RequestParam(name="orders", required=false) List<Order> orders,
-			@RequestParam(name="ratings", required=false) List<Rating> ratings,
-			@RequestParam(name="stations", required=false) List<Station> stations,
-			@RequestParam(name="business", required=false) Business business,
-			HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		if (email != null) {
-			user.setEmail(email);
-		}
-		if (password != null) {
-			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
-		}
-		if (firstname != null) {
-			user.setFirstName(firstname);
-		}
-		if (lastname != null) {
-			user.setLastName(lastname);
-		}
-		if (role != null) {
-			user.setRole(User.Role.valueOf(role.toUpperCase()));
-		}
-		if (orders != null) {
-			user.setOrders(orders);
-		}
-		if (ratings != null) {
-			user.setRatings(ratings);
-		}
-		if (stations != null) {
-			user.setEmployeeStations(stations);
-		}
-		if (business != null) {
-			user.setBusinessManaged(business);
-		}
-		return service.updateUser(user);
-	}
 
 }

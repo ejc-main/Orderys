@@ -33,9 +33,7 @@ public class Station implements Serializable {
 	
 	@Column(name="STATION_NAME", nullable=false)
 	private String stationName;
-	
-	// from Station s where s.business.id = 
-	
+		
 	@ManyToMany(mappedBy="employeeStations")
 	private List<User> employees;
 	
