@@ -50,9 +50,10 @@ public class OrderItem implements Serializable {
 	private Business orderedAt;
 	
 	public enum Status {
-		ACTIVE,
-		COMPLETED, 
-		CANCELLED
+		PENDING,			// OrderItem in cart --- Order not yet placed
+		ACTIVE,				// Order has been placed
+		COMPLETED, 			// OrderItem has been made
+		CANCELLED			// OrderItem has been removed from Order
 	}
 	
 	public OrderItem() {

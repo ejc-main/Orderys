@@ -33,7 +33,6 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
-	// TODO: make non-nullable, update tests
 	@OneToOne
 	@JoinColumn(name="STATION_ID")
 	private Station station;
