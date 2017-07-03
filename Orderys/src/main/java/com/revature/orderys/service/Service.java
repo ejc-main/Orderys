@@ -86,7 +86,9 @@ public class Service implements Serializable {
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
-			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+			String hash = BCrypt.hashpw(password, BCrypt.gensalt());
+			System.out.println(hash);
+			user.setPasswordHash(hash);
 			user.setFirstName(firstName.trim());
 			user.setLastName(lastName.trim());
 			UDao.createUser(user);
@@ -110,7 +112,7 @@ public class Service implements Serializable {
 	public User loginUser(User user) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
-		if(u.getPasswordHash().equals(user.getPasswordHash())) {
+		if(BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
 			return u;
 		}
 		else {
