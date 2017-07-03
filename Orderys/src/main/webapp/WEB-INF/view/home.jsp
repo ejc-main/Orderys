@@ -14,7 +14,7 @@
 		<!--Main content-->
 		<div class="row">
 			<!--Side bar left -->
-			<div class="col-xs-3" ng-controller="profileController">
+			<div class="col-xs-3" ng-controller="navController">
 				<input type="hidden" id="userId" value="${user.id}">
 				<!--Profile pic and username -->
 				<div class="thumbnail" style ="height:120px">

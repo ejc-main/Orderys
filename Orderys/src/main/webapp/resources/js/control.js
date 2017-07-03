@@ -2,7 +2,7 @@
 var usr = document.getElementById("userId").value;
 
 
-orderysApp.controller('profileController', 
+orderysApp.controller('navController', 
 function($scope, $http, dataFactory) {
 	
 	$scope.User;
