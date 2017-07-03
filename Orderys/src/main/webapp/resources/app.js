@@ -1,8 +1,15 @@
 var orderysApp = angular.module('orderysApp', ['ngRoute']);
 
-orderysApp.config(function($routeProvider) {
-  
-})
+// View routing w/ ngRoute
+// orderysApp.config(function($routeProvider) {
+//   $routeProvider
+//     .when('/customer', {})
+//     .when('/employee', {})
+//     .when('/manager', {})
+//     .when('', {})
+//     .when('', {})
+//     .otherwise({});
+// });
 
 // var demoData = {
 //   "exampleCustomer": {

@@ -25,17 +25,17 @@
 				</div>
 				<!-- Switch view for manager -->
 				<div ng-if="isManager()">
-    			<ul class="nav nav-pills"> 
-  					<li role="presentation" class = "active"><a href="#">Manager</a></li>
-  					<li role="presentation"><a href="#">Employee</a></li>
- 					 	<li role="presentation"><a href="#">Customer</a></li>
+    			<ul class="nav nav-pills">
+ 					 	<li role="presentation"><a href="#/customer">Customer</a></li>
+  					<li role="presentation"><a href="#/employee">Employee</a></li>
+  					<li role="presentation" class = "active"><a href="#/manager">Manager</a></li>
 					</ul>
 				</div>
 				<!-- Switch view for employees -->
 				<div>
-					<ul class="nav nav-pills" ng-if="isEmployee()"> 
-						<li role="presentation" class="active"><a href="#">Employee</a></li>
-						<li role="presentation"><a href="#">Customer</a></li>
+					<ul class="nav nav-pills" ng-if="isEmployee()">
+						<li role="presentation"><a href="#/customer">Customer</a></li>
+						<li role="presentation" class="active"><a href="#/employee">Employee</a></li>
 					</ul>
 				</div>
 				<br>
@@ -48,10 +48,13 @@
 				<!--  <button class="button">Profile</button>
 				<br>
 				<br>  -->
-				<form action="logout">
-				<button type="submit" class="button">Logout</button>
+				<form action="logout" method="post">
+					<button type="submit" class="button">Logout</button>
 				</form>
 			</div>
+
+			<ui-view></ui-view>
+
 			<!-- main content for page -->
 			<div class="col-xs-6">
 			<h3 style="text-align:center">Business name</h3>
