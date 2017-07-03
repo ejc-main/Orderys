@@ -102,7 +102,6 @@ input[type=text]
 }
 input[type=text]:focus 
 {
-	border: 1px solid #555;
     border-bottom: 3px solid #a70f0f;
 }
 input[type=password] 
@@ -112,7 +111,24 @@ input[type=password]
 }
 input[type=password]:focus 
 {
-	border: 1px solid #555;
+    border-bottom: 3px solid #a70f0f;
+}
+input[type=email] 
+{
+    border: none;
+    border-bottom: 2px solid #212121 ;
+}
+input[type=email]:focus 
+{
+    border-bottom: 3px solid #a70f0f;
+}
+input[type=number] 
+{
+    border: none;
+    border-bottom: 2px solid #212121 ;
+}
+input[type=number]:focus 
+{
     border-bottom: 3px solid #a70f0f;
 }
 

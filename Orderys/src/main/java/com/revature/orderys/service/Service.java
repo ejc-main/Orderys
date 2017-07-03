@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -65,11 +67,10 @@ public class Service implements Serializable {
 	// Begin User Services
 	
 	// TODO: Untested
-	public User addNewUser(User user) throws EmailNotUniqueException {		
+	public User addNewUser(User user) throws EmailNotUniqueException {	
 		if(UDao.getUserByEmail(user.getEmail()) == null) {
 			user.setRole(User.Role.CUSTOMER);
 			UDao.createUser(user);
-	
 			return user;
 		}
 		else {
@@ -79,21 +80,22 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public User addNewUser(String email,String passwordHash,String firstName, String lastName) throws EmailNotUniqueException {		
+	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
+//			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
-			user.setEmail(email);
-			user.setPasswordHash(passwordHash);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
+			user.setEmail(email.trim());
+			user.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
+			user.setFirstName(firstName.trim());
+			user.setLastName(lastName.trim());
 			UDao.createUser(user);
 	
 			return user;
 		}
 		else {
 			throw new EmailNotUniqueException("A user with email address "
-					+ email + " already exists...");
+					+ email.trim() + " already exists...");
 		}
 	}
 	
@@ -117,10 +119,10 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
-	public User loginUser(String email, String hash) throws InvalidCredentialsException {
+	public User loginUser(String email, String password) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(email.trim());
 		
-		if(u.getPasswordHash().equals(hash)) {
+		if (BCrypt.checkpw(password, u.getPasswordHash())) {
 			return u;
 		}
 		else {
@@ -152,9 +154,22 @@ public class Service implements Serializable {
 	
 	// Start Business Services:
 	
+	/**
+	 * Creates a new business in the Orderys database. Updates role of
+	 * given business's user to manager.
+	 * 	
+	 * @param business	The new business that will be persisted.
+	 * @return			The updated business.
+	 */
+	
 	// TODO: Untested
 	// TODO: Implement some types of checks on business.
 	public Business registerBusiness(Business business) {
+		User manager = business.getManager();
+		manager.setRole(User.Role.MANAGER);
+		// TODO: Find out if the user's businessManaged field is automatically set by
+		// Hibernate.
+		UDao.updateUser(manager);
 		BDao.createBusiness(business);
 		return business;
 	}
@@ -163,6 +178,13 @@ public class Service implements Serializable {
 	// TODO: Implement necessary checks on product; throw errors.
 	public Product addMenuItem(Product product) {
 		productDao.createProduct(product);
+		return product;
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks on product and throw exceptions
+	public Product updateMenuItem(Product product) {
+		productDao.updateProduct(product);
 		return product;
 	}
 	
@@ -185,6 +207,43 @@ public class Service implements Serializable {
 		SDao.createStation(station);
 		return station;
 	}
+	
+	/**
+	 * Changes the employee station of the given user to the given station.
+	 * This method first empties the list of employee stations, then adds
+	 * the given station to the list. The user is then persisted.
+	 * 
+	 * @param user		The employee whose station is being updated.
+	 * @param station	The employee's new station.
+	 * @return			An updated User object that represents the employee.
+	 */
+	
+	// TODO: Untested
+	public User updateEmployeeStation(User user, Station station) {
+		user.getEmployeeStations().clear();
+		user.getEmployeeStations().add(station);
+		UDao.updateUser(user);
+		return user;
+	}
+	
+	/**
+	 * Changes the given user to an employee, and adds the given station
+	 * to their list of employee stations. Persists and returns user.
+	 * 
+	 * @param user		The new employee.
+	 * @param station	The station that the new employee is assigned to 
+	 * 					(typically the business's default station).
+	 * @return			The updated user.
+	 */
+	
+	// TODO: Untested
+	public User hireNewEmployee(User user, Station station) {
+		user.setRole(User.Role.EMPLOYEE);
+		user.getEmployeeStations().add(station);
+		UDao.updateUser(user);
+		return user;
+	}
+	
 	// End Business Services
 	
 	
