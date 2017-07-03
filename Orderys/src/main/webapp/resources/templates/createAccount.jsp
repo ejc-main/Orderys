@@ -96,7 +96,7 @@
 
 	<!-- footer for page -->
 	<div class="footer">
-		<h4>footer here</h4>
+		<h4></h4>
 	</div>
 
 </body>
