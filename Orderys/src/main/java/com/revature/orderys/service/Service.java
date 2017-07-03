@@ -3,9 +3,12 @@ package com.revature.orderys.service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +25,7 @@ import com.revature.orderys.dao.ProductDao;
 import com.revature.orderys.dao.StationDao;
 import com.revature.orderys.dao.UserDao;
 import com.revature.orderys.exceptions.EmailNotUniqueException;
+import com.revature.orderys.exceptions.InvalidBusinessException;
 import com.revature.orderys.exceptions.InvalidCredentialsException;
 
 @Component
@@ -66,17 +70,17 @@ public class Service implements Serializable {
 	// Begin User Services
 	
 	// TODO: Untested
-//	public User addNewUser(User user) throws EmailNotUniqueException {	
-//		if(UDao.getUserByEmail(user.getEmail()) == null) {
-//			user.setRole(User.Role.CUSTOMER);
-//			UDao.createUser(user);
-//			return user;
-//		}
-//		else {
-//			throw new EmailNotUniqueException("A user with email address "
-//					+ user.getEmail() + " already exists...");
-//		}
-//	}
+	public User addNewUser(User user) throws EmailNotUniqueException {	
+		if(UDao.getUserByEmail(user.getEmail()) == null) {
+			user.setRole(User.Role.CUSTOMER);
+			UDao.createUser(user);
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ user.getEmail() + " already exists...");
+		}
+	}
 	
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
@@ -108,11 +112,11 @@ public class Service implements Serializable {
 	public User loginUser(User user) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
-		if(u != null && BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
+		if(BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
 			return u;
 		}
 		else {
-			throw new InvalidCredentialsException("Incorrect email or password.");
+			throw new InvalidCredentialsException("User entered incorrect email or password.");
 		}
 	}
 	
@@ -120,7 +124,7 @@ public class Service implements Serializable {
 	public User loginUser(String email, String password) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(email.trim());
 		
-		if (u != null && BCrypt.checkpw(password, u.getPasswordHash())) {
+		if (BCrypt.checkpw(password, u.getPasswordHash())) {
 			return u;
 		}
 		else {
@@ -162,14 +166,49 @@ public class Service implements Serializable {
 	
 	// TODO: Untested
 	// TODO: Implement some types of checks on business.
-	public Business registerBusiness(Business business) {
-		User manager = business.getManager();
-		manager.setRole(User.Role.MANAGER);
-		// TODO: Find out if the user's businessManaged field is automatically set by
-		// Hibernate.
-		UDao.updateUser(manager);
-		BDao.createBusiness(business);
-		return business;
+	public Business registerBusiness(Business business) throws InvalidBusinessException {		
+		boolean isValidBusiness = true;
+		
+		String errorMessage = "";
+		
+		if(business.getCity() == null || business.getCity().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid city\n";
+		}
+		if(business.getCountry() == null || business.getCountry().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid country\n";
+		}
+		if(business.getName() == null || business.getName().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid name\n";
+		}
+		if(business.getState() == null || business.getState().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid state\n";
+		}
+		if(business.getStreetAddress1() == null || business.getStreetAddress1().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid street address\n";
+		}
+		if(business.getZip() == null || business.getZip().length() == 0) {
+			isValidBusiness = false;
+			errorMessage += "Invalid zip";
+		}
+		
+		if(isValidBusiness) {
+			User manager = business.getManager();
+			manager.setRole(User.Role.MANAGER);
+			// TODO: Find out if the user's businessManaged field is automatically set by
+			// Hibernate.
+			UDao.updateUser(manager);
+			BDao.createBusiness(business);
+			return business;
+		}
+		else {
+			throw new InvalidBusinessException(errorMessage);
+		}
+		
 	}
 	
 	// TODO: Untested
@@ -180,6 +219,7 @@ public class Service implements Serializable {
 	}
 	
 	// TODO: Untested
+	// TODO: Might be returning the same product that was entered
 	// TODO: Implement necessary checks on product and throw exceptions
 	public Product updateMenuItem(Product product) {
 		productDao.updateProduct(product);
@@ -244,8 +284,45 @@ public class Service implements Serializable {
 	
 	// End Business Services
 	
+	//Start Product Services
+	
+	//TODO:untested,using untested dao method
+	//returns long of seconds for average completion time
+	public long getProductAverageCompletionTime(Product product){
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		orderItems=(ArrayList<OrderItem>) OIDao.getOrderItemsByProduct(product);
+		long out=0;
+		for(OrderItem item:orderItems){
+			if(item.getStatus()==OrderItem.Status.COMPLETED){
+				out=out+(item.getTimeCompleted().getTime()- item.getTimePlaced().getTime())/1000;
+			}
+		}
+		return out;
+	}
 	
 	
+	//End Product Services
+	
+	//Start Employee Services
+	//TODO:untested
+	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
+		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
+	}
+	public ArrayList<OrderItem> getActiveOrderItems(User employee){
+		return (ArrayList<OrderItem>) OIDao.getActiveOrderItemsByBusiness(employee.getEmployeeStations().get(0).getBusiness());
+	}
+	//End Employee Services
+	
+	//Start Customer Services
+	//TODO:untested
+	public void cancelOrder(Order order){
+		ArrayList<OrderItem> orderitems=(ArrayList<OrderItem>) OIDao.getOrderItemsByOrder(order);
+		for(OrderItem orderitem : orderitems){
+			orderitem.setStatus(OrderItem.Status.CANCELLED);
+			OIDao.updateOrderItem(orderitem);
+		}
+	}
+	//End Customer Services
 	
 	// TODO: Triage
 	// Start old code:
@@ -256,10 +333,6 @@ public class Service implements Serializable {
 		return u;
 	}
 	
-	// TODO: Remove?
-	public int getNum(){
-		return 2;
-	}
 	
 	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
 		User u = new User();

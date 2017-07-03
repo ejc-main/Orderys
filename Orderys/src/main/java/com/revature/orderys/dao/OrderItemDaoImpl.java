@@ -15,6 +15,7 @@ import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.OrderItem;
 import com.revature.orderys.bean.OrderItemPrimaryKey;
+import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.util.EasyLogger;
 
@@ -127,6 +128,24 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 		
 		return orderItems;
 	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<OrderItem> getActiveOrderItemsByBusiness(Business business) {
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			orderItems = (List<OrderItem>) session
+						.createQuery("from OrderItem item where item.orderedAt.id = " + business.getId())
+						.list();
+		}
+		catch(HibernateException e) {
+			logger.catching(e);
+		}
+		
+		return orderItems;
+	}
+	
+	
 	
 	@Override
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
@@ -167,4 +186,41 @@ public class OrderItemDaoImpl implements OrderItemDao,Serializable {
 			logger.catching(e);
 		}
 	}
+	
+	
+	//TODO: untested
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<OrderItem> getOrderItemsByProduct(Product product) {
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			orderItems = (List<OrderItem>) session
+						.createQuery("from OrderItem item where item.orderItemKey.product.id = " + product.getId())
+						.list();
+		}
+		catch(HibernateException e) {
+			logger.catching(e);
+		}
+		
+		return orderItems;
+	}
+	
+	//TODO: untested
+		@Override
+		@SuppressWarnings("unchecked")
+		public List<OrderItem> getOrderItemsCompletedByEmployee(User employee) {
+			List<OrderItem> orderItems = new ArrayList<OrderItem>();
+			Session session = sessionFactory.getCurrentSession();
+			try {
+				orderItems = (List<OrderItem>) session
+							.createQuery("from OrderItem item where item.completedBy.id = " + employee.getId())
+							.list();
+			}
+			catch(HibernateException e) {
+				logger.catching(e);
+			}
+			
+			return orderItems;
+		}
 }

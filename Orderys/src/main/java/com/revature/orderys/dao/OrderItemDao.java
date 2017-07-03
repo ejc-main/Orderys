@@ -6,6 +6,7 @@ import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.OrderItem;
 import com.revature.orderys.bean.OrderItemPrimaryKey;
+import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.User;
 
 public interface OrderItemDao {
@@ -27,5 +28,11 @@ public interface OrderItemDao {
 	void updateOrderItem(OrderItem orderItem);
 
 	void deleteOrderItem(OrderItem orderItem);
+
+	List<OrderItem> getOrderItemsByProduct(Product product);
+
+	List<OrderItem> getOrderItemsCompletedByEmployee(User employee);
+
+	List<OrderItem> getActiveOrderItemsByBusiness(Business business);
 
 }
