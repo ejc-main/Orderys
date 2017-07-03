@@ -1,11 +1,56 @@
+
+var usr = document.getElementById("userId").value;
+
+
 orderysApp.controller('profileController', 
 function($scope, $http, dataFactory) {
-	// $scope.userId = 1;
 	
-	dataFactory.getUser($scope.userId).success(function (data) {
-		console.log(data);
+	$scope.User;
+	
+	
+	dataFactory.getUser(usr).success(function (data) {
 		$scope.User = data;
 	});
+	
+	$scope.isManager = function() {
+	   
+		if($scope.User === undefined)
+		{
+			return false;
+		}
+		
+		var role = $scope.User.role;
+		
+		if(role == "MANAGER")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	$scope.isEmployee = function() {
+		
+		if($scope.User === undefined)
+		{
+			return false;
+		}
+		
+		var role = $scope.User.role;
+		
+		if(role == "EMPLOYEE")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 });
 
 
