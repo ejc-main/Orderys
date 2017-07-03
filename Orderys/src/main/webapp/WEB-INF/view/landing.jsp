@@ -71,7 +71,7 @@
 							<h4>Email</h4>
 							<input type="email" name="email" placeholder="Email" required="required">
 							<br>
-							<h4>Passsword</h4>
+							<h4>Password</h4>
 							<input type="password" name="password" placeholder="Password" required="required">
 							<br>
 							<br>
@@ -106,7 +106,7 @@
 							<h4>Email</h4>
 							<input type="email" name="email" placeholder="Email" required="required">
 							<br>
-							<h4>Passsword</h4>
+							<h4>Password</h4>
 							<input type="password" name="password" placeholder="Password" required="required">
 							<br>
 							<br>

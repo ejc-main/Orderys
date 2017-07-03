@@ -209,6 +209,19 @@ public class Service implements Serializable {
 			// Hibernate.
 			UDao.updateUser(manager);
 			BDao.createBusiness(business);
+			
+			Station station = new Station();
+			station.setStationName("default");
+			
+			// TODO: Does hibernate instantiate collections?
+			if(business.getStations() != null) {
+				business.setStations(new ArrayList<Station>());
+			}
+			
+			// TODO: Will the station be persisted?
+			business.getStations().add(station);
+			BDao.updateBusiness(business);
+			
 			return business;
 		}
 		else {
@@ -336,7 +349,7 @@ public class Service implements Serializable {
 		}
 	}
 	//End Customer Services
-	
+
 	// TODO: Triage
 	// Start old code:
 	
