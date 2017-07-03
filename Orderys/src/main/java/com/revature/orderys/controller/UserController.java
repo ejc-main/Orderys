@@ -51,7 +51,6 @@ public class UserController {
 //			return null;
 //		}
 //	}
-//	
 //	/*
 //	 * GET: get information for a user with the given id
 //	 */
@@ -61,7 +60,7 @@ public class UserController {
 //		u = service.getUserById(userId);
 //		return u;
 //	}
-//	
+	
 //	/*
 //	 * POST: update information for a user with the given id
 //	 */
@@ -112,7 +111,7 @@ public class UserController {
 //	 * GET: get list of ratings submitted by a user
 //	 */
 //	@RequestMapping(value="/{userId}/rating", method=RequestMethod.GET)
-//	
+	
 //	/*
 //	 * POST: submit a new rating as the user with the given id
 //	 */
