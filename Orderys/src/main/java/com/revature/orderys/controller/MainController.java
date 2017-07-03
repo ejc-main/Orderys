@@ -49,7 +49,6 @@ public class MainController {
     public String doLogin(@RequestParam(name="email", required=true) String email,
     		@RequestParam(name="password", required=true) String password,
     		HttpSession session) {
-		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
 //			System.out.println("landing controller directing to home");
 			return "home";
@@ -60,7 +59,9 @@ public class MainController {
 				credentials.setEmail(email);
 				credentials.setPasswordHash(password);
 				User user = service.loginUser(credentials);
+				System.out.println("logged in as " + user);
 				session.setAttribute("user", user);
+				session.setMaxInactiveInterval(60 * 60);
 				return "home";
 			} catch (InvalidCredentialsException ex) {
 				session.setAttribute("loginError",
@@ -76,7 +77,6 @@ public class MainController {
     		@RequestParam(name="firstname", required=true) String firstname,
     		@RequestParam(name="lastname", required=true) String lastname,    		
     		HttpSession session) {
-		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) != null) {
 //			System.out.println("landing controller directing to home");
 			return "home";
@@ -84,7 +84,9 @@ public class MainController {
 //			System.out.println("landing controller registering");
 			try {
 				User user = service.addNewUser(email, password, firstname, lastname);
+				System.out.println("registered new account " + user);
 				session.setAttribute("user", user);
+				session.setMaxInactiveInterval(60 * 60);
 				return "home";
 			} catch (EmailNotUniqueException ex) {
 				session.setAttribute("registrationError",
