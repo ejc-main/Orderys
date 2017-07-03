@@ -1,0 +1,4 @@
+    <!--Web site Banner -->
+		<div class="row" style="border-bottom-style: solid; border-width: 5px;  border-color: #212121;">
+			<img src = "https://s3.amazonaws.com/revature-orderys/Main+Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
+		</div>
