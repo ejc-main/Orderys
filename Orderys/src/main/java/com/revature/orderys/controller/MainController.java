@@ -88,8 +88,7 @@ public class MainController {
 				session.setMaxInactiveInterval(60 * 60);
 				return "redirect:main";
 			} catch (EmailNotUniqueException ex) {
-				session.setAttribute("registrationError",
-						"Registration failed. The email address you provided is already in use.");
+				session.setAttribute("registrationError", ex.getMessage());
 				return "redirect:landing";
 			}
 		}
