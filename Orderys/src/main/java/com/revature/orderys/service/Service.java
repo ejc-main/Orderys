@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.revature.orderys.bean.Business;
@@ -79,10 +78,8 @@ public class Service implements Serializable {
 //		}
 //	}
 	
-	// TODO: Untested
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
-//			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			User user = new User();
 			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
@@ -108,7 +105,6 @@ public class Service implements Serializable {
 		return user;
 	}
 	
-	// TODO: Untested
 	public User loginUser(User user) throws InvalidCredentialsException {
 		User u = UDao.getUserByEmail(user.getEmail());
 		
