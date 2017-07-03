@@ -53,6 +53,39 @@ function($scope, $http, dataFactory) {
 	
 });
 
+orderysApp.controller('menuController', 
+function($scope, $http, dataFactory) {
+			
+			$scope.allBusiness; 
+			$scope.currentBusiness;
+			$scope.menuItems;
+			$scope.order;
+			
+			dataFactory.getAllBusiness().success(function (data) {
+				$scope.allBusiness = data;
+			});
+			
+			dataFactory.getBuisness(id).success(function (data) {
+				$scope.currentBusiness = data;
+			});
+			
+			dataFactory.getProduct($scope.currentBusiness.id).success(function (data) {
+				$scope.menuItems = data;
+			});
+			
+});
+
+orderysApp.controller('orderController', 
+		function($scope, $http, dataFactory) {
+					
+			$scope.order;
+					
+					
+			dataFactory.getProduct(usr).success(function (data) {
+						$scope.order = data;
+					});
+					
+		});
 
 /*$scope.getUser = function() {
 	$http.get('user/' + $scope.userId)

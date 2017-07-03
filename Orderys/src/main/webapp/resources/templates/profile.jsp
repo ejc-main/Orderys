@@ -59,37 +59,44 @@
 		<!--Main content-->
 		<div class="row">
 		
-			<!--Side bar left -->
-			<div class="col-xs-3">
+		<!--Side bar left -->
+		<div class="col-xs-3" ng-controller="profileController">
+				<input type="hidden" id="userId" value="${user.id}">
 				
 				<!--Profile pic and username -->
 				<div class="thumbnail" style ="height:120px">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
-        					<h4 style="text-align:center">{{User.firstName }} {{User.lastName }}</h4>
+        					<h4 style="text-align:center" >{{User.firstName }} {{User.lastName }}</h4>
       					</div>
     			</div>
     			
 				<!-- Switch view for manager -->
+				<div ng-if="isManager()">
     			<ul class="nav nav-pills"> 
   					<li role="presentation" class = "active"><a href="#">Manager</a></li>
   					<li role="presentation"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
+				</div>
 				
-				<!-- 
-				<!-- Switch view for employees
+				<!-- Switch view for employees -->
+				<div ng-if="isEmployee()">
 				<ul class="nav nav-pills"> 
   					<li role="presentation" class="active"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
-				 -->
+				</div>
 				
 				<br>
-				<button class="button">Home</button>
+				<form action="home">
+				<button type="submit" class="button">Home</button>
+				</form>
 				<br>
 				<br>
-				<button class="button">Profile</button>
+				<form action="profile">
+				<button type="submit" class="button">Profile</button>
+				</form>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
@@ -106,11 +113,12 @@
 			
 			<img src="../assets/img/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;"/>
 			<p>{{User.firstName }} {{User.lastName }}</p>
-			<p>Email</p>
+			<p>{{User.email}}</p>
 			<button class="button" data-toggle="modal" data-target="#pUpdate" >Edit</button>
 			
 			<h5>Past Orders</h5>
-						<!-- list of order items -->	
+			
+			<!-- list of orders -->	
 			<ul style="height:200px;overflow:auto;padding-right:20px;">
 				<li>
 				 	<p>Business Name</p>
@@ -199,11 +207,15 @@
       
       
        <!-- Update user form -->
-       <form name="cBusiness">
+       <form name="cBusiness" action="user/{{User.id}}" method="post">
        
        Name <input type = "text" name="fName" placeholder=" First Name" style="float:right" required=required> <br><br>
        Address 1 <input type = "text" name="lName" placeholder="Last Name" style="float:right" required=required> <br><br>
        Address 2 <input type = "text" name="email" placeholder="Email" style="float:right"> <br><br>
+       City <input type = "text" name="city" placeholder="City" style="float:right" required=required> <br><br>
+       State <input type = "text" name="state" placeholder="State" style="float:right" required=required> <br><br>
+       Country <input type = "text" name="country" placeholder="Country" style="float:right" required=required> <br><br>
+       Zip Code <input type = "number" name="zip" placeholder="Zip Code" style="float:right" required=required> <br><br>
        
        
        <input type=submit class="button" style="float:right" value="Confirm">

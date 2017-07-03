@@ -44,7 +44,7 @@
 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/orderys-app.css"/>
 </head>
-<body>
+<body ng-app="orderysApp">
 
 
 	<div class="container">
@@ -56,38 +56,45 @@
 		
 		<!--Main content-->
 		<div class="row">
-		
-			<!--Side bar left -->
-			<div class="col-xs-3">
+			
+		<!--Side bar left -->
+		<div class="col-xs-3" ng-controller="profileController">
+				<input type="hidden" id="userId" value="${user.id}">
 				
 				<!--Profile pic and username -->
 				<div class="thumbnail" style ="height:120px">
       				<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
       					<div class="caption">
-        					<h4 style="text-align:center">User Name</h4>
+        					<h4 style="text-align:center" >{{User.firstName }} {{User.lastName }}</h4>
       					</div>
     			</div>
     			
 				<!-- Switch view for manager -->
+				<div ng-if="isManager()">
     			<ul class="nav nav-pills"> 
   					<li role="presentation" class = "active"><a href="#">Manager</a></li>
   					<li role="presentation"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
+				</div>
 				
-				<!-- 
-				<!-- Switch view for employees
+				<!-- Switch view for employees -->
+				<div ng-if="isEmployee()">
 				<ul class="nav nav-pills"> 
   					<li role="presentation" class="active"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
-				 -->
+				</div>
 				
 				<br>
-				<button class="button">Home</button>
+				<form action="home">
+				<button type="submit" class="button">Home</button>
+				</form>
 				<br>
 				<br>
-				<button class="button">Profile</button>
+				<form action="profile">
+				<button type="submit" class="button">Profile</button>
+				</form>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>

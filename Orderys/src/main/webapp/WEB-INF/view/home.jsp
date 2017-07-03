@@ -80,18 +80,22 @@
 				</div>
 				
 				<!-- Switch view for employees -->
-				<div>
-				<ul class="nav nav-pills" ng-if="isEmployee()"> 
+				<div ng-if="isEmployee()">
+				<ul class="nav nav-pills"> 
   					<li role="presentation" class="active"><a href="#">Employee</a></li>
  					 <li role="presentation"><a href="#">Customer</a></li>
 				</ul>
 				</div>
 				
 				<br>
-				<button class="button">Home</button>
+				<form action="home">
+				<button type="submit" class="button">Home</button>
+				</form>
 				<br>
 				<br>
-				<button class="button">Profile</button>
+				<form action="profile">
+				<button type="submit" class="button">Profile</button>
+				</form>
 				<br>
 				<br>
 				<!--  <button class="button">Profile</button>
@@ -104,55 +108,52 @@
 			</div>
 			
 			<!-- main content for page -->
-			<div class="col-xs-6">
+			<div class="col-xs-6" ng-controller="menuController">
 			
-			<h3 style="text-align:center">Business name</h3>
+			<h3 style="text-align:center">{{currentBusiness.name}}</h3>
 				
 			<h4>Menu</h4>
 				
 				<!-- Collapseable display for menu items -->
-				<!-- may be a tricky one to free marker -->
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="item in menuItems">
 				
 				
 				<!-- one panel element -->
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="headingOne">
+						<div class="panel-heading" role="tab" id="heading{{$index}}">
 							<h4 class="panel-title">
 								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne" aria-expanded="true"
-									aria-controls="collapseOne"> Product name</a> <p style="float:right">Price</p>
+									href="#collapse{{$index}}" aria-expanded="false"
+									aria-controls="collapse{{$index}}">{{item.name}}</a> <p style="float:right">{{item.productPrice}}</p>
 							</h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse in"
-							role="tabpanel" aria-labelledby="headingOne">
+						<div id="collapseOne" class="panel-collapse collapse"
+							role="tabpanel" aria-labelledby="heading{{$index}}">
 							<div class="panel-body">
 								</div>
 									<img alt="Menu Item Pic" src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" style="width:100px;height:100px; float:left">
-									<h5>Product Name</h5>
-									<p>Description</p>
-									<p>Estimated wait time</p>
-									<p>Price</p>
+									<h5>{{item.name}}</h5>
+									<p>{{item.description}}</p>
+									<p>{{intendedCompletionTime}}</p>
+									<p>{{item.productPrice}}</p>
 									<button class="button">Add to Order</button>
 									<br>
 								</div>
-						</div>
-					
-					
+						</div>				
 					</div>
 				</div>
 				
 				
 
 					<!-- side bar right -->
-					<div class="col-xs-3">
+					<div class="col-xs-3" ng-controller="orderController">
 
 						<h3 style="text-align: center">My Order</h3>
 						<br>
 
 						<!-- list of order items -->
 						<ul style="height: 200px; overflow: auto;">
-							<li style="padding:5px">
+							<li style="padding:5px" ng-repeat="item in order">
 								<p>food</p>
 								<p>cost</p>
 								<button class="button">Remove</button> <br>
