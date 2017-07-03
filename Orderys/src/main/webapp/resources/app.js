@@ -25,7 +25,7 @@ orderysApp.config(function($routeProvider) {
     })
     .when('/profile', {
       templateUrl: '/Orderys/resources/templates/profile.html',
-      controller: '',
+      controller: 'profileController',
       resolve: {}
     })
     .otherwise({

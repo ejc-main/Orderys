@@ -21,9 +21,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"
 		integrity="sha256-/Ux6PXN4PVrOLU6RZE9hyvbmMJyK4sbjF6Jyw0lysl0="
 		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"
-		integrity="sha256-G+1+tim/HxoMbe2+rEPbXMlbqDTBm2V6vIe+Q/o6ccQ="
-		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
 	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"
 		integrity="sha256-FMocp8pp1WruAK6GtjNDtuGAALCt/dCsVtw7oSjvPX0="
 		crossorigin="anonymous"></script>-->
