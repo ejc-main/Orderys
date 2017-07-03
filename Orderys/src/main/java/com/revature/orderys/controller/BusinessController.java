@@ -41,23 +41,35 @@ public class BusinessController {
 			@RequestParam(name="city", required=true) String city,
 			@RequestParam(name="state", required=true) String state,
 			@RequestParam(name="country", required=true) String country,
-			@RequestParam(name="", required=true) String zip,
+			@RequestParam(name="zip", required=true) String zip,
 			HttpServletRequest request) {
-		//TODO:implement return 
+		//TODO:implement return
 		return null;
 		
 	}
 	
 	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
 	public Business getBusiness(HttpServletRequest request) {
-		//TODO:implement return 
+		//TODO:implement return
 		return null;
 	}
 	
 	@RequestMapping(value="/{businessId}", method=RequestMethod.POST)
 	public Business updateBusiness() {
-		//TODO:implement return 
+		//TODO:implement return
 		return null;
 	}
+	
+	@RequestMapping(value="/{businessId}/station")
+	
+	@RequestMapping(value="/{businessId}/station/{stationId}")
+	
+	@RequestMapping(value="/{businessId}/station/{stationId}/product")
+	
+	@RequestMapping(value="/{businessId}/station/{stationId}/product/{productId}")
+	
+	@RequestMapping(value="/{businessId}/station/{stationId}/employee")
+	
+	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}")
 	
 }
