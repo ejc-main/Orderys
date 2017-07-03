@@ -28,13 +28,13 @@ public class BusinessController {
 		this.service = service;
 	}
 	
-//	/*
-//	 * GET: get list of all businesses
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	public ArrayList<Business> getAllBusinesses() {
-//		return (ArrayList<Business>) service.getAllBusinesses();
-//	}
+	/*
+	 * GET: get list of all businesses
+	 */
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public ArrayList<Business> getAllBusinesses() {
+		return (ArrayList<Business>) service.getAllBusinesses();
+	}
 //	
 //	/*
 //	 * POST: add a new business

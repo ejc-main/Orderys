@@ -2,7 +2,6 @@
 
     USER CONTROLLER:
 /user
-[NOT NEEDED] GET: get list of all users
 [NOT NEEDED - this is handled by registration method in MainController] POST: add new user 
 
 /user/{userId}
