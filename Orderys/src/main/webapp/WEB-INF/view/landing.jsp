@@ -45,10 +45,7 @@
 </head>
 <body>
 	<div class="container">
-		<!--Web site Banner -->
-		<div class="row" style="border-bottom-style: solid; border-width: 5px;  border-color: #212121;">
-			<img src = "https://s3.amazonaws.com/revature-orderys/Main+Banner.png" alt = "Orderys" style="width:400px;height:116px;"/>
-		</div>
+		<%@ include file="banner.jspf" %>
 		<!--Main content-->
 		<div class="row">
 			<!--Not used on login-->
@@ -125,10 +122,7 @@
 
 	</div>
 
-	<!-- footer for page -->
-	<div class="footer">
-		<h4></h4>
-	</div>
+	<%@ include file="footer.jspf" %>
 
 </body>
 

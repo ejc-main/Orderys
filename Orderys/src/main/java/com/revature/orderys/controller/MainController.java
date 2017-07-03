@@ -33,14 +33,21 @@ public class MainController {
 		this.service = service;
 	}
 	
-	@RequestMapping(value = {"","/","home"}, method = RequestMethod.GET)
+	@RequestMapping(value="/landing", method=RequestMethod.GET)
+	public String getLandingPage(HttpSession session) {
+		if ((User) session.getAttribute("user") == null) {
+			return "landing";
+		} else {
+			return "redirect:main";
+		}
+	}
+	
+	@RequestMapping(value = {"", "/", "main", "home"}, method = RequestMethod.GET)
 	public String getMainPage(HttpSession session) {
 		session.setMaxInactiveInterval(60 * 60);
 		if (((User) session.getAttribute("user")) == null) {
-//			System.out.println("main controller directing to landing");
-			return "landing";
+			return "redirect:landing";
 		} else {
-//			System.out.println("main controller directing to home");
 			return "home";
 		}
 	}
@@ -50,23 +57,17 @@ public class MainController {
     		@RequestParam(name="password", required=true) String password,
     		HttpSession session) {
 		if (((User) session.getAttribute("user")) != null) {
-//			System.out.println("landing controller directing to home");
-			return "home";
+			return "redirect:main";
 		} else {
-//			System.out.println("landing controller logging in");
 			try {
-				User credentials = new User();
-				credentials.setEmail(email);
-				credentials.setPasswordHash(password);
-				User user = service.loginUser(credentials);
+				User user = service.loginUser(email, password);
 				System.out.println("logged in as " + user);
 				session.setAttribute("user", user);
 				session.setMaxInactiveInterval(60 * 60);
-				return "home";
+				return "redirect:main";
 			} catch (InvalidCredentialsException ex) {
-				session.setAttribute("loginError",
-						"The username and password you provided were incorrect.");
-				return "landing";
+				session.setAttribute("loginError", ex.getMessage());
+				return "redirect:landing";
 			}
 		}
     }
@@ -78,20 +79,17 @@ public class MainController {
     		@RequestParam(name="lastname", required=true) String lastname,    		
     		HttpSession session) {
 		if (((User) session.getAttribute("user")) != null) {
-//			System.out.println("landing controller directing to home");
-			return "home";
+			return "redirect:main";
 		} else {
-//			System.out.println("landing controller registering");
 			try {
 				User user = service.addNewUser(email, password, firstname, lastname);
 				System.out.println("registered new account " + user);
 				session.setAttribute("user", user);
 				session.setMaxInactiveInterval(60 * 60);
-				return "home";
+				return "redirect:main";
 			} catch (EmailNotUniqueException ex) {
-				session.setAttribute("registrationError",
-						"Registration failed. The email address you provided is already in use.");
-				return "landing";
+				session.setAttribute("registrationError", ex.getMessage());
+				return "redirect:landing";
 			}
 		}
 	}
@@ -99,7 +97,7 @@ public class MainController {
 	@RequestMapping(value="/logout")
 	public String doLogout(HttpSession session) {
 		session.invalidate();
-		return "landing";
+		return "redirect:landing";
 	}
 
 }

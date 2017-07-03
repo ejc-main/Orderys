@@ -27,9 +27,6 @@ public class UserController {
 	@Autowired
 	Service service;
 	
-//	@GetMapping, @PostMapping
-//	@RequestBody, @ResponseBody
-	
 	public UserController() {
 		super();
 	}
@@ -38,7 +35,7 @@ public class UserController {
 		this.service = service;
 	}
 
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="", method=RequestMethod.POST)
 	public User addUser(@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="password", required=true) String password,
 			@RequestParam(name="firstname", required=true) String firstname,
@@ -46,16 +43,15 @@ public class UserController {
 			HttpSession session){
 		try {
 			return service.addNewUser(email, password, firstname, lastname);
-		} catch (EmailNotUniqueException e) {
-			session.setAttribute("registrationError",
-					"Registration failed. The email address you provided is already in use.");
+		} catch (EmailNotUniqueException ex) {
+			session.setAttribute("registrationError", ex.getMessage());
 			return null;
 		}
 		
 	}
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-	public User getUser(@PathVariable long userId, HttpSession session) {
+	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
 		User u = null;
 		u = service.getUserById(userId);
 		return u;
