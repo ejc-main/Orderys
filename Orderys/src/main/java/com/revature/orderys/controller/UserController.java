@@ -35,6 +35,9 @@ public class UserController {
 		this.service = service;
 	}
 
+	/*
+	 * [NOT NEEDED - this is handled by registration method in MainController] POST: add new user
+	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public User addUser(@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="password", required=true) String password,
@@ -47,9 +50,11 @@ public class UserController {
 			session.setAttribute("registrationError", ex.getMessage());
 			return null;
 		}
-		
 	}
 	
+	/*
+	 * GET: get information for a user with the given id
+	 */
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
 	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
 		User u = null;
@@ -57,8 +62,12 @@ public class UserController {
 		return u;
 	}
 	
+	/*
+	 * POST: update information for a user with the given id
+	 */
 	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-	public User updateUser(@RequestParam(name="email", required=false) String email,
+	public User updateUser(@PathVariable(value="userId") long userId,
+			@RequestParam(name="email", required=false) String email,
 			@RequestParam(name="password", required=false) String password,
 			@RequestParam(name="firstname", required=false) String firstname,
 			@RequestParam(name="lastname", required=false) String lastname,
@@ -98,5 +107,46 @@ public class UserController {
 		}
 		return service.updateUser(user);
 	}
+	
+	/*
+	 * GET: get list of ratings submitted by a user
+	 */
+	@RequestMapping(value="/{userId}/rating", method=RequestMethod.GET)
+	
+	/*
+	 * POST: submit a new rating as the user with the given id
+	 */
+	@RequestMapping(value="/{userId}/rating", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get a rating of a specific product submitted by a user
+	 */
+	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.GET)
+	
+	/*
+	 * POST: update (modify) a product rating submitted by a user
+	 */
+	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get list of all orders placed by a user
+	 */
+	@RequestMapping(value="/{userId}/order", method=RequestMethod.GET)
+	
+	/*
+	 * POST: place a new order as the user with the given id
+	 */
+	@RequestMapping(value="/{userId}/order", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get the details about a specific order placed by the user with the given id
+	 */
+	@RequestMapping(value="/{userId}/order/{orderID}", method=RequestMethod.GET)
+	
+	/*
+	 * POST: update (cancel) a specific order placed by the user with the given id
+	 */
+	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.POST)
+	
 
 }

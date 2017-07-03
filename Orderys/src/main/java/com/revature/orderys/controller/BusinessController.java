@@ -28,12 +28,17 @@ public class BusinessController {
 		this.service = service;
 	}
 	
+	/*
+	 * GET: get list of all businesses
+	 */
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public ArrayList<Business> getAllBusinesses() {
 		return (ArrayList<Business>) service.getAllBusinesses();
 	}
 	
-	//city, country, state, name, streetAddress1, zip, manager
+	/*
+	 * POST: add a new business
+	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public Business addBusiness(@RequestParam(name="businessName", required=true) String businessName,
 			@RequestParam(name="streetAddress1", required=true) String streetAddress1,
@@ -48,28 +53,77 @@ public class BusinessController {
 		
 	}
 	
+	/*
+	 * GET: get information and menu for a specific business
+	 */
 	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
 	public Business getBusiness(HttpServletRequest request) {
 		//TODO:implement return
 		return null;
 	}
 	
+	/*
+	 * POST: update the information or menu for a specific business
+	 */
 	@RequestMapping(value="/{businessId}", method=RequestMethod.POST)
 	public Business updateBusiness() {
 		//TODO:implement return
 		return null;
 	}
+
+	/*
+	 * GET: get list of stations for a specific business
+	 */
+	RequestMapping(value="/{businessId}/station", method=RequestMethod.GET)
 	
-//	@RequestMapping(value="/{businessId}/station")
-//	
-//	@RequestMapping(value="/{businessId}/station/{stationId}")
-//	
-//	@RequestMapping(value="/{businessId}/station/{stationId}/product")
-//	
-//	@RequestMapping(value="/{businessId}/station/{stationId}/product/{productId}")
-//	
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee")
-//	
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}")
+	/*
+	 * POST: add a new station for a business
+	 */
+	@RequestMapping(value="/{businessId}/station", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get details for a station of a business
+	 */
+	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.GET)
+	
+	/*
+	 * POST: update details for a station of a business
+	 */
+	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.POST)
+	
+	/*
+	 * DELETE: remove a station
+	 */
+	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.DELETE)
+	
+	/*
+	 * GET: get list of products provided by a business (maybe just products associated with the default station)
+	 */
+	@RequestMapping(value="/{businessId}/product", method=RequestMethod.GET)
+	
+	/*
+	 * POST: add a product to the menu (or default station) of a business
+	 */
+	@RequestMapping(value="/{businessId}/product", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get list of all employees associated with a business (or the default station of the business)
+	 */
+	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.GET)
+	
+	/*
+	 * POST: add a user as an employee of a business (possibly assign them to the default station)
+	 */
+	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.POST)
+	
+	/*
+	 * GET: get information about a specific employee
+	 */
+	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.GET)
+	
+	/*
+	 * DELETE: fire an employee (or remove them from a business for some other reason)
+	 */
+	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.DELETE)
 	
 }
