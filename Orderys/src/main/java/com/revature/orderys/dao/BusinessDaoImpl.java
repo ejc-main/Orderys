@@ -38,17 +38,17 @@ public class BusinessDaoImpl implements BusinessDao, Serializable {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<Business> getAllBusinesses() {
-		List<Business> businesses = new ArrayList<Business>();
-		Session session = sessionFactory.getCurrentSession();
-		try {
-			businesses = (List<Business>) session.createCriteria(Business.class).list();
-		} catch (HibernateException ex) {
-			logger.catching(ex);
-		}
-		return businesses;
-	}
+    @SuppressWarnings("unchecked")
+    public List<Business> getAllBusinesses() {
+        List<Business> businesses = new ArrayList<Business>();
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            businesses = (List<Business>) session.createQuery("from Business").list();
+        } catch (HibernateException ex) {
+            logger.catching(ex);
+        }
+        return businesses;
+    }
 	
 	@Override
 	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
