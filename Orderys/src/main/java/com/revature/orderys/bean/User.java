@@ -21,6 +21,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Entity
 @Table(name="USER_TABLE")
@@ -49,22 +51,25 @@ public class User implements Serializable {
 	@Column(name="USER_ROLE", nullable=false)
 	private Role role;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="EMPLOYEE_STATION",
 						joinColumns=@JoinColumn(name="EMPLOYEE_ID"),
 						inverseJoinColumns=@JoinColumn(name="STATION_ID"))
+	@JsonIgnore
 	private List<Station> employeeStations;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="customer")
 	private List<Order> orders;
 	
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderItemId")
+	@JsonIgnore
 	private List<Rating> ratings;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
+	@JsonIgnore
 	private Business businessManaged;
 	
 	public enum Role {

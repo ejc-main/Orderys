@@ -78,10 +78,12 @@ public class Business implements Serializable {
 	@Column(name="ZIP", nullable=false)
 	private String zip;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="business")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="business")
+	@JsonIgnore
 	private List<Station> stations;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="orderedAt") 
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderedAt")
+	@JsonIgnore
 	private List<OrderItem> orderItems;
 	
 	public Business() {

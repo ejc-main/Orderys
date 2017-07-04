@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Check;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Entity
 @Table(name="PRODUCT_TABLE")
@@ -33,8 +35,9 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="STATION_ID")
+	@JsonIgnore
 	private Station station;
 	
 	@Column(name="NAME", nullable=false)
@@ -53,8 +56,9 @@ public class Product implements Serializable {
 	private String photoUrl;
 
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderItemId")
+	@JsonIgnore
 	private List<Rating> ratings;
 	
 	public Product() {

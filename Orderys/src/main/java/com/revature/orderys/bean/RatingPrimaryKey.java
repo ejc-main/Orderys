@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Embeddable
 public class RatingPrimaryKey implements Serializable {
@@ -16,10 +18,12 @@ public class RatingPrimaryKey implements Serializable {
 
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="userid_fk", referencedColumnName="USER_ID")
+	@JsonIgnore
 	private User userId;
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="productid_fk", referencedColumnName="PRODUCT_ID")
+	@JsonIgnore
 	private Product productId;
 	
 	public RatingPrimaryKey() {

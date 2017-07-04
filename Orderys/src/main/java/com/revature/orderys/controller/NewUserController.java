@@ -1,6 +1,9 @@
 //package com.revature.orderys.controller;
 //
+//import javax.servlet.http.HttpSession;
+//
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
@@ -43,21 +46,25 @@
 //	 * get account information for specified user
 //	 */
 //	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-//	public User getUser() {
-//		
+//	public User getUser(HttpSession session /*might replace this with a token*/, @PathVariable(value="userId") long userId) {
+//		User u = null;
+//		u = service.getUserById(userId);
+//		return u;
 //	}
 //	/**
 //	 * update account information for specified user
 //	 */
 //	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-//	/**
-//	 * update account information for specified user
-//	 */
-//	@RequestMapping(value="/{userId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified user
-//	 */
-//	@RequestMapping(value="/{userId}", method=RequestMethod.DELETE)
+//	public User updateUser(HttpSession session, @PathVariable(value="userId") long userId,
+//			)
+////	/**
+////	 * update account information for specified user
+////	 */
+////	@RequestMapping(value="/{userId}", method=RequestMethod.PUT)
+////	/**
+////	 * delete specified user
+////	 */
+////	@RequestMapping(value="/{userId}", method=RequestMethod.DELETE)
 //	
 //	/**
 //	 * get list of all orders placed by specified user
