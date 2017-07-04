@@ -3,6 +3,7 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Component;
 public class RatingPrimaryKey implements Serializable {
 	private static final long serialVersionUID = 5178716734900342018L;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="userid_fk", referencedColumnName="USER_ID")
 	private User userId;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="productid_fk", referencedColumnName="PRODUCT_ID")
 	private Product productId;
 	

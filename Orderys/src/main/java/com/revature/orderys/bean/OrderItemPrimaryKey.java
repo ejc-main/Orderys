@@ -3,10 +3,13 @@ package com.revature.orderys.bean;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Component
 @Embeddable
@@ -14,8 +17,9 @@ public class OrderItemPrimaryKey implements Serializable {
 	
 	private static final long serialVersionUID = -3594529445590675729L;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderid_fk", referencedColumnName="ORDER_ID")
+	@JsonIgnore
 	Order order;
 	
 	@OneToOne

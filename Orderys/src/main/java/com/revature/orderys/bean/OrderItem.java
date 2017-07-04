@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Entity
 @Table(name="ORDER_ITEM_TABLE")
@@ -47,6 +49,7 @@ public class OrderItem implements Serializable {
 	private User completedBy;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
 	private Business orderedAt;
 	
 	public enum Status {

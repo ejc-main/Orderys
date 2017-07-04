@@ -28,6 +28,7 @@ public class BusinessController {
 		this.service = service;
 	}
 	
+
 //	/*
 //	 * GET: get list of all businesses
 //	 */
@@ -36,7 +37,7 @@ public class BusinessController {
 		System.out.println("here");
 		return (ArrayList<Business>) service.getAllBusinesses();
 	}
-	
+  
 //	/*
 //	 * POST: add a new business
 //	 */

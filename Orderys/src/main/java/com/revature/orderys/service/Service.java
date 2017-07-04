@@ -330,11 +330,14 @@ public class Service implements Serializable {
 	
 	//End Product Services
 	
+	//End Product Services
+	
 	//Start Employee Services
 	//TODO:untested
 	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
 		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
 	}
+
 	public ArrayList<OrderItem> getActiveOrderItems(User employee){
 		return (ArrayList<OrderItem>) OIDao.getActiveOrderItemsByBusiness(employee.getEmployeeStations().get(0).getBusiness());
 	}

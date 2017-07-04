@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Maps the fields of a table in the Orderys database. This table represents
  * a business where users can place orders.
@@ -55,6 +57,7 @@ public class Business implements Serializable {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID", nullable=false, unique=true)
+	@JsonIgnore
 	private User manager;
 	
 	@Column(name="STREET_ADDRESS_1", nullable=false)
@@ -75,10 +78,10 @@ public class Business implements Serializable {
 	@Column(name="ZIP", nullable=false)
 	private String zip;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="business")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="business")
 	private List<Station> stations;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderedAt") 
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="orderedAt") 
 	private List<OrderItem> orderItems;
 	
 	public Business() {
