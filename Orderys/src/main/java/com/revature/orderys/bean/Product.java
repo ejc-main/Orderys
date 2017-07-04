@@ -56,8 +56,9 @@ public class Product implements Serializable {
 	private String photoUrl;
 
 	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="orderItemId")
+	@JsonIgnore
 	private List<Rating> ratings;
 	
 	public Product() {
