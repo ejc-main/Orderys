@@ -54,12 +54,13 @@ public class UserController {
 //	/*
 //	 * GET: get information for a user with the given id
 //	 */
-//	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-//	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
-//		User u = null;
-//		u = service.getUserById(userId);
-//		return u;
-//	}
+
+	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
+	public User getUser(@PathVariable(value="userId") long userId, HttpSession session) {
+		User u = null;
+		u = service.getUserById(userId);
+		return u;
+	}
 	
 //	/*
 //	 * POST: update information for a user with the given id

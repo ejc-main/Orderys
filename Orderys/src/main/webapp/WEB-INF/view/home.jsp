@@ -24,32 +24,32 @@
 					</div>
 				</div>
 				<!-- Switch view for manager -->
-				<div ng-if="isManager()">
+				<div>
     			<ul class="nav nav-pills">
- 					 	<li role="presentation"><a href="#/customer">Customer</a></li>
-  					<li role="presentation"><a href="#/employee">Employee</a></li>
-  					<li role="presentation" class = "active"><a href="#/manager">Manager</a></li>
+ 					 	<li role="presentation"><a href='#customer'>Customer</a></li>
+  					<li role="presentation"><a href='#employee'>Employee</a></li>
+  					<li role="presentation"><a href='#manager'>Manager</a></li>
 					</ul>
 				</div>
 				<!-- Switch view for employees -->
 
 				<div ng-if="isEmployee()">
 					<ul class="nav nav-pills">
-						<li role="presentation"><a href="#/customer">Customer</a></li>
-						<li role="presentation" class="active"><a href="#/employee">Employee</a></li>
+						<li role="presentation"><a href='#customer'>Customer</a></li>
+						<li role="presentation"><a href='#employee'>Employee</a></li>
 					</ul>
 				</div>
 				<br>
 				
 				<div ng-if="isCustomer()">
-				<a href='#customer'>
-				<button type="submit" class="button">Home</button>
+				<a href='#customer' style="text-decoration: none">
+				<button class="button">Home</button>
 				</a>
 				<br>
 				<br>
 				</div>
 
-				<a href='#profile'>
+				<a href='#profile'style="text-decoration: none">
 					<button class="button">Profile</button>
 				</a>
 
