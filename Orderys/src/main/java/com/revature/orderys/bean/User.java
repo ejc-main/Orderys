@@ -63,7 +63,7 @@ public class User implements Serializable {
 	@JoinColumn(name="orderItemId")
 	private List<Rating> ratings;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="BUSINESS_ID")
 	private Business businessManaged;
 	

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component
 @Entity
 @Table(name="STATION_TABLE")
@@ -29,6 +31,7 @@ public class Station implements Serializable {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
 	private Business business;
 	
 	@Column(name="STATION_NAME", nullable=false)
