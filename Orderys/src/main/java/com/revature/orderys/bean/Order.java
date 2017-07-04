@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Maps the fields of a table in the Orderys database. The table represents an order
  * that is placed by a customer. The order is comprised of several order items.
@@ -41,13 +43,14 @@ public class Order implements Serializable {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
+	@JsonIgnore
 	private User customer;
 	
 	@Column(name="PAYMENT_METHOD", nullable=false)
 	private short paymentMethod;
 	
 	@MapsId("orderItemId")
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER) //altered
 	@JoinColumn(name="orderItemId")
 	private List<OrderItem> orderItems;
 	

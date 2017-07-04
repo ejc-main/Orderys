@@ -1,13 +1,6 @@
 **all endpoints should use json in the request and response bodies**
 
     USER CONTROLLER:
-/user
-[NOT NEEDED - this is handled by registration method in MainController] POST: add new user 
-
-/user/{userId}
-GET: get information for a user with the given id
-POST: update information for a user with the given id
-
 /user/{userId}/rating
 GET: get list of ratings submitted by a user
 POST: submit a new rating as the user with the given id
@@ -16,13 +9,6 @@ POST: submit a new rating as the user with the given id
 GET: get a rating of a specific product submitted by a user
 POST: update (modify) a product rating submitted by a user
 
-/user/{userId}/order
-GET: get list of all orders placed by a user
-POST: place a new order as the user with the given id
-
-/user/{userId}/order/{orderId}
-GET: get the details about a specific order placed by the user with the given id
-POST: update (cancel) a specific order placed by the user with the given id
 
     BUSINESS CONTROLLER
 /business
