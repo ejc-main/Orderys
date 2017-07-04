@@ -37,7 +37,8 @@ public class Station implements Serializable {
 	@Column(name="STATION_NAME", nullable=false)
 	private String stationName;
 		
-	@ManyToMany(mappedBy="employeeStations", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="employeeStations", fetch=FetchType.LAZY)
+	@JsonIgnore
 	private List<User> employees;
 	
 	public Station() {

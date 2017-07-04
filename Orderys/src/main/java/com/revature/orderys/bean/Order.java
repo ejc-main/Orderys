@@ -50,7 +50,7 @@ public class Order implements Serializable {
 	private short paymentMethod;
 	
 	@MapsId("orderItemId")
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER) //altered
 	@JoinColumn(name="orderItemId")
 	private List<OrderItem> orderItems;
 	
