@@ -31,11 +31,12 @@ public class BusinessController {
 //	/*
 //	 * GET: get list of all businesses
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	public ArrayList<Business> getAllBusinesses() {
-//		return (ArrayList<Business>) service.getAllBusinesses();
-//	}
-//	
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public ArrayList<Business> getAllBusinesses() {
+		System.out.println("here");
+		return (ArrayList<Business>) service.getAllBusinesses();
+	}
+	
 //	/*
 //	 * POST: add a new business
 //	 */
@@ -56,12 +57,12 @@ public class BusinessController {
 //	/*
 //	 * GET: get information and menu for a specific business
 //	 */
-//	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
-//	public Business getBusiness(HttpServletRequest request) {
-//		//TODO:implement return
-//		return null;
-//	}
-//	
+	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
+	public Business getBusiness(HttpServletRequest request) {
+		//TODO:implement return
+		return null;
+	}
+	
 //	/*
 //	 * POST: update the information or menu for a specific business
 //	 */

@@ -140,6 +140,7 @@ public class Service implements Serializable {
 	
 	// TODO; Untested
 	public List<Business> getAllBusinesses() {
+		System.out.println("reached service");
 		return BDao.getAllBusinesses();
 	}
 	

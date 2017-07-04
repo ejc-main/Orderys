@@ -77,12 +77,21 @@ orderysApp.controller('cHomeController',
 		function($scope, $http, dataFactory) {
 		
 		$scope.allBusiness;
+		$scope.userData;
+		
+		console.log(usr);
+		
+		dataFactory.getUser(usr).success(function (data) {
+			$scope.userData = data;
+		});
 		
 		dataFactory.getAllBusiness().success(function (data) {
 			$scope.allBusiness = data;
 		});
 		
-		console.log($scope.allBusiness)
+		//console.log($scope.allBusiness);
+		console.log($scope.User);
+		
 		
 });
 
@@ -93,7 +102,8 @@ function($scope, $http, dataFactory) {
 			$scope.menuItems;
 			$scope.order = order;
 			
-			dataFactory.getBuisness(id).success(function (data) {
+			
+			dataFactory.getBusiness(1).success(function (data) {
 				$scope.currentBusiness = data;
 			});
 			
@@ -119,6 +129,8 @@ function($scope, $http, dataFactory) {
 			{
 				$scope.order.splice(index,1);
 			}
+			
+			console.log($scope.currentBusiness);
 			
 });
 
