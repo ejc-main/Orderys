@@ -22,7 +22,7 @@ public class OrderItemPrimaryKey implements Serializable {
 	@JsonIgnore
 	Order order;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="productid_fk", referencedColumnName="PRODUCT_ID")
 	Product product;
 	
