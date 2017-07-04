@@ -66,6 +66,12 @@ public class Service implements Serializable {
 	public void setOIDao(OrderItemDao orderItemDao) {
 		this.OIDao = orderItemDao;
 	}
+	//Start Station Services
+	public ArrayList<User> getUsersByStation(Station station){
+		return (ArrayList<User>)station.getEmployees();
+	}
+	//End Station Services
+	
 	
 	// Begin User Services
 	
@@ -295,6 +301,10 @@ public class Service implements Serializable {
 		return user;
 	}
 	
+	public ArrayList<User> getEmployeesByBusiness(Business business){
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(business);
+		return null;
+	}
 	// End Business Services
 	
 	//Start Product Services
@@ -305,11 +315,14 @@ public class Service implements Serializable {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 		orderItems=(ArrayList<OrderItem>) OIDao.getOrderItemsByProduct(product);
 		long out=0;
+		long numcompleted=0;
 		for(OrderItem item:orderItems){
 			if(item.getStatus()==OrderItem.Status.COMPLETED){
 				out=out+(item.getTimeCompleted().getTime()- item.getTimePlaced().getTime())/1000;
+				numcompleted++;
 			}
 		}
+		out=out/numcompleted;
 		return out;
 	}
 	
