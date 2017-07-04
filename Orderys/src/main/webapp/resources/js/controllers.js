@@ -73,6 +73,55 @@ function($scope, $http, dataFactory) {
 	
 });
 
+orderysApp.controller('cHomeController', 
+		function($scope, $http, dataFactory) {
+		
+		$scope.allBusiness;
+		
+		dataFactory.getAllBusiness().success(function (data) {
+			$scope.allBusiness = data;
+		});
+		
+		console.log($scope.allBusiness)
+		
+});
+
+orderysApp.controller('menuController', 
+function($scope, $http, dataFactory) {
+			
+			$scope.currentBusiness;
+			$scope.menuItems;
+			$scope.order = order;
+			
+			dataFactory.getBuisness(id).success(function (data) {
+				$scope.currentBusiness = data;
+			});
+			
+			dataFactory.getProduct($scope.currentBusiness.id).success(function (data) {
+				$scope.menuItems = data;
+			});
+			
+			$scope.addToOrder = function(index){
+				
+				var item = $scope.menuItems[index];
+				
+				$scope.order.push({
+					
+					id : item.id,
+					name : item.name,
+					price : item.productPrice
+					
+				});
+				
+			}
+			
+			$scope.removeFromOrder(index)
+			{
+				$scope.order.splice(index,1);
+			}
+			
+});
+
 orderysApp.controller('profileController', 
 		function($scope, $http, dataFactory) {
 			
@@ -104,63 +153,13 @@ orderysApp.controller('profileController',
 			
 });
 
-orderysApp.controller('menuController', 
-function($scope, $http, dataFactory) {
-			
-			$scope.allBusiness; 
-			$scope.currentBusiness;
-			$scope.menuItems;
-			$scope.order = order;
-			
-			dataFactory.getAllBusiness().success(function (data) {
-				$scope.allBusiness = data;
-			});
-			
-			dataFactory.getBuisness(id).success(function (data) {
-				$scope.currentBusiness = data;
-			});
-			
-			dataFactory.getProduct($scope.currentBusiness.id).success(function (data) {
-				$scope.menuItems = data;
-			});
-			
-			$scope.addToOrder = function(index){
-				
-				var item = $scope.menuItems[index];
-				
-				$scope.order.push({
-					
-					id : item.id,
-					name : item.name,
-					price : item.productPrice
-					
-				});
-				
-			}
-			
-			$scope.removeFromOrder(index)
-			{
-				$scope.order.splice(index,1);
-			}
-			
+orderysApp.controller('ePageController', 
+		function($scope, $http, dataFactory) {
+		
 });
 
-
-/*$scope.getUser = function() {
-	$http.get('user/' + $scope.userId)
-		.then(
-			function(res) {
-				console.log(res.firstName);
-				console.log(res);
-				console.log(res.data.firstName);
-				$scop.firstname = res.data.firstName;
-				$scope.lastname = res.data.lastName
-			},
-			function(res) {
-				console.log(res.firstName);
-				console.log(res);
-				console.log(res.data.firstName);
-				console.log('error');
-			}
-		);
-};*/
+orderysApp.controller('mPageController', 
+		function($scope, $http, dataFactory) {
+		
+		
+});
