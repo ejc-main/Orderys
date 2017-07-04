@@ -1,13 +1,21 @@
 //package com.revature.orderys.controller;
 //
-//import javax.servlet.http.HttpSession;
+//import java.util.ArrayList;
+//
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 //import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 //
+//import com.revature.orderys.bean.Order;
+//import com.revature.orderys.bean.OrderItem;
+//import com.revature.orderys.bean.Rating;
 //import com.revature.orderys.bean.User;
 //import com.revature.orderys.service.Service;
 //
@@ -46,17 +54,41 @@
 //	 * get account information for specified user
 //	 */
 //	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-//	public User getUser(HttpSession session /*might replace this with a token*/, @PathVariable(value="userId") long userId) {
+//	public User getUser(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId) {
 //		User u = null;
 //		u = service.getUserById(userId);
+//		u.setPasswordHash(null);
 //		return u;
 //	}
 //	/**
 //	 * update account information for specified user
+//	 * (does not affect ratings, business managed, orders, or role)
 //	 */
 //	@RequestMapping(value="/{userId}", method=RequestMethod.POST)
-//	public User updateUser(HttpSession session, @PathVariable(value="userId") long userId,
-//			)
+//	public User updateUser(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @RequestBody User updates) {
+//		updates.setId(userId);
+//		User updated = (User) request.getSession().getAttribute("user");
+//		if (updates.getEmail() != null) {
+//			updated.setEmail(updates.getEmail());
+//		}
+//		if (updates.getPasswordHash() != null) {
+//			updated.setPasswordHash(BCrypt.hashpw(updates.getPasswordHash(), BCrypt.gensalt()));
+//		}
+//		if (updates.getFirstName() != null) {
+//			updated.setFirstName(updates.getFirstName());
+//		}
+//		if (updates.getLastName() != null) {
+//			updated.setLastName(updates.getLastName());
+//		}
+//		if (updates.getEmployeeStations() != null) {
+//			updated.setEmployeeStations(updates.getEmployeeStations());
+//		}
+//		updated = service.updateUser(updated);
+//		updated.setPasswordHash(null);
+//		return updated;
+//	}
 ////	/**
 ////	 * update account information for specified user
 ////	 */
@@ -70,76 +102,110 @@
 //	 * get list of all orders placed by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order", method=RequestMethod.GET)
+//	public ArrayList<Order> getOrders(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId) {
+//		return (ArrayList<Order>) service.getAllUserOrders((User) request.getSession().getAttribute("user"));
+//	}
 //	/**
 //	 * place a new order as specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order", method=RequestMethod.POST)
+//	public Order placeOrder(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId) {
+//		
+//	}
 //	
 //	/**
 //	 * get information for specified order placed by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.GET)
+//	public Order getOrder(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId) {
+//		
+//	}
 //	/**
 //	 * update (cancel) specified order placed by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.POST)
-//	/**
-//	 * update (cancel) specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.DELETE)
+//	public Order cancelOrder(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId) {
+//		
+//	}
+////	/**
+////	 * update (cancel) specified order placed by specified user
+////	 */
+////	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.PUT)
+////	/**
+////	 * delete specified order placed by specified user
+////	 */
+////	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.DELETE)
 //	
 //	/**
 //	 * get list of order items included in specified order placed by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order/{orderId}/item", method=RequestMethod.GET)
+//	public ArrayList<OrderItem> getOrderItems(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId) {
+//		
+//	}
 //	
 //	/**
 //	 * get information about a specific order item included in specified order placed by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}", method=RequestMethod.GET)
+//	public OrderItem getOrderItem(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId,
+//			@PathVariable(value="productId") long productId) {
+//		
+//	}
 //	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.GET)
+////	/**
+////	 * 
+////	 */
+////	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.GET)
 //	/**
 //	 * submit or update specified user's rating of the product included as an order item in the 
 //	 * specified order if the order is completed
 //	 * (prevents user's from rating products they have not received)
 //	 */
 //	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.POST)
-//	/**
-//	 * submit or update specified user's rating of the product included as an order item in the 
-//	 * specified order if the order is completed
-//	 * (prevents user's from rating products they have not received)
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified user's rating of the product included as an order item in the specified order
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.DELETE)
+//	public Rating submitRating(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId,
+//			@PathVariable(value="productId") long productId, @RequestBody Rating rating) {
+//		
+//	}
+////	/**
+////	 * submit or update specified user's rating of the product included as an order item in the 
+////	 * specified order if the order is completed
+////	 * (prevents user's from rating products they have not received)
+////	 */
+////	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.PUT)
+////	/**
+////	 * delete specified user's rating of the product included as an order item in the specified order
+////	 */
+////	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.DELETE)
 //	
 //	/**
 //	 * get list of all ratings submitted by specified user
 //	 */
 //	@RequestMapping(value="/{userId}/rating", method=RequestMethod.GET)
+//	public ArrayList<Rating> getRatings(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="userId") long userId) {
+//		
+//	}
 //	
 //	
-//	/**
-//	 * update specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.POST)
-//	/**
-//	 * update specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.DELETE)
+////	/**
+////	 * update specified user's rating of specified product
+////	 */
+////	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.POST)
+////	/**
+////	 * update specified user's rating of specified product
+////	 */
+////	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.PUT)
+////	/**
+////	 * delete specified user's rating of specified product
+////	 */
+////	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.DELETE)
 //	
 //}
