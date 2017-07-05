@@ -35,7 +35,7 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="STATION_ID")
 	@JsonIgnore
 	private Station station;

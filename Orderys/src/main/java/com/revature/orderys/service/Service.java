@@ -3,12 +3,11 @@ package com.revature.orderys.service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
@@ -32,68 +31,99 @@ import com.revature.orderys.exceptions.InvalidCredentialsException;
 public class Service implements Serializable {
 	private static final long serialVersionUID = -5447849598788494638L;
 	
+	public static void main(String[] args) {
+		
+	}
 	private BusinessDao BDao;
 	private UserDao UDao;
 	private ProductDao productDao;
 	private StationDao SDao;
 	private OrderDao ODao;
+	
 	private OrderItemDao OIDao;
+	
+	// a list of emails for which no account exists that have been sent job offers 
+	private Map<String, Business> pendingHires;
 	
 	public Service() {
 		super();
+		pendingHires = new HashMap<String, Business>();
 	}
 	
-	public void setBDao(BusinessDao bDao) {
-		this.BDao = bDao;
+	public void addToPendingHires(String email, Business business) {
+		pendingHires.put(email, business);
 	}
 	
-	public void setUDao(UserDao uDao) {
-		this.UDao = uDao;
+	private Boolean wasInPendingHires(String email) {
+		return pendingHires.remove(email, pendingHires.get(email));
 	}
-	
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
-	}
-	
-	public void setSDao(StationDao sDao) {
-		this.SDao = sDao;
-	}
-	
-	public void setODao(OrderDao orderDao) {
-		this.ODao = orderDao;
-	}
-	
-	public void setOIDao(OrderItemDao orderItemDao) {
-		this.OIDao = orderItemDao;
-	}
-	//Start Station Services
-	public ArrayList<User> getUsersByStation(Station station){
-		return (ArrayList<User>)station.getEmployees();
-	}
-	
-	//End Station Services
-	
-	
-	// Begin User Services
 	
 	// TODO: Untested
-	public User addNewUser(User user) throws EmailNotUniqueException {	
-		if(UDao.getUserByEmail(user.getEmail()) == null) {
-			user.setRole(User.Role.CUSTOMER);
-			UDao.createUser(user);
-			return user;
+	// TODO: Implement necessary checks on product; throw errors.
+	public Product addMenuItem(Product product) {
+		productDao.createProduct(product);
+		return product;
+	}
+	
+	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
+		User u = UDao.getUserByEmail(email);
+		Business b = new Business();
+		b.setManager(u);
+		b.setName(businessName);
+		b.setCity(city);
+		b.setCountry(country);
+		b.setState(state);
+		b.setStreetAddress1(streetAddress1);
+		b.setZip(zip);
+		Station s = new Station();
+		s.setBusiness(b);
+		s.setStationName("default");
+		SDao.createStation(s);
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
+		b.setStations(stations);
+		if(streetAddress2!=null){
+			b.setStreetAddress2(streetAddress2);
 		}
-		else {
-			throw new EmailNotUniqueException("A user with email address "
-					+ user.getEmail() + " already exists...");
+		BDao.createBusiness(b);
+	}
+	
+	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
+		Product p = new Product();
+		p.setDescription(description);
+		//p.setIntendedCompletionTime(time);
+		p.setName(name);
+		BigDecimal num = new BigDecimal(price);
+		p.setProductPrice(num);
+		User m = UDao.getUserByEmail(managerEmail);
+		Business b = BDao.getBusinessByManager(m);
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
+		Station sOut=new Station();
+		Station sDefault = new Station();
+		for(Station s:stations ){
+			if(s.getStationName().equals(stationName)){
+				sOut=s;
+			}
+			if(s.getStationName().equals("default")){
+				sDefault=s;
+			}
 		}
+		if(sOut.getId()!=0){
+			p.setStation(sOut);
+		}else{
+			p.setStation(sDefault);
+		}
+		
 	}
 	
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
 			User user = new User();
-			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
+			if (wasInPendingHires(user.getEmail())) {
+				user.setRole(User.Role.EMPLOYEE);
+			} else {
+				user.setRole(User.Role.CUSTOMER);
+			}
 			String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 			System.out.println(hash);
 			user.setPasswordHash(hash);
@@ -109,17 +139,140 @@ public class Service implements Serializable {
 		}
 	}
 	
+	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
+		User u = new User();
+		u.setEmail(email);
+		u.setPasswordHash(passwordHash);
+		u.setFirstName(firstName);
+		u.setLastName(lastName);
+		u.setRole(User.Role.valueOf(role));
+		u.setId(10000L);
+		System.out.println(u.toString());
+		UDao.createUser(u);
+		System.out.println("hi2");
+	}
 	// TODO: Untested
-	public User updateUser(User user) {
+	public User addNewUser(User user) throws EmailNotUniqueException {	
+		if(UDao.getUserByEmail(user.getEmail()) == null) {
+			user.setRole(User.Role.CUSTOMER);
+			UDao.createUser(user);
+			return user;
+		}
+		else {
+			throw new EmailNotUniqueException("A user with email address "
+					+ user.getEmail() + " already exists...");
+		}
+	}
+	
+	//End Station Services
+	
+	
+	// Begin User Services
+	
+	//Start Customer Services
+	//TODO:untested
+	public void cancelOrder(Order order){
+		ArrayList<OrderItem> orderitems=(ArrayList<OrderItem>) OIDao.getOrderItemsByOrder(order);
+		for(OrderItem orderitem : orderitems){
+			orderitem.setStatus(OrderItem.Status.CANCELLED);
+			OIDao.updateOrderItem(orderitem);
+		}
+	}
+	//End Customer Services
+	
+	public void changeUserPassword(String email,String passwordHash){
+		User u = UDao.getUserByEmail(email);
+		u.setPasswordHash(passwordHash);
+		UDao.updateUser(u);
+	}
+	
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public Station createStation(Station station) {
+		SDao.createStation(station);
+		return station;
+	}
+	
+	public ArrayList<OrderItem> getActiveOrderItems(User employee){
+		return (ArrayList<OrderItem>) OIDao.getActiveOrderItemsByBusiness(employee.getEmployeeStations().get(0).getBusiness());
+	}
+	//End Employee Services
+	
+	public ArrayList<User> getEmployeesByBusiness(Business business){
+		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(business);
+		ArrayList<User> employees = new ArrayList<User>();
+		for (Station s: stations) {
+			employees.addAll(getEmployeesByStation(s));
+		}
+		return employees;
+	}
+	// End Business Services
+	
+	// End User Services
+	
+	// Start Business Services:
+	
+	//Start Station Services
+	public ArrayList<User> getEmployeesByStation(Station station){
+		return (ArrayList<User>)station.getEmployees();
+	}
+	
+	//Start Employee Services
+	//TODO:untested
+	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
+		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
+	}
+	
+	//TODO:untested,using untested dao method
+	//returns long of seconds for average completion time
+	public long getProductAverageCompletionTime(Product product){
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		orderItems=(ArrayList<OrderItem>) OIDao.getOrderItemsByProduct(product);
+		long out=0;
+		long numcompleted=0;
+		for(OrderItem item:orderItems){
+			if(item.getStatus()==OrderItem.Status.COMPLETED){
+				out=out+(item.getTimeCompleted().getTime()- item.getTimePlaced().getTime())/1000;
+				numcompleted++;
+			}
+		}
+		out=out/numcompleted;
+		return out;
+	}
+	
+	public User getUserById(long id){
+		return UDao.getUserById(id);
+	}
+	
+	public User getUserByEmail(String email) {
+		return UDao.getUserByEmail(email);
+	}
+	
+	/**
+	 * Changes the given user to an employee, and adds the given station
+	 * to their list of employee stations. Persists and returns user.
+	 * 
+	 * @param user		The new employee.
+	 * @param station	The station that the new employee is assigned to 
+	 * 					(typically the business's default station).
+	 * @return			The updated user.
+	 */
+	
+	// TODO: Untested
+	public User hireNewEmployee(User user, Station station) {
+		user.setRole(User.Role.EMPLOYEE);
+		user.getEmployeeStations().add(station);
 		UDao.updateUser(user);
-		
 		return user;
 	}
 	
-	public User loginUser(User user) throws InvalidCredentialsException {
-		User u = UDao.getUserByEmail(user.getEmail());
+	//Start Product Services
+	
+	// TODO: Untested
+	public User loginUser(String email, String password) throws InvalidCredentialsException {
+		User u = UDao.getUserByEmail(email.trim());
 		
-		if(BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
+		if (BCrypt.checkpw(password, u.getPasswordHash())) {
 			return u;
 		}
 		else {
@@ -127,11 +280,15 @@ public class Service implements Serializable {
 		}
 	}
 	
-	// TODO: Untested
-	public User loginUser(String email, String password) throws InvalidCredentialsException {
-		User u = UDao.getUserByEmail(email.trim());
+	
+	//End Product Services
+	
+	//End Product Services
+	
+	public User loginUser(User user) throws InvalidCredentialsException {
+		User u = UDao.getUserByEmail(user.getEmail());
 		
-		if (BCrypt.checkpw(password, u.getPasswordHash())) {
+		if(BCrypt.checkpw(user.getPasswordHash(), u.getPasswordHash())) {
 			return u;
 		}
 		else {
@@ -158,10 +315,6 @@ public class Service implements Serializable {
 		ODao.createOrder(order);
 		return order;
 	}
-	
-	// End User Services
-	
-	// Start Business Services:
 	
 	/**
 	 * Creates a new business in the Orderys database. Updates role of
@@ -230,42 +383,32 @@ public class Service implements Serializable {
 		}
 		
 	}
+
+	// TODO: Triage
+	// Start old code:
 	
-	// TODO: Untested
-	// TODO: Implement necessary checks on product; throw errors.
-	public Product addMenuItem(Product product) {
-		productDao.createProduct(product);
-		return product;
+	public void setBDao(BusinessDao bDao) {
+		this.BDao = bDao;
 	}
 	
-	// TODO: Untested
-	// TODO: Might be returning the same product that was entered
-	// TODO: Implement necessary checks on product and throw exceptions
-	public Product updateMenuItem(Product product) {
-		productDao.updateProduct(product);
-		return product;
+	
+	public void setODao(OrderDao orderDao) {
+		this.ODao = orderDao;
 	}
 	
-	// TODO: Untested
-	// TODO: Implement necessary checks and throw errors.
-	public List<OrderItem> viewActiveOrderItems(Business business) {
-		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
+	public void setOIDao(OrderItemDao orderItemDao) {
+		this.OIDao = orderItemDao;
 	}
 	
-	// TODO: Untested
-	// TODO: Implement necessary checks and throw exceptions
-	public OrderItem updateOrderItem(OrderItem orderItem) {
-		OIDao.updateOrderItem(orderItem);
-		return orderItem;
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
 	}
-	
-	// TODO: Untested
-	// TODO: Implement necessary checks and throw exceptions
-	public Station createStation(Station station) {
-		SDao.createStation(station);
-		return station;
+	public void setSDao(StationDao sDao) {
+		this.SDao = sDao;
 	}
-	
+	public void setUDao(UserDao uDao) {
+		this.UDao = uDao;
+	}
 	/**
 	 * Changes the employee station of the given user to the given station.
 	 * This method first empties the list of employee stations, then adds
@@ -283,152 +426,32 @@ public class Service implements Serializable {
 		UDao.updateUser(user);
 		return user;
 	}
-	
-	/**
-	 * Changes the given user to an employee, and adds the given station
-	 * to their list of employee stations. Persists and returns user.
-	 * 
-	 * @param user		The new employee.
-	 * @param station	The station that the new employee is assigned to 
-	 * 					(typically the business's default station).
-	 * @return			The updated user.
-	 */
-	
 	// TODO: Untested
-	public User hireNewEmployee(User user, Station station) {
-		user.setRole(User.Role.EMPLOYEE);
-		user.getEmployeeStations().add(station);
+	// TODO: Might be returning the same product that was entered
+	// TODO: Implement necessary checks on product and throw exceptions
+	public Product updateMenuItem(Product product) {
+		productDao.updateProduct(product);
+		return product;
+	}
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw exceptions
+	public OrderItem updateOrderItem(OrderItem orderItem) {
+		OIDao.updateOrderItem(orderItem);
+		return orderItem;
+	}
+	// TODO: Untested
+	public User updateUser(User user) {
 		UDao.updateUser(user);
+		
 		return user;
 	}
-	
-	public ArrayList<User> getEmployeesByBusiness(Business business){
-		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(business);
-		return null;
-	}
-	// End Business Services
-	
-	//Start Product Services
-	
-	//TODO:untested,using untested dao method
-	//returns long of seconds for average completion time
-	public long getProductAverageCompletionTime(Product product){
-		List<OrderItem> orderItems = new ArrayList<OrderItem>();
-		orderItems=(ArrayList<OrderItem>) OIDao.getOrderItemsByProduct(product);
-		long out=0;
-		long numcompleted=0;
-		for(OrderItem item:orderItems){
-			if(item.getStatus()==OrderItem.Status.COMPLETED){
-				out=out+(item.getTimeCompleted().getTime()- item.getTimePlaced().getTime())/1000;
-				numcompleted++;
-			}
-		}
-		out=out/numcompleted;
-		return out;
-	}
-	
-	
-	//End Product Services
-	
-	//End Product Services
-	
-	//Start Employee Services
-	//TODO:untested
-	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
-		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
+
+	// TODO: Untested
+	// TODO: Implement necessary checks and throw errors.
+	public List<OrderItem> viewActiveOrderItems(Business business) {
+		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
 	}
 
-	public ArrayList<OrderItem> getActiveOrderItems(User employee){
-		return (ArrayList<OrderItem>) OIDao.getActiveOrderItemsByBusiness(employee.getEmployeeStations().get(0).getBusiness());
-	}
-	//End Employee Services
-	
-	//Start Customer Services
-	//TODO:untested
-	public void cancelOrder(Order order){
-		ArrayList<OrderItem> orderitems=(ArrayList<OrderItem>) OIDao.getOrderItemsByOrder(order);
-		for(OrderItem orderitem : orderitems){
-			orderitem.setStatus(OrderItem.Status.CANCELLED);
-			OIDao.updateOrderItem(orderitem);
-		}
-	}
-	//End Customer Services
-
-	// TODO: Triage
-	// Start old code:
-	
-	public User getUserById(long id){
-		return UDao.getUserById(id);
-	}
-	
-	
-	public void addNewUser(String email,String passwordHash,String firstName, String lastName, String role){
-		User u = new User();
-		u.setEmail(email);
-		u.setPasswordHash(passwordHash);
-		u.setFirstName(firstName);
-		u.setLastName(lastName);
-		u.setRole(User.Role.valueOf(role));
-		u.setId(10000L);
-		System.out.println(u.toString());
-		UDao.createUser(u);
-		System.out.println("hi2");
-	}
-	
-	public void changeUserPassword(String email,String passwordHash){
-		User u = UDao.getUserByEmail(email);
-		u.setPasswordHash(passwordHash);
-		UDao.updateUser(u);
-	}
-	
-	public void addNewBusiness(String email,String businessName,String city,String country,String state,String streetAddress1,String streetAddress2,String zip){
-		User u = UDao.getUserByEmail(email);
-		Business b = new Business();
-		b.setManager(u);
-		b.setName(businessName);
-		b.setCity(city);
-		b.setCountry(country);
-		b.setState(state);
-		b.setStreetAddress1(streetAddress1);
-		b.setZip(zip);
-		Station s = new Station();
-		s.setBusiness(b);
-		s.setStationName("default");
-		SDao.createStation(s);
-		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
-		b.setStations(stations);
-		if(streetAddress2!=null){
-			b.setStreetAddress2(streetAddress2);
-		}
-		BDao.createBusiness(b);
-	}
-	public void addNewMenuItem(String managerEmail,String stationName,String name, double price,long time,String description){
-		Product p = new Product();
-		p.setDescription(description);
-		//p.setIntendedCompletionTime(time);
-		p.setName(name);
-		BigDecimal num = new BigDecimal(price);
-		p.setProductPrice(num);
-		User m = UDao.getUserByEmail(managerEmail);
-		Business b = BDao.getBusinessByManager(m);
-		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(b);
-		Station sOut=new Station();
-		Station sDefault = new Station();
-		for(Station s:stations ){
-			if(s.getStationName().equals(stationName)){
-				sOut=s;
-			}
-			if(s.getStationName().equals("default")){
-				sDefault=s;
-			}
-		}
-		if(sOut.getId()!=0){
-			p.setStation(sOut);
-		}else{
-			p.setStation(sDefault);
-		}
-		
-	}
 	public OrderItem.Status getOrderStatus(Order order){
 		ArrayList<OrderItem> items=(ArrayList<OrderItem>)OIDao.getOrderItemsByOrder(order);
 		for(OrderItem item:items){
@@ -462,7 +485,5 @@ public class Service implements Serializable {
 		}
 		return null;
 	}
-	public static void main(String[] args) {
-		
-	}
+	
 }
