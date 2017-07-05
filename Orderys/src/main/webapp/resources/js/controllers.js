@@ -11,6 +11,7 @@ function($scope, $http, dataFactory) {
 	
 	dataFactory.getUser(usr).success(function (data) {
 		$scope.User = data;
+		console.log(data);
 	});
 	
 	$scope.isManager = function() {
@@ -81,16 +82,18 @@ orderysApp.controller('cHomeController',
 		
 		console.log(usr);
 		
-		dataFactory.getUser(usr).success(function (data) {
+		dataFactory.getUser(usr).then(function (data) {
 			$scope.userData = data;
+			console.log($scope.User);
 		});
 		
-		dataFactory.getAllBusiness().success(function (data) {
+		dataFactory.getAllBusiness().then(function (data) {
 			$scope.allBusiness = data;
+			console.log($scope.allBusiness);
 		});
 		
-		//console.log($scope.allBusiness);
-		console.log($scope.User);
+		
+		
 		
 		
 });

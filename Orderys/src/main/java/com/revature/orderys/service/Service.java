@@ -67,7 +67,7 @@ public class Service implements Serializable {
 		this.OIDao = orderItemDao;
 	}
 	//Start Station Services
-	public ArrayList<User> getUsersByStation(Station station){
+	public ArrayList<User> getEmployeesByStation(Station station){
 		return (ArrayList<User>)station.getEmployees();
 	}
 	//End Station Services
