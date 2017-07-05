@@ -35,7 +35,7 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="STATION_ID")
 	@JsonIgnore
 	private Station station;
@@ -57,10 +57,9 @@ public class Product implements Serializable {
 
 	@MapsId("ratingId")
 	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="orderItemId")
+	@JoinColumn(name="productId")
 	@JsonIgnore
 	private List<Rating> ratings;
-	
 	public Product() {
 		super();
 	}

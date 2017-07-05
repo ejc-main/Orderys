@@ -43,6 +43,7 @@ public class ProductDaoImpl implements ProductDao,Serializable {
 		} catch (HibernateException ex) {
 			logger.catching(ex);
 		}
+		System.out.println("products----"+products.size());
 		return products;
 	}
 
@@ -60,7 +61,7 @@ public class ProductDaoImpl implements ProductDao,Serializable {
 		catch(HibernateException e) {
 			logger.catching(e);
 		}
-		
+		System.out.println("products----"+products.size());
 		return products;
 	}
 
