@@ -1,86 +1,93 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?> -->
-<!-- <beans xmlns="http://www.springframework.org/schema/beans" -->
-<!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
-<!-- 	xmlns:tx="http://www.springframework.org/schema/tx" -->
-<!-- 	xmlns:mvc="http://www.springframework.org/schema/mvc" -->
-<!-- 	xmlns:security="http://www.springframework.org/schema/security" -->
-<!-- 	xmlns:aop="http://www.springframework.org/schema/aop" -->
-<!-- 	xmlns:lang="http://www.springframework.org/schema/lang" -->
-<!-- 	xmlns:context="http://www.springframework.org/schema/context" -->
-<!-- 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd -->
-<!-- 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd -->
-<!-- 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd -->
-<!-- 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd -->
-<!-- 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd -->
-<!-- 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd -->
-<!-- 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd"> -->
-
-<!-- 	<context:component-scan base-package="com.revature.orderys"/> -->
-<!-- 	<tx:annotation-driven/> -->
-<!-- 	<mvc:annotation-driven/> -->
-<!-- 	<context:annotation-config/> -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
-
-<!-- 	<mvc:resources location="src/main/webapp/app/" mapping="/static/**"/> -->
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.revature.orderys.*"/>
+	<!-- <context:annotation-config/> -->
+	<tx:annotation-driven/>
+	<context:annotation-config/>
 	
-<!-- 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-<!-- 		<property name="prefix"> -->
-<!-- 			<value>/WEB-INF/view/</value> -->
-<!-- 		</property> -->
-<!-- 		<property name="suffix"> -->
-<!-- 			<value>.jsp</value> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
 	
-
-<!-- <bean id="contentNegotiationMAnager" -->
-<!-- 		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean"> -->
-<!-- 	</bean> -->
+	<!-- url mapping for static content -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
-<!-- 	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"> -->
-<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> -->
-<!-- 		<property name="url" value="#{systemEnvironment['ORDERYS_DATABASE_URL']}"></property> -->
-<!-- 		<property name="username" value="#{systemEnvironment['ORDERYS_DATABASE_USERNAME']}"></property> -->
-<!-- 		<property name="password" value="#{systemEnvironment['ORDERYS_DATABASE_PASSWORD']}"></property> -->
-<!-- 	</bean> -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 	
-<!-- 	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> -->
-<!-- 		<property name="dataSource" ref="myDataSource"></property> -->
-<!-- 		<property name="packagesToScan" value="com.revature.orderys.bean"></property> -->
-<!-- 		<property name="hibernateProperties"> -->
-<!-- 			<props> -->
-<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
-<!-- 				<prop key="hibernate.show_sql">true</prop> -->
-<!-- 				<prop key="hibernate.format_sql">true</prop> -->
-<!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop> -->
-<!-- 			</props> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
+	<!-- REST Content Negotiation -->
+	<!-- <bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationMAnagerFactoryBean">
+	</bean> -->
 	
-<!-- 	<bean id="transactionManager" -->
-<!-- 	class="org.springframework.orm.hibernate4.HibernateTransactionManager">	 -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="#{systemEnvironment['ORDERYS_DATABASE_URL']}"></property>
+		<property name="username" value="#{systemEnvironment['ORDERYS_DATABASE_USERNAME']}"></property>
+		<property name="password" value="#{systemEnvironment['ORDERYS_DATABASE_PASSWORD']}"></property>
+	</bean>
 	
-<!-- 	<bean id="businessDao" class="com.revature.orderys.dao.BusinessDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="orderDao" class="com.revature.orderys.dao.OrderDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="productDao" class="com.revature.orderys.dao.ProductDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="ratingDao" class="com.revature.orderys.dao.RatingDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="stationDao" class="com.revature.orderys.dao.StationDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="userDao" class="com.revature.orderys.dao.UserDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl"> -->
-<!-- 		<property name="sessionFactory" ref="mySessionFactory"></property> -->
-<!-- 	</bean> -->
-<!-- </beans> -->
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"></property>
+		<property name="packagesToScan" value="com.revature.orderys.bean"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!--  <prop key="hibernate.hbm2ddl.auto">create</prop>-->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	
+	<bean id="businessDao" class="com.revature.orderys.dao.BusinessDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="orderDao" class="com.revature.orderys.dao.OrderDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="productDao" class="com.revature.orderys.dao.ProductDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="ratingDao" class="com.revature.orderys.dao.RatingDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="stationDao" class="com.revature.orderys.dao.StationDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="userDao" class="com.revature.orderys.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id="orderItemDao" class="com.revature.orderys.dao.OrderItemDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory"></property>
+	</bean>
+	<bean id = "service" class="com.revature.orderys.service.Service">
+		<property name="BDao" ref="businessDao"></property>
+		<property name="SDao" ref="stationDao"></property>
+		<property name="UDao" ref="userDao"></property>
+		<property name="productDao" ref="productDao"></property>
+		<property name="ODao" ref="orderDao"></property>
+		<property name="OIDao" ref="orderItemDao"></property>
+	</bean>
+</beans>
