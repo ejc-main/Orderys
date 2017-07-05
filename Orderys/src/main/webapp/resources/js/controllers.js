@@ -36,7 +36,6 @@ orderysApp.controller('navController', function($scope, $http, dataFactory) {
 	// });
 	
 	
-	console.log($scope.User);
 	
 	$scope.isManager = function() {
 	   
@@ -98,9 +97,17 @@ orderysApp.controller('navController', function($scope, $http, dataFactory) {
 });
 
 orderysApp.controller('cHomeController', function($scope, $http, dataFactory) {
+	$scope.User;
+	$scope.allBusiness;
+
+	dataFactory.getCurrentUser().then(function(res) {
+		$scope.User = res.data;
+	});
+	dataFactory.getAllBusinesses().then(function(res) {
+		$scope.allBusiness = res.data;
+	});
 		
-		$scope.allBusiness = {businessList : []};
-		$scope.userData = { user : {} };
+		
 		
 		// console.log(usr);
 		
@@ -109,12 +116,8 @@ orderysApp.controller('cHomeController', function($scope, $http, dataFactory) {
 		// { $scope.userData.user = successResponse.data})
 		
 		dataFactory.getAllBusinesses().then(function(res) {
-			$scope.allBusiness.businessList = successResponse.data;
+			$scope.allBusiness.businessList = res.data;
 		});
-        
-		console.log($scope.allBusiness);
-		console.log($scope.userData);
-		
 		
 });
 
@@ -143,24 +146,24 @@ orderysApp.controller('menuController', function($scope, $route, $routeParams, $
 			});
 			
 			
-			$scope.addToOrder = function(index){
+			// $scope.addToOrder = function(index){
 				
-				var item = $scope.menuItems[index];
+			// 	var item = $scope.menuItems[index];
 				
-				$scope.order.push({
+			// 	$scope.order.push({
 					
-					id : item.id,
-					name : item.name,
-					price : item.productPrice
+			// 		id : item.id,
+			// 		name : item.name,
+			// 		price : item.productPrice
 					
-				});
+			// 	});
 				
-			}
+			// }
 			
-			$scope.removeFromOrder(index)
-			{
-				$scope.order.splice(index,1);
-			}
+			// $scope.removeFromOrder(index)
+			// {
+			// 	$scope.order.splice(index,1);
+			// }
 			
 });
 

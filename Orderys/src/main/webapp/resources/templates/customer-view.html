@@ -7,10 +7,10 @@
 	<br>
 	<ul style="height:200px; overflow:auto; border: 1px solid black; padding-right:20px;">
 			
-		<li ng-repeat = "item in allBusiness.businessList" style="border-bottom: solid black 1px">
+		<li ng-repeat = "business in allBusiness track by $index" style="border-bottom: solid black 1px">
 			<br>
-			{{item.name}}
-			<a href='#menu/{{item.id}}'style="text-decoration: none" ng-click = "setB($index)">
+			{{business.name}}
+			<a href='#menu/{{business.id}}'style="text-decoration: none">
 				<button class="button" style="float:right">See Menu</button>
 			</a>
 			
