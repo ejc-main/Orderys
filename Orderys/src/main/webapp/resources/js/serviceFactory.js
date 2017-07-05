@@ -4,6 +4,13 @@ orderysApp.factory('dataFactory', ['$http', function ($http) {
 	      getUser: function(result, userId) {
 	        return $http.get('user/' + userId);
 	      },
+<<<<<<< HEAD
+	      getAllBusiness: function () {
+		        return $http.get('business/')
+		      },
+		  getProduct: function (buisnessID) {
+				 	return $http.get('business/' + buisnessID + '/product')
+=======
 	      getAllBusiness: function(result) {
 		      return $http.get('business/');
 		    },
@@ -12,6 +19,7 @@ orderysApp.factory('dataFactory', ['$http', function ($http) {
 				},
 				getProducts: function(result, buisnessID) {
 					return $http.get('business/' + buisnessID + '/product');
+>>>>>>> cca60e70ffd98ceda84d33d222e877b8736eca08
 			 	}
 	   };
 	}]); 
