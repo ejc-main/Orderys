@@ -359,9 +359,7 @@ public class Service implements Serializable {
 	// Start old code:
 	
 	public User getUserById(long id){
-		User u=UDao.getUserById(id);
-		System.out.println(u.toString());
-		return u;
+		return UDao.getUserById(id);
 	}
 	
 	
@@ -442,6 +440,19 @@ public class Service implements Serializable {
 			}
 		}
 		return OrderItem.Status.COMPLETED;
+	}
+	public ArrayList<Station> getAllStationsByBusiness(Business business){
+		return (ArrayList<Station>) SDao.getAllStationsByBusiness(business);
+	}
+	//get business, order, product and user by id
+	public Business getBusinessById(long id){
+		return BDao.getBusinessById(id);
+	}
+	public Order getOrderById(long id){
+		return ODao.getOrderById(id);
+	}
+	public Product getProductById(long id){
+		return productDao.getProductById(id);
 	}
 	public static void main(String[] args) {
 		
