@@ -109,11 +109,12 @@ orderysApp.controller('menuController',
 function($scope, $http, dataFactory) {
 			
 			$scope.currentBusiness = currB;
-			$scope.menuItems;
+			$scope.menu = {menuItems : []}
 			
 			
-			console.log(currB);
-			
+			dataFactory.getProduct($scope.currentBusiness.id)
+			.then((successResponse) => 
+			{ $scope.menu.menuItems = successResponse.data; })
 			
 			
 			$scope.addToOrder = function(index){
