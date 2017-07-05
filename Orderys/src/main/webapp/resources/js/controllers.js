@@ -113,7 +113,7 @@ function($scope, $http, dataFactory) {
 			$scope.menu = {menuItems : []}
 			
 			
-			dataFactory.getProduct($scope.currentBusiness.id)
+			dataFactory.getProducts($scope.currentBusiness.id)
 			.then((successResponse) => 
 			{ $scope.menu.menuItems = successResponse.data; })
 			
