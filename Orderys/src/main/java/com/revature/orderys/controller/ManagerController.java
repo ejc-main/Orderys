@@ -187,6 +187,7 @@ public class ManagerController {
 	}
 	/**
 	 * SEND SOMEONE AN EMAIL OFFERING THEM A JOB WITH SPECIFIED BUSINESS
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.POST)
 	public User sendJobOffer(HttpServletRequest request, HttpServletResponse response,
@@ -194,7 +195,7 @@ public class ManagerController {
 			@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="firstname", required=true) String firstname,
 			@RequestParam(name="lastname", required=true) String lastname,
-			@RequestParam(name="message", required=true) String message) {
+			@RequestParam(name="message", required=true) String message) throws Exception {
 		String businessName = service.getBusinessById(businessId).getName();
 		String subject = "Job offer from " + businessName;
 		String emailBody = "Dear " + firstname + " " + lastname + "! You have received a job offer from "
@@ -206,6 +207,8 @@ public class ManagerController {
 		User employee = service.getUserByEmail(email);
 		if (employee != null) {
 			return service.hireNewEmployee(employee, service.getDefaultStation(service.getBusinessById(businessId)));
+		} else {
+			throw new Exception("The person you tried to hire does not have an account currently.");
 		}
 		
 	}

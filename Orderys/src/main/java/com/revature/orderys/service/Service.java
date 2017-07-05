@@ -198,26 +198,6 @@ public class Service implements Serializable {
 	}
 	//End Employee Services
 	
-	// TODO; Untested
-	public List<Business> getAllBusinesses() {
-		System.out.println("reached service");
-		return BDao.getAllBusinesses();
-	}
-	
-	public ArrayList<Station> getAllStationsByBusiness(Business business){
-		return (ArrayList<Station>) SDao.getAllStationsByBusiness(business);
-	}
-	
-	// TODO: Untested
-	public List<Order> getAllUserOrders(User user) {
-		return ODao.getOrdersByCustomer(user);
-	}
-	
-	//get business, order, product and user by id
-	public Business getBusinessById(long id){
-		return BDao.getBusinessById(id);
-	}
-	
 	public ArrayList<User> getEmployeesByBusiness(Business business){
 		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(business);
 		return null;
@@ -233,31 +213,10 @@ public class Service implements Serializable {
 		return (ArrayList<User>)station.getEmployees();
 	}
 	
-	// TODO: Untested
-	public List<Product> getMenu(Business business) {
-		return productDao.getAllProductsByBusiness(business);
-	}
-	
-	public Order getOrderById(long id){
-		return ODao.getOrderById(id);
-	}
-	
 	//Start Employee Services
 	//TODO:untested
 	public ArrayList<OrderItem> getOrderItemsCompletedByEmployee(User employee){
 		return (ArrayList<OrderItem>) OIDao.getOrderItemsByEmployee(employee);
-	}
-	
-	public OrderItem.Status getOrderStatus(Order order){
-		ArrayList<OrderItem> items=(ArrayList<OrderItem>)OIDao.getOrderItemsByOrder(order);
-		for(OrderItem item:items){
-			if(item.getStatus().equals(OrderItem.Status.CANCELLED)){
-				return OrderItem.Status.CANCELLED;
-			}else if(item.getStatus().equals(OrderItem.Status.ACTIVE)){
-				return OrderItem.Status.ACTIVE;
-			}
-		}
-		return OrderItem.Status.COMPLETED;
 	}
 	
 	//TODO:untested,using untested dao method
@@ -275,10 +234,6 @@ public class Service implements Serializable {
 		}
 		out=out/numcompleted;
 		return out;
-	}
-	
-	public Product getProductById(long id){
-		return productDao.getProductById(id);
 	}
 	
 	public User getUserById(long id){
