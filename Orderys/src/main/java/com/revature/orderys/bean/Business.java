@@ -82,6 +82,10 @@ public class Business implements Serializable {
 	@JsonIgnore
 	private List<Station> stations;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="business")
+	@JsonIgnore
+	private List<Product> products;
+	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderedAt")
 	@JsonIgnore
 	private List<OrderItem> orderItems;
@@ -182,6 +186,22 @@ public class Business implements Serializable {
 	
 	public void setStations(List<Station> stations) {
 		this.stations = stations;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	@Override

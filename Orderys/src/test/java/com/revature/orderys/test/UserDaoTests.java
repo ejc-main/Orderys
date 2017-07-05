@@ -59,7 +59,7 @@ public class UserDaoTests /*extends TestCase */{
 		copy.setId(user.getId());
 		copy.setEmployeeStations(user.getEmployeeStations());
 		copy.setOrders(user.getOrders());
-		copy.setRatings(user.getRatings());
+//		copy.setRatings(user.getRatings());
 		
 		assertTrue(haveSamePropertyValues(copy, user));
 	}
@@ -88,9 +88,9 @@ public class UserDaoTests /*extends TestCase */{
 		if(!expected.getOrders().equals(actual.getOrders())) {
 			result = false;
 		}
-		if(!expected.getRatings().equals(actual.getRatings())) {
-			result = false;
-		}
+//		if(!expected.getRatings().equals(actual.getRatings())) {
+//			result = false;
+//		}
 		if(!expected.getEmployeeStations().equals(actual.getEmployeeStations())) {
 			result = false;
 		}

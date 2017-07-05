@@ -2,16 +2,25 @@ package com.revature.orderys.dao;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Product;
+import com.revature.orderys.bean.Station;
 
 public interface ProductDao {
 
+	void setSessionFactory(SessionFactory sessionFactory);
 
 	List<Product> getAllProducts();
 
+	// TODO: Untested
 	List<Product> getAllProductsByBusiness(Business business);
-	
+
+	List<Product> getProductsByStation(Station station);
+
 	void createProduct(Product p);
 
 	Product getProductById(long id);

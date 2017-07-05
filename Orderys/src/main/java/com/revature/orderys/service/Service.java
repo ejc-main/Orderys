@@ -306,6 +306,11 @@ public class Service implements Serializable {
 		return productDao.getAllProductsByBusiness(business);
 	}
 	
+//	// alternative
+//	public List<Product> getMenu(Business business) {
+//		return 
+//	}
+	
 	// TODO: Untested
 	public List<Order> getAllUserOrders(User user) {
 		return ODao.getOrdersByCustomer(user);

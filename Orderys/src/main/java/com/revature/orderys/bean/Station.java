@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,6 +41,11 @@ public class Station implements Serializable {
 	@ManyToMany(mappedBy="employeeStations", fetch=FetchType.LAZY)
 	@JsonIgnore
 	private List<User> employees;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="station")
+	@JsonIgnore
+	private List<Product> products;
+	
 	
 	public Station() {
 		super();
@@ -82,6 +88,14 @@ public class Station implements Serializable {
 	
 	public void setEmployees(List<User> employees) {
 		this.employees = employees;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	@Override

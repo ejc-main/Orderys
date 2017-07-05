@@ -36,7 +36,12 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="BUSINESS_ID")
+	@JsonIgnore
+	private Business business;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="STATION_ID")
 	@JsonIgnore
 	private Station station;
@@ -131,6 +136,22 @@ public class Product implements Serializable {
 //	public void setRatings(List<Rating> ratings) {
 //		this.ratings = ratings;
 //	}
+
+	public Business getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 
 	@Override
 	public String toString() {
