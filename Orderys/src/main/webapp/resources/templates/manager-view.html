@@ -8,13 +8,13 @@
 			<ul  style="height:300px;overflow:auto;">
 			
 			<!-- one menu item on manager side -->
-			<li style="border-bottom:1px solid black;">
+			<li style="border-bottom:1px solid black;" ng-repeat="item in menu.menuItems">
 			
-			<img src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" alt="Profile Picture" style="width:100px;height:100px;">
-			<h5>Product Name</h5>
-			<p>Description</p>
-			<p>Estimated wait time</p>
-			<p>Price</p>
+			<img ng-src="{{item.photoUrl}}" alt="Profile Picture" style="width:100px;height:100px;">
+			<h5>{{item.name}}</h5>
+			<p>{{item.description}}</p>
+			<p>{{intendedCompletionTime}}</p>
+			<p>{{item.productPrice | currency}}</p>
 			
 			<select>
 			<!-- default taht it starts on -->
