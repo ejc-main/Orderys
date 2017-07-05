@@ -200,7 +200,11 @@ public class Service implements Serializable {
 	
 	public ArrayList<User> getEmployeesByBusiness(Business business){
 		ArrayList<Station> stations=(ArrayList<Station>) SDao.getAllStationsByBusiness(business);
-		return null;
+		ArrayList<User> employees = new ArrayList<User>();
+		for (Station s: stations) {
+			employees.addAll(getEmployeesByStation(s));
+		}
+		return employees;
 	}
 	// End Business Services
 	

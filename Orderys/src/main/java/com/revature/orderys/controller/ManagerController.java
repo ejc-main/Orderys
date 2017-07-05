@@ -196,10 +196,10 @@ public class ManagerController {
 			@RequestParam(name="firstname", required=true) String firstname,
 			@RequestParam(name="lastname", required=true) String lastname,
 			@RequestParam(name="message", required=true) String message) throws Exception {
-		String businessName = service.getBusinessById(businessId).getName();
-		String subject = "Job offer from " + businessName;
+		Business business = service.getBusinessById(businessId);
+		String subject = "Job offer from " + business.getName();
 		String emailBody = "Dear " + firstname + " " + lastname + "! You have received a job offer from "
-				+ businessName + ".\n" + message + "\n"
+				+ business.getName() + ".\n" + message + "\n"
 						+ "Login or create an account on Orderys using this email address to start "
 						+ "working or reject this offer.";
 		Mailer mailer = Mailer.getInstance();
@@ -208,9 +208,9 @@ public class ManagerController {
 		if (employee != null) {
 			return service.hireNewEmployee(employee, service.getDefaultStation(service.getBusinessById(businessId)));
 		} else {
+			service.addToPendingHires(email, business);
 			throw new Exception("The person you tried to hire does not have an account currently.");
 		}
-		
 	}
 	
 //	/**
