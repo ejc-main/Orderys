@@ -6,25 +6,23 @@
 // var order = {items : []};
 
 
-orderysApp.controller('navController', function($scope, $rootScope, $http, dataFactory) {
-	$scope.User = {};
+orderysApp.controller('navController', function($scope, $http, dataFactory) {
+	$scope.User;
 
 	dataFactory.getCurrentUser().then(function(res) {
-		$rootScope.User = res.data;
-		$scope.User = $rootScope.User;
-		if ($rootScope.User.role === "MANAGER") {
-			dataFactory.getManagedBusiness($rootScope.User.id).then(function(res) {
+		$scope.User = res.data;
+		if ($scope.User.role === "MANAGER") {
+			dataFactory.getManagedBusiness($scope.User.id).then(function(res) {
 				if (res.data.name) {
-					$rootScope.managedBusiness = res.data;
-					$scope.managedBusiness = $rootScope.managedBusiness;
-					dataFactory.getStations($rootScope.managedBusiness.id).then(function(res) {
-						$rootScope.managedBusiness.stations = res.data;
+					$scope.managedBusiness = res.data;
+					dataFactory.getStations($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.stations = res.data;
 					});
-					dataFactory.getProducts($rootScope.managedBusiness.id).then(function(res) {
-						$rootScope.managedBusiness.menu = res.data; // this might be wrong
+					dataFactory.getProducts($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.menu = res.data; // this might be wrong
 					});
-					dataFactory.getEmployees($rootScope.managedBusiness.id).then(function(res) {
-						$rootScope.managedBusiness.employees = res.data;
+					dataFactory.getEmployees($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.employees = res.data;
 					});
 				}
 			})
@@ -38,16 +36,16 @@ orderysApp.controller('navController', function($scope, $rootScope, $http, dataF
 	// });
 	
 	
-	console.log($rootScope.User);
+	console.log($scope.User);
 	
 	$scope.isManager = function() {
 	   
-		if($rootScope.User === undefined)
+		if($scope.User === undefined)
 		{
 			return false;
 		}
 		
-		var role = $rootScope.User.role;
+		var role = $scope.User.role;
 		
 		if(role == "MANAGER")
 		{
@@ -61,12 +59,12 @@ orderysApp.controller('navController', function($scope, $rootScope, $http, dataF
 	
 	$scope.isEmployee = function() {
 		
-		if($rootScope.User === undefined)
+		if($scope.User === undefined)
 		{
 			return false;
 		}
 		
-		var role = $rootScope.User.role;
+		var role = $scope.User.role;
 		
 		if(role == "EMPLOYEE")
 		{
@@ -80,12 +78,12 @@ orderysApp.controller('navController', function($scope, $rootScope, $http, dataF
 	
 	$scope.isCustomer = function() {
 		
-		if($rootScope.User === undefined)
+		if($scope.User === undefined)
 		{
 			return false;
 		}
 		
-		var role = $rootScope.User.role;
+		var role = $scope.User.role;
 		
 		if(role == "CUSTOMER")
 		{
@@ -99,7 +97,7 @@ orderysApp.controller('navController', function($scope, $rootScope, $http, dataF
 	
 });
 
-orderysApp.controller('cHomeController', function($scope, $rootScope, $http, dataFactory) {
+orderysApp.controller('cHomeController', function($scope, $http, dataFactory) {
 		
 		$scope.allBusiness = {businessList : []};
 		$scope.userData = { user : {} };
@@ -110,15 +108,9 @@ orderysApp.controller('cHomeController', function($scope, $rootScope, $http, dat
 		// .then((successResponse) => 
 		// { $scope.userData.user = successResponse.data})
 		
-		dataFactory.getAllBusinesses()
-		.then((successResponse) => 
-		{ $scope.allBusiness.businessList = successResponse.data; })
-		
-		
-		$scope.setB = function(index){
-			
-			currB = $scope.allBusiness.businessList[index];
-		}
+		dataFactory.getAllBusinesses().then(function(res) {
+			$scope.allBusiness.businessList = successResponse.data;
+		});
         
 		console.log($scope.allBusiness);
 		console.log($scope.userData);
@@ -126,20 +118,27 @@ orderysApp.controller('cHomeController', function($scope, $rootScope, $http, dat
 		
 });
 
-orderysApp.controller('menuController', function($scope, $rootScope, $route, $routeParams, $http, dataFactory) {
+orderysApp.controller('menuController', function($scope, $route, $routeParams, $http, dataFactory) {
+	$scope.User;
+	
+	dataFactory.getCurrentUser().then(function(res) {
+		$scope.User = res.data;
+		
+	});
 			
-			$scope.business = {};
-			$scope.stations = {};
-			$scope.menu = [];
+			$scope.order = {
+				paymentMethod : null,
+				orderItems: []
+			};
 			
 			
 			dataFactory.getBusiness($routeParams.businessId).then(function(res) {
 				$scope.business = res.data;
-				dataFactory.getStations($routeParams.businessId).then(function(res) {
-					$scope.stations = res.data;
-				});
+				// dataFactory.getStations($routeParams.businessId).then(function(res) {
+				// 	$scope.stations = res.data;
+				// });
 				dataFactory.getProducts($routeParams.businessId).then(function(res) {
-					$scope.menu = res.data; // this might be wrong
+					$scope.business.menu = res.data; // this might be wrong
 				});
 			});
 			
@@ -165,13 +164,13 @@ orderysApp.controller('menuController', function($scope, $rootScope, $route, $ro
 			
 });
 
-orderysApp.controller('profileController', function($scope, $rootScope, $http, dataFactory) {
-			
-			$scope.User;
-			
-			// dataFactory.getUser(usr).success(function (data) {
-			// 	$scope.User = data;
-			// });
+orderysApp.controller('profileController', function($scope, $http, dataFactory) {
+	$scope.User;
+	
+	dataFactory.getCurrentUser().then(function(res) {
+		$scope.User = res.data;
+		
+	});
 			
 			
 			$scope.isManager = function() {
@@ -195,27 +194,55 @@ orderysApp.controller('profileController', function($scope, $rootScope, $http, d
 			
 });
 
-orderysApp.controller('ePageController', function($scope, $rootScope, $http, dataFactory) {
+orderysApp.controller('ePageController', function($scope, $http, dataFactory) {
+	$scope.User;
+
+	dataFactory.getCurrentUser().then(function(res) {
+		$scope.User = res.data;
+		
+	});
 		
 });
 
-orderysApp.controller('mPageController', function($scope, $rootScope, $http, dataFactory) {
+orderysApp.controller('mPageController', function($scope, $http, dataFactory) {
+	$scope.User;
+
+	dataFactory.getCurrentUser().then(function(res) {
+		$scope.User = res.data;
+		if ($scope.User.role === "MANAGER") {
+			dataFactory.getManagedBusiness($scope.User.id).then(function(res) {
+				if (res.data.name) {
+					$scope.managedBusiness = res.data;
+					$scope.managedBusiness = $scope.managedBusiness;
+					dataFactory.getStations($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.stations = res.data;
+					});
+					dataFactory.getProducts($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.menu = res.data; // this might be wrong
+					});
+					dataFactory.getEmployees($scope.managedBusiness.id).then(function(res) {
+						$scope.managedBusiness.employees = res.data;
+					});
+				}
+			})
+		}
+	});
 
 		$scope.submitMenuItem = function() {
 			
-			dataFactory.addProduct($rootScope.managedBusiness.id, newProduct).then(function(res) {
-				$rootScope.managedBusiness.menu.push(res.data);
+			dataFactory.addProduct($scope.managedBusiness.id, newProduct).then(function(res) {
+				$scope.managedBusiness.menu.push(res.data);
 			});
 		};
 		$scope.submitStation = function() {
-			$scope.newStation.business = $rootScope.managedBusiness;
-			dataFactory.addStation($rootScope.managedBusiness.id, newStation).then(function(res) {
-				$rootScope.managedBusiness.stations.push(res.data);
+			$scope.newStation.business = $scope.managedBusiness;
+			dataFactory.addStation($scope.managedBusiness.id, newStation).then(function(res) {
+				$scope.managedBusiness.stations.push(res.data);
 			});
 		};
 		$scope.offerJob = function() {
-			dataFactory.addEmployee($rootScope.managedBusiness.id, newHire).then(function(res) {
-				$rootScope.managedBusiness.employees.push(res.data);
+			dataFactory.addEmployee($scope.managedBusiness.id, newHire).then(function(res) {
+				$scope.managedBusiness.employees.push(res.data);
 			});
 		};
 		
