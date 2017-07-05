@@ -126,7 +126,6 @@ orderysApp.controller('menuController', function($scope, $route, $routeParams, $
 	
 	dataFactory.getCurrentUser().then(function(res) {
 		$scope.User = res.data;
-		
 	});
 			
 			$scope.order = {
@@ -137,9 +136,6 @@ orderysApp.controller('menuController', function($scope, $route, $routeParams, $
 			
 			dataFactory.getBusiness($routeParams.businessId).then(function(res) {
 				$scope.business = res.data;
-				// dataFactory.getStations($routeParams.businessId).then(function(res) {
-				// 	$scope.stations = res.data;
-				// });
 				dataFactory.getProducts($routeParams.businessId).then(function(res) {
 					$scope.business.menu = res.data; // this might be wrong
 				});
@@ -169,17 +165,24 @@ orderysApp.controller('menuController', function($scope, $route, $routeParams, $
 
 orderysApp.controller('profileController', function($scope, $http, dataFactory) {
 	$scope.User = {};
-	$scope.newBusiness = {};
+	$scope.newBusiness = {
+		name: null,
+		streetAddress1: null,
+		streetAddress2: null,
+		city: null,
+		state: null,
+		country: null,
+		zip: null
+	};
 	
 	dataFactory.getCurrentUser().then(function(res) {
 		$scope.User = res.data;
-		
 	});
 			
 	$scope.createBusiness = function() {
 		dataFactory.addBusiness($scope.newBusiness).then(function(res) {
 			console.log(res.data);
-		})
+		});
 	}
 
 			$scope.isManager = function() {
@@ -214,7 +217,8 @@ orderysApp.controller('ePageController', function($scope, $http, dataFactory) {
 });
 
 orderysApp.controller('mPageController', function($scope, $http, dataFactory) {
-	$scope.User;
+	$scope.User = {};
+	$scope.managedBusiness = {};
 
 	dataFactory.getCurrentUser().then(function(res) {
 		$scope.User = res.data;
@@ -233,24 +237,24 @@ orderysApp.controller('mPageController', function($scope, $http, dataFactory) {
 						$scope.managedBusiness.employees = res.data;
 					});
 				}
-			})
+			});
 		}
 	});
 
 		$scope.submitMenuItem = function() {
-			console.log(newProduct);
-			dataFactory.addProduct($scope.managedBusiness.id, newProduct).then(function(res) {
+			// console.log(newProduct);
+			dataFactory.addProduct($scope.managedBusiness.id, $scope.newProduct).then(function(res) {
 				$scope.managedBusiness.menu.push(res.data);
 			});
 		};
 		$scope.submitStation = function() {
 			$scope.newStation.business = $scope.managedBusiness;
-			dataFactory.addStation($scope.managedBusiness.id, newStation).then(function(res) {
+			dataFactory.addStation($scope.managedBusiness.id, $scope.newStation).then(function(res) {
 				$scope.managedBusiness.stations.push(res.data);
 			});
 		};
 		$scope.offerJob = function() {
-			dataFactory.addEmployee($scope.managedBusiness.id, newHire).then(function(res) {
+			dataFactory.addEmployee($scope.managedBusiness.id, $scope.newHire).then(function(res) {
 				$scope.managedBusiness.employees.push(res.data);
 			});
 		};

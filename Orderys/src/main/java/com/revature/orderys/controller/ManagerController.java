@@ -136,7 +136,7 @@ public class ManagerController {
 	public ArrayList<Product> getProducts(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
 		ArrayList<Product> results = (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
-//		System.out.println("products = " + results);
+		System.out.println(results);
 		return results;
 	}
 	/**

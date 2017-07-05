@@ -280,12 +280,9 @@ public class Service implements Serializable {
 			return u;
 		}
 		else {
-			throw new InvalidCredentialsException("User entered incorrect email or password.");
+			throw new InvalidCredentialsException("Incorrect email or password.");
 		}
 	}
-	
-	
-	//End Product Services
 	
 	//End Product Services
 	
@@ -296,7 +293,7 @@ public class Service implements Serializable {
 			return u;
 		}
 		else {
-			throw new InvalidCredentialsException("User entered incorrect email or password.");
+			throw new InvalidCredentialsException("Incorrect email or password.");
 		}
 	}
 	
@@ -307,7 +304,9 @@ public class Service implements Serializable {
 	
 	// TODO: Untested
 	public List<Product> getMenu(Business business) {
-		return productDao.getAllProductsByBusiness(business);
+		List<Product> menu = productDao.getAllProductsByBusiness(business);
+		System.out.println(menu);
+		return menu;
 	}
 	
 	// TODO: Untested
