@@ -1,7 +1,5 @@
 package com.revature.orderys.util;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -23,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mailer {
   
-  private static String propertiesFile = "src/main/resources/mailer.properties";
+//  private static String propertiesFile = "src/main/resources/mailer.properties";
   
   private static final Mailer INSTANCE = new Mailer();
   public static Mailer getInstance() { return Mailer.INSTANCE; }
@@ -35,15 +33,6 @@ public class Mailer {
   
   private Mailer() {
     super();
-    Properties p = new Properties();
-    try {
-      p.load(new FileReader(propertiesFile));
-      this.username = p.getProperty("username");
-      this.password = p.getProperty("password");
-    } catch (IOException e) {
-//      logger.alert(e.getMessage());
-      e.printStackTrace();
-    }
   }
 
   public boolean sendMail(String recipientEmail, String subject, String body) {
