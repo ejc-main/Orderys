@@ -336,7 +336,22 @@ public class Service implements Serializable {
 			throw new InvalidCredentialsException("User entered incorrect email or password.");
 		}
 	}
-
+	
+	// TODO; Untested
+	public List<Business> getAllBusinesses() {
+		return BDao.getAllBusinesses();
+	}
+	
+	// TODO: Untested
+	public List<Product> getMenu(Business business) {
+		return productDao.getAllProductsByBusiness(business);
+	}
+	
+	// TODO: Untested
+	public List<Order> getAllUserOrders(User user) {
+		return ODao.getOrdersByCustomer(user);
+	}
+	
 	public Order placeOrder(Order order) {
 		ODao.createOrder(order);
 		return order;
@@ -471,9 +486,45 @@ public class Service implements Serializable {
 		
 		return user;
 	}
+
 	// TODO: Untested
 	// TODO: Implement necessary checks and throw errors.
 	public List<OrderItem> viewActiveOrderItems(Business business) {
 		return OIDao.getOrderItemsByStatus(business, OrderItem.Status.ACTIVE);
 	}
+
+	public OrderItem.Status getOrderStatus(Order order){
+		ArrayList<OrderItem> items=(ArrayList<OrderItem>)OIDao.getOrderItemsByOrder(order);
+		for(OrderItem item:items){
+			if(item.getStatus().equals(OrderItem.Status.CANCELLED)){
+				return OrderItem.Status.CANCELLED;
+			}else if(item.getStatus().equals(OrderItem.Status.ACTIVE)){
+				return OrderItem.Status.ACTIVE;
+			}
+		}
+		return OrderItem.Status.COMPLETED;
+	}
+	public ArrayList<Station> getAllStationsByBusiness(Business business){
+		return (ArrayList<Station>) SDao.getAllStationsByBusiness(business);
+	}
+	//get business, order, product and user by id
+	public Business getBusinessById(long id){
+		return BDao.getBusinessById(id);
+	}
+	public Order getOrderById(long id){
+		return ODao.getOrderById(id);
+	}
+	public Product getProductById(long id){
+		return productDao.getProductById(id);
+	}
+	//get default station for a business
+	public Station getDefaultStation(Business business){
+		ArrayList<Station> stations=(ArrayList<Station>)SDao.getAllStationsByBusiness(business);
+		for(Station station:stations){
+			if(station.getStationName().equalsIgnoreCase("default"));
+			return station;	
+		}
+		return null;
+	}
+	
 }
