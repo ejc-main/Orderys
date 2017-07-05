@@ -27,7 +27,6 @@ import com.revature.orderys.util.Mailer;
  * Methods in this controller should be available for managers attempting to access 
  * the business they manage, or for all users if labeled as such.
  * @author Eric Christie
- *
  */
 @RestController
 @RequestMapping(value="/business")
@@ -55,10 +54,11 @@ public class ManagerController {
 	/**
 	 * add new business
 	 * available to everyone
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public Business addBusiness(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody Business business) {
+			@RequestBody Business business) throws Exception {
 		User u = (User) request.getSession().getAttribute("user");
 		if (u.getBusinessManaged() == null) {
 			return service.registerBusiness(business);
@@ -67,14 +67,14 @@ public class ManagerController {
 		}
 	}
 	
-	/**
-	 * update information for specified business
-	 */
-	@RequestMapping(value="/{businessId}", method=RequestMethod.POST)
-	public Business updateBusiness(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="businessId") long businessId, @RequestBody Business updates) {
-		
-	}
+//	/**
+//	 * update information for specified business
+//	 */
+//	@RequestMapping(value="/{businessId}", method=RequestMethod.POST)
+//	public Business updateBusiness(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId, @RequestBody Business updates) {
+//		
+//	}
 	
 	/**
 	 * get list of stations for specified business
@@ -98,10 +98,11 @@ public class ManagerController {
 //	 * update information for specific station of specified business
 //	 */
 //	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.POST)
-	/**
-	 * delete specific station of specified business
-	 */
-	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.DELETE)
+//	/**
+//	 * delete specific station of specified business
+//	 */
+//	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.DELETE)
+	
 	
 //	/**
 //	 * get list of employees assigned to specific station of specified business
@@ -202,19 +203,20 @@ public class ManagerController {
 						+ "working or reject this offer.";
 		Mailer mailer = Mailer.getInstance();
 		mailer.sendMail(email, subject, emailBody);
-		if ()
-		return service.hireNewEmployee(, service.getDefaultStation(service.getBusinessById(businessId)));
+		User employee = service.getUserByEmail(email);
+		if (employee != null) {
+			return service.hireNewEmployee(employee, service.getDefaultStation(service.getBusinessById(businessId)));
+		}
+		
 	}
 	
-	/**
-	 * get information for specific employee of specified business
-	 */
-	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.GET)
-	/**
-	 * delete (fire) specific employee of specified business
-	 */
-	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.DELETE)
-	
-	
+//	/**
+//	 * get information for specific employee of specified business
+//	 */
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.GET)
+//	/**
+//	 * delete (fire) specific employee of specified business
+//	 */
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.DELETE)
 
 }

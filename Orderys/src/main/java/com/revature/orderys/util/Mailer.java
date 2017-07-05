@@ -12,6 +12,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
+
 
 /*
  * change this class to work as you see fit.
@@ -20,18 +22,17 @@ import javax.mail.internet.MimeMessage;
 public class Mailer {
   
   private static String propertiesFile = "src/main/resources/mailer.properties";
-     
   
   private static final Mailer INSTANCE = new Mailer();
   public static Mailer getInstance() { return Mailer.INSTANCE; }
   
-//  private Logger logger;
+  @Value("#{systemEnvironment['ORDERYS_EMAIL_USERNAME']}")
   private String username;
+  @Value("#{systemEnvironment['ORDERYS_EMAIL_PASSWORD']}")
   private String password;
   
   private Mailer() {
     super();
-//    this.logger = Logger.getInstance();
     Properties p = new Properties();
     try {
       p.load(new FileReader(propertiesFile));

@@ -3,12 +3,11 @@ package com.revature.orderys.service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
@@ -43,8 +42,20 @@ public class Service implements Serializable {
 	
 	private OrderItemDao OIDao;
 	
+	// a list of emails for which no account exists that have been sent job offers 
+	private Map<String, Business> pendingHires;
+	
 	public Service() {
 		super();
+		pendingHires = new HashMap<String, Business>();
+	}
+	
+	public void addToPendingHires(String email, Business business) {
+		pendingHires.put(email, business);
+	}
+	
+	private Boolean wasInPendingHires(String email) {
+		return pendingHires.remove(email, pendingHires.get(email));
 	}
 	
 	// TODO: Untested
@@ -107,8 +118,12 @@ public class Service implements Serializable {
 	public User addNewUser(String email,String password,String firstName, String lastName) throws EmailNotUniqueException {		
 		if(UDao.getUserByEmail(email) == null) {
 			User user = new User();
-			user.setRole(User.Role.CUSTOMER);
 			user.setEmail(email.trim());
+			if (wasInPendingHires(user.getEmail())) {
+				user.setRole(User.Role.EMPLOYEE);
+			} else {
+				user.setRole(User.Role.CUSTOMER);
+			}
 			String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 			System.out.println(hash);
 			user.setPasswordHash(hash);
@@ -268,6 +283,10 @@ public class Service implements Serializable {
 	
 	public User getUserById(long id){
 		return UDao.getUserById(id);
+	}
+	
+	public User getUserByEmail(String email) {
+		return UDao.getUserByEmail(email);
 	}
 	
 	/**
