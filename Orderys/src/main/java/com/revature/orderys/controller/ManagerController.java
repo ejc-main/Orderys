@@ -129,7 +129,9 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/product", method=RequestMethod.GET)
 	public ArrayList<Product> getProducts(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
-		return (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
+		ArrayList<Product> results = (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
+		System.out.println("products = " + results);
+		return results;
 	}
 	/**
 	 * add product provided by specified business
