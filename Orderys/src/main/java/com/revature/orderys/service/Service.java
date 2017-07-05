@@ -432,6 +432,17 @@ public class Service implements Serializable {
 		}
 		
 	}
+	public OrderItem.Status getOrderStatus(Order order){
+		ArrayList<OrderItem> items=(ArrayList<OrderItem>)OIDao.getOrderItemsByOrder(order);
+		for(OrderItem item:items){
+			if(item.getStatus().equals(OrderItem.Status.CANCELLED)){
+				return OrderItem.Status.CANCELLED;
+			}else if(item.getStatus().equals(OrderItem.Status.ACTIVE)){
+				return OrderItem.Status.ACTIVE;
+			}
+		}
+		return OrderItem.Status.COMPLETED;
+	}
 	public static void main(String[] args) {
 		
 	}
