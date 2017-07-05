@@ -13,6 +13,7 @@ function($scope, $http, dataFactory) {
 	
 	dataFactory.getUser(usr).success(function (data) {
 		$scope.User = data;
+		console.log(data);
 	});
 	
 	
