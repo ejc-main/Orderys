@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.OrderItem;
-import com.revature.orderys.bean.Rating;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.service.Service;
 
@@ -126,17 +125,18 @@ public class CustomerController {
 //	}
 	/**
 	 * update (cancel) specified order placed by specified user
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.POST)
 	public Order cancelOrder(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId,
-			@RequestBody Order cancelling) {
+			@RequestBody Order cancelling) throws Exception {
 		cancelling.setCustomerId((User) request.getSession().getAttribute("user"));
-		if (!cancelling.getOrderStatus().equals(OrderItem.Status.COMPLETED)) {
+		if (!service.getOrderStatus(service.getOrderById(orderId)).equals(OrderItem.Status.COMPLETED)) {
 			service.cancelOrder(cancelling);
 			return service.getOrderById(orderId);
 		} else {
-			throw new Exception("You cannot cancel an order that has already been completed.")
+			throw new Exception("You cannot cancel an order that has already been completed.");
 		}
 	}
 //	/**
