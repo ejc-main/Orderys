@@ -2,7 +2,6 @@ package com.revature.orderys.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -36,6 +32,11 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_ID")
 	private long id;
 	
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="BUSINESS_ID")
+//	@JsonIgnore
+//	private Business business;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="STATION_ID")
 	@JsonIgnore
@@ -56,11 +57,11 @@ public class Product implements Serializable {
 	@Column(name="PHOTO_URL")
 	private String photoUrl;
 
-	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="orderItemId")
-	@JsonIgnore
-	private List<Rating> ratings;
+//	@MapsId("ratingId")
+//	@OneToMany(fetch=FetchType.LAZY)
+////	@JoinColumn(name="orderItemId")
+//	@JsonIgnore
+//	private List<Rating> ratings;
 	
 	public Product() {
 		super();
@@ -124,18 +125,18 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 	
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-	
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
+//	public List<Rating> getRatings() {
+//		return ratings;
+//	}
+//	
+//	public void setRatings(List<Rating> ratings) {
+//		this.ratings = ratings;
+//	}
 
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", station=" + station + ", name=" + name + ", productPrice=" + productPrice
 				+ ", intendedCompletionTime=" + intendedCompletionTime + ", description=" + description + ", photoUrl="
-				+ photoUrl + ", ratings=" + ratings + "]";
+				+ photoUrl + "]";
 	}
 }

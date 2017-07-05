@@ -9,8 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,6 +33,7 @@ public class Station implements Serializable {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="BUSINESS_ID")
 	@JsonIgnore
 	private Business business;
 	
@@ -40,6 +43,9 @@ public class Station implements Serializable {
 	@ManyToMany(mappedBy="employeeStations", fetch=FetchType.LAZY)
 	@JsonIgnore
 	private List<User> employees;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="station")
+	private List<Product> products;
 	
 	public Station() {
 		super();
@@ -82,6 +88,14 @@ public class Station implements Serializable {
 	
 	public void setEmployees(List<User> employees) {
 		this.employees = employees;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	@Override

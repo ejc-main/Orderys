@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -53,9 +54,9 @@ public class ProductDaoImpl implements ProductDao,Serializable {
 		List<Product> products = new ArrayList<Product>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			products = (List<Product>) session
-					.createQuery("from Product p where p.station.business.id = " + business.getId())
-					.list();
+			Query query = session.createQuery("from Product p where p.station.business.id = :businessId");
+			query.setLong("businessId", business.getId());
+			products = (ArrayList<Product>) query.list();
 		}
 		catch(HibernateException e) {
 			logger.catching(e);
