@@ -6,14 +6,20 @@
 	<!-- Restaurant select menu -->
 	<br>
 	<ul style="height:200px; overflow:auto; border: 1px solid black; padding-right:20px;">
-		<li>
+			
+		<li ng-repeat = "item in allBusiness.businessList" style="border-bottom: solid black 1px">
 			<br>
-			Business Name 
+			{{item.name}}
 			<a href='#menu/0'style="text-decoration: none">
-				<button class="button" style="float:right">See Menu</button>
+				<button class="button" style="float:right" ng-click = "setB($index)">See Menu</button>
 			</a>
+			
 			<br>
+			<br>
+			<br>
+			
 		</li>
+		
 	</ul>
 </div>
 
