@@ -61,7 +61,6 @@ public class MainController {
 		} else {
 			try {
 				User user = service.loginUser(email, password);
-				System.out.println("logged in as " + user);
 				session.setAttribute("user", user);
 				session.setMaxInactiveInterval(60 * 60);
 				return "redirect:main";
@@ -83,7 +82,6 @@ public class MainController {
 		} else {
 			try {
 				User user = service.addNewUser(email, password, firstname, lastname);
-				System.out.println("registered new account " + user);
 				session.setAttribute("user", user);
 				session.setMaxInactiveInterval(60 * 60);
 				return "redirect:main";
