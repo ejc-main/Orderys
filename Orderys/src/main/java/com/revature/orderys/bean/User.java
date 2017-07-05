@@ -60,10 +60,10 @@ public class User implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="customer")
 	private List<Order> orders;
 	
-	@MapsId("ratingId")
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="orderItemId")
-	private List<Rating> ratings;
+//	@MapsId("ratingId")
+//	@OneToMany(fetch=FetchType.EAGER)
+//	@JoinColumn(name="orderItemId")
+//	private List<Rating> ratings;
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BUSINESS_ID")
@@ -180,13 +180,13 @@ public class User implements Serializable {
 		this.orders = orders;
 	}
 	
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-	
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
+//	public List<Rating> getRatings() {
+//		return ratings;
+//	}
+//	
+//	public void setRatings(List<Rating> ratings) {
+//		this.ratings = ratings;
+//	}
 	
 	public Business getBusinessManaged() {
 		return businessManaged;
@@ -200,6 +200,6 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", passwordHash=" + passwordHash + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", role=" + role + ", employeeStations=" + employeeStations + ", orders="
-				+ orders + ", ratings=" + ratings + ", businessManaged=" + businessManaged + "]";
+				+ orders + ", businessManaged=" + businessManaged + "]";
 	}
 }
