@@ -12,6 +12,7 @@ orderysApp.factory('dataFactory', ['$http', function ($http) {
 				},
 				getProducts: function(buisnessID) {
 					return $http.get('business/' + buisnessID + '/product');
-			 	}
+			 	},
+				submitOrder: function()
 	   };
 	}]); 

@@ -17,7 +17,7 @@ function($scope, $http, dataFactory) {
 	});
 	
 	
-	console.log($scope.User);
+	// console.log($scope.User);
 	
 	$scope.isManager = function() {
 	   
