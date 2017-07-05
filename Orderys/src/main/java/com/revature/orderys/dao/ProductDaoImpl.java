@@ -52,7 +52,6 @@ public class ProductDaoImpl implements ProductDao,Serializable {
 	public List<Product> getAllProductsByBusiness(Business business) {
 		List<Product> products = new ArrayList<Product>();
 		Session session = sessionFactory.getCurrentSession();
-		
 		try {
 			products = (List<Product>) session
 					.createQuery("from Product p where p.station.business.id = " + business.getId())
