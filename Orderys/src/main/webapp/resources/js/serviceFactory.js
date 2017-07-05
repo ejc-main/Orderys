@@ -1,6 +1,9 @@
 orderysApp.factory('dataFactory', ['$http', function ($http) {
 	
 	  return {
+				getCurrentUser: function() {
+					return $http.get('user/current');
+				},
 	      getUser: function(userId) {
 	        return $http.get('user/' + userId);
 	      },
@@ -21,6 +24,9 @@ orderysApp.factory('dataFactory', ['$http', function ($http) {
 		    },
 				addBusiness: function(business) {
 					return $http.post('business', business);
+				},
+				getManagedBusiness: function(userId) {
+					return $http.get('user/' + userId + '/business');
 				},
 				getBusiness: function(buisnessID) {
 					return $http.get('business/' + buisnessID);

@@ -8,21 +8,23 @@
 			<ul  style="height:300px;overflow:auto;">
 			
 			<!-- one menu item on manager side -->
-			<li style="border-bottom:1px solid black;" ng-repeat="item in menu.menuItems">
+			<li style="border-bottom:1px solid black;" ng-repeat="product in managedBusiness.menu track by product.id">
 			
-			<img ng-src="{{item.photoUrl}}" alt="Profile Picture" style="width:100px;height:100px;">
-			<h5>{{item.name}}</h5>
-			<p>{{item.description}}</p>
-			<p>{{intendedCompletionTime}}</p>
-			<p>{{item.productPrice | currency}}</p>
+			<img ng-src="{{product.photoUrl}}" alt="Profile Picture" style="width:100px;height:100px;">
+			<!--<input ng-model="product." type="text">-->
+			<h5>{{product.name}}</h5>
+			<p>{{product.description}}</p>
+			<p>{{product.intendedCompletionTime}}</p>
+			<p>{{product.productPrice | currency}}</p>
 			
-			<select>
+			<select ng-model="newProduct.station">
 			<!-- default taht it starts on -->
-				<option disabled selected>Change Station</option>
+				<option disabled selected ng-value="null">Change Station</option>
+				<option ng-repeat="station in managedBusiness.stations track by station.id" ng-value="station">{{station.stationName}}</option>
 				
- 				<option value="station1">Station 1</option>
-  				<option value="station2">Station 2</option>
-  				<option value="station3">Station 3</option>
+				<!--<option value="station1">Station 1</option>
+					<option value="station2">Station 2</option>
+					<option value="station3">Station 3</option>-->
 			</select>
 			<br>
 			<br>
@@ -50,9 +52,9 @@
 			<!-- List of stations -->
 			<ul style="height:250px;overflow:auto;">
 			
-			<li>
+			<li ng-repeat="station in managedBusiness.stations track by station.id">
 			<br>
-			<button class="button">Station Name</button>
+			<button class="button">{{station.stationName}}</button>
 			<br>
 			</li>
 			
@@ -94,25 +96,25 @@
         <form name="menuItemCreate">
         
         	<img name="uploadedImg" alt="Menu Item Pic" src="https://s3.amazonaws.com/revature-orderys/MainLogo.png" style="width:150px;height:150px; float:left">
-			Product Name <input type = "text" name="pName" placeholder="Product Name" style="float:right" required=required> <br><br>
-			Description <input type = "text" name="discription" placeholder="Discription" style="float:right" required=required> <br><br>
-			Estimated wait time <input type = "text" name="time" placeholder="00:00" style="float:right" required=required> <br><br>
-			Price <input type = "text" name="price" placeholder="00.00" C required=required> <br><br>
+					Product Name <input ng-model="newProduct.name" type="text" name="pName" placeholder="Product Name" style="float:right" required=required> <br><br>
+					Description <input ng-model="newProduct.description" type="text" name="discription" placeholder="Discription" style="float:right" required=required> <br><br>
+					Estimated wait time <input ng-model="newProduct.intendedCompletionTime" type="text" name="time" placeholder="00:00" style="float:right" required=required> <br><br>
+					Price <input ng-model="newProduct.productPrice" type="text" name="price" placeholder="00.00" C required=required> <br><br>
 			
-			<button class="button">Upload Image</button>
-			
-			<select>
-			<!-- default taht it starts on -->
-				<option disabled selected>Change Station</option>
-				
-				
- 				<option value="station1">Station 1</option>
-  				<option value="station2">Station 2</option>
-  				<option value="station3">Station 3</option>
-			</select>
-			<input type="submit" class="button" style="float:right" value="Confirm">
-			<br>
-			<br>
+					<!--<button class="button">Upload Image</button>-->
+					
+					<select ng-model="newProduct.station">
+					<!-- default taht it starts on -->
+						<option disabled selected ng-value="null">Change Station</option>
+						<option ng-repeat="station in managedBusiness.stations track by station.id" ng-value="station">{{station.stationName}}</option>
+						
+						<!--<option value="station1">Station 1</option>
+							<option value="station2">Station 2</option>
+							<option value="station3">Station 3</option>-->
+					</select>
+					<input type="submit" ng-submit="submitMenuItem()" class="button" style="float:right" value="Confirm">
+					<br>
+					<br>
         
         </form>
       </div>
@@ -134,9 +136,9 @@
       <!-- Create station form -->
        <form name="stationCreate">
        
-       Name <input type = "text" name="sName" placeholder="Name"  style="float:right" required=required> <br><br>
+       Name <input ng-model="newStation.stationName" type = "text" name="sName" placeholder="Name"  style="float:right" required=required> <br><br>
        
-       <input type=submit class="button" style="float:right" value="Confirm">
+       <input type=submit ng-submit="submitStation()" class="button" style="float:right" value="Confirm">
        <br>
        <br>
        
@@ -160,11 +162,11 @@
        <!-- Create employee form -->
        <form name="eCreate">
        
-       First Name <input type = "text" name="fName" placeholder=" First Name" style="float:right" required=required> <br><br>
-       Last Name <input type = "text" name="lName" placeholder="Last Name" style="float:right" required=required> <br><br>
-       Email <input type = "text" name="email" placeholder="Email" style="float:right" required=required> <br><br>
+       First Name <input ng-model="newHire.firstName" type = "text" name="fName" placeholder=" First Name" style="float:right" required=required> <br><br>
+       Last Name <input ng-model="newHire.lastName" type = "text" name="lName" placeholder="Last Name" style="float:right" required=required> <br><br>
+       Email <input ng-model="newHire.email" type = "text" name="email" placeholder="Email" style="float:right" required=required> <br><br>
        
-       <input type=submit class="button" style="float:right" value="Confirm">
+       <input type="submit" ng-submit="offerJob()" class="button" style="float:right" value="Confirm">
        <br>
        <br>
        
