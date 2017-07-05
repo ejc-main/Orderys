@@ -168,14 +168,20 @@ orderysApp.controller('menuController', function($scope, $route, $routeParams, $
 });
 
 orderysApp.controller('profileController', function($scope, $http, dataFactory) {
-	$scope.User;
+	$scope.User = {};
+	$scope.newBusiness = {};
 	
 	dataFactory.getCurrentUser().then(function(res) {
 		$scope.User = res.data;
 		
 	});
 			
-			
+	$scope.createBusiness = function() {
+		dataFactory.addBusiness($scope.newBusiness).then(function(res) {
+			console.log(res.data);
+		})
+	}
+
 			$scope.isManager = function() {
 				   
 				if($scope.User === undefined)
@@ -232,7 +238,7 @@ orderysApp.controller('mPageController', function($scope, $http, dataFactory) {
 	});
 
 		$scope.submitMenuItem = function() {
-			
+			console.log(newProduct);
 			dataFactory.addProduct($scope.managedBusiness.id, newProduct).then(function(res) {
 				$scope.managedBusiness.menu.push(res.data);
 			});

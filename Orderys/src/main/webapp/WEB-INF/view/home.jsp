@@ -25,7 +25,7 @@
 				</div>
 				<!-- Switch view for manager -->
 				<div>
-    			<ul class="nav nav-pills">
+    			<ul class="nav nav-pills" ng-if="isManager()">
  					 	<li role="presentation"><a href='#customer'>Customer</a></li>
   					<li role="presentation"><a href='#employee'>Employee</a></li>
   					<li role="presentation"><a href='#manager'>Manager</a></li>
