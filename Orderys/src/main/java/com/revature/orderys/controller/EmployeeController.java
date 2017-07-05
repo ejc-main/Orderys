@@ -1,9 +1,19 @@
 //package com.revature.orderys.controller;
 //
+//import java.util.ArrayList;
+//
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 //
+//import com.revature.orderys.bean.OrderItem;
+//import com.revature.orderys.bean.User;
 //import com.revature.orderys.service.Service;
 //
 ///**
@@ -11,10 +21,9 @@
 // * Methods in this controller should be available for employees attempting to access 
 // * information about stations they are assigned to, or for all users if labeled as such.
 // * @author Eric Christie
-// *
 // */
 //@RestController
-//@RequestMapping(value="/station")
+//@RequestMapping(value="/business")
 //public class EmployeeController {
 //	
 //	@Autowired
@@ -29,258 +38,66 @@
 //	}
 //	
 //	/**
-//	 * 
+//	 * get account information for specified employee of specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.GET)
+//	public User getEmployee(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId,
+//			@PathVariable(value="") long employeeId) {
+//		
+//	}
 //	/**
-//	 * 
+//	 * update station for specified employee of specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.POST)
+//	public User updateEmployee(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId,
+//			@PathVariable(value="employeeId") long employeeId,
+//			@RequestBody User updates) {
+//		
+//	}
 //	/**
-//	 * 
+//	 * quit job as specified employee of specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.DELETE)
+//	public User quitJob(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId,
+//			@PathVariable(value="employeeId") long employeeId) {
+//		
+//	}
 //	
 //	/**
-//	 * 
+//	 * get list of order items handled by specified employee of specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}/orderItem", method=RequestMethod.GET)
+//	public ArrayList<OrderItem> getCompletedOrderItems(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId,
+//			@PathVariable(value="employeeId") long employeeId) {
+//		
+//	}
 //	/**
-//	 * 
+//	 * mark specific existing order as having been handled by specific employee of specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
+//	@RequestMapping(value="/{businessId}/employee/{employeeId}/orderItem", method=RequestMethod.POST)
+//	public OrderItem completeOrderItem(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId,
+//			@PathVariable(value="employeeId") long employeeId,
+//			@RequestBody OrderItem orderItem) {
+//		
+//	}
 //	
 //	/**
-//	 * 
+//	 * get active order items for specified business
 //	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
+//	@RequestMapping(value="/{businessId}/orderItem", method=RequestMethod.GET)
+//	public ArrayList<OrderItem> getActiveOrderItems(HttpServletRequest request, HttpServletResponse response,
+//			@PathVariable(value="businessId") long businessId) {
+//		
+//	}
+//	
 ////	/**
-////	 * 
+////	 * update (mark as completed) specific order item for the specified business
 ////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
-////	
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.GET)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.POST)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.PUT)
-////	/**
-////	 * 
-////	 */
-////	@RequestMapping(value="", method=RequestMethod.DELETE)
+////	@RequestMapping(value="/{businessId}/orderItem/{itemId}", method=RequestMethod.POST)
 //	
 //}

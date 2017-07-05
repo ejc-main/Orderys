@@ -13,12 +13,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 
 /*
  * change this class to work as you see fit.
  */
 
+@Component
 public class Mailer {
   
   private static String propertiesFile = "src/main/resources/mailer.properties";
