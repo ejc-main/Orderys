@@ -5,28 +5,28 @@ orderysApp.config(function($routeProvider) {
   $routeProvider
     .when('/customer', {
       templateUrl: '/Orderys/resources/templates/customer-view.html',
-      controller: 'cHomeController',
-      resolve: {}
+      controller: 'cHomeController'//,
+      // resolve: {}
     })
     .when('/menu/:businessId', {
       templateUrl: '/Orderys/resources/templates/restaurant-menu.html',
-      controller: 'menuController',
-      resolve: {}
+      controller: 'menuController'//,
+      // resolve: {}
     })
     .when('/employee', {
       templateUrl: '/Orderys/resources/templates/employee-view.html',
-      controller: 'ePageController',
-      resolve: {}
+      controller: 'ePageController'//,
+      // resolve: {}
     })
     .when('/manager', {
       templateUrl: '/Orderys/resources/templates/manager-view.html',
-      controller: 'mPageController',
-      resolve: {}
+      controller: 'mPageController'//,
+      // resolve: {}
     })
     .when('/profile', {
       templateUrl: '/Orderys/resources/templates/profile.html',
-      controller: 'profileController',
-      resolve: {}
+      controller: 'profileController'//,
+      // resolve: {}
     })
     .otherwise({
       redirectTo: '/customer'

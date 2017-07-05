@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.orderys.bean.Business;
 import com.revature.orderys.bean.Order;
 import com.revature.orderys.bean.OrderItem;
 import com.revature.orderys.bean.User;
@@ -139,78 +140,16 @@ public class CustomerController {
 			throw new Exception("You cannot cancel an order that has already been completed.");
 		}
 	}
-//	/**
-//	 * update (cancel) specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}", method=RequestMethod.DELETE)
-	
-//	/**
-//	 * get list of order items included in specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item", method=RequestMethod.GET)
-//	public ArrayList<OrderItem> getOrderItems(HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId) {
-//		
-//	}
-	
-//	/**
-//	 * get information about a specific order item included in specified order placed by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}", method=RequestMethod.GET)
-//	public OrderItem getOrderItem(HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId,
-//			@PathVariable(value="productId") long productId) {
-//		
-//	}
-	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.GET)
-//	TODO: add rating feature
-//	/**
-//	 * submit or update specified user's rating of the product included as an order item in the 
-//	 * specified order if the order is completed
-//	 * (prevents user's from rating products they have not received)
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.POST)
-//	public Rating submitRating(HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable(value="userId") long userId, @PathVariable(value="orderId") long orderId,
-//			@PathVariable(value="productId") long productId, @RequestBody Rating rating) {
-//		
-//	}
 
-//	/**
-//	 * delete specified user's rating of the product included as an order item in the specified order
-//	 */
-//	@RequestMapping(value="/{userId}/order/{orderId}/item/{productId}/rating", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{userId}/business", method=RequestMethod.GET)
+	public Business getManagedBusiness(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="userId") long userId) {
+		return service.getBusinessManagedByUser((User) request.getSession().getAttribute("user"));
+	}
 	
-//	TODO: add rating feature
-//	/**
-//	 * get list of all ratings submitted by specified user
-//	 */
-//	@RequestMapping(value="/{userId}/rating", method=RequestMethod.GET)
-//	public ArrayList<Rating> getRatings(HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable(value="userId") long userId) {
-//		
-//	}
-	
-	
-//	/**
-//	 * update specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.POST)
-//	/**
-//	 * update specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified user's rating of specified product
-//	 */
-//	@RequestMapping(value="/{userId}/rating/{productId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/current", method=RequestMethod.GET)
+	public User getCurrentUser(HttpServletRequest request, HttpServletResponse response) {
+		return (User) request.getSession().getAttribute("user");
+	}
 	
 }

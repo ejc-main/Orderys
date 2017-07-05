@@ -240,6 +240,10 @@ public class Service implements Serializable {
 		return out;
 	}
 	
+	public Business getBusinessManagedByUser(User manager) {
+		return BDao.getBusinessByManager(manager);
+	}
+	
 	public User getUserById(long id){
 		return UDao.getUserById(id);
 	}

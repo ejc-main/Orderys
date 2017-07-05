@@ -39,6 +39,7 @@ public class User implements Serializable {
 	private String email;
 	
 	@Column(name="PASSWORD_HASH", nullable=false)
+	@JsonIgnore
 	private String passwordHash;
 	
 	@Column(name="FIRST_NAME", nullable=false)

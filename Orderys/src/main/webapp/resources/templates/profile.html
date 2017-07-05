@@ -51,13 +51,13 @@
       
       
        <!-- Update user form -->
-       <form name="pUpdate">
+       <form name="pUpdate" action="#">
        
        First Name <input type = "text" name="fName" placeholder=" First Name" style="float:right" required=required> <br><br>
        Last Name <input type = "text" name="lName" placeholder="Last Name" style="float:right" required=required> <br><br>
        Email <input type = "text" name="email" placeholder="Email" style="float:right" required=required> <br><br>
        
-       <input type=submit class="button" style="float:right" value="Confirm">
+       <input type="button" ng-click="updateAccount()" class="button" style="float:right" value="Confirm">
        <br>
        <br>
        
@@ -81,18 +81,18 @@
       
       
        <!-- Update user form -->
-       <form name="cBusiness">
+       <form name="cBusiness" action="#">
        
-       Name <input type = "text" name="fName" placeholder=" First Name" style="float:right" required=required> <br><br>
-       Address 1 <input type = "text" name="lName" placeholder="Last Name" style="float:right" required=required> <br><br>
-       Address 2 <input type = "text" name="email" placeholder="Email" style="float:right"> <br><br>
-       City <input type = "text" name="city" placeholder="City" style="float:right" required=required> <br><br>
-       State <input type = "text" name="state" placeholder="State" style="float:right" required=required> <br><br>
-       Country <input type = "text" name="country" placeholder="Country" style="float:right" required=required> <br><br>
-       Zip Code <input type = "number" name="zip" placeholder="Zip Code" style="float:right" required=required> <br><br>
+       Name <input ng-model="newBusiness.name" type = "text" name="fName" placeholder="Business Name" style="float:right" required=required> <br><br>
+       Address 1 <input ng-model="newBusiness.streetAddress1" type = "text" name="lName" placeholder="Street Address 1" style="float:right" required=required> <br><br>
+       Address 2 <input ng-model="newBusiness.streetAddress2" type = "text" name="email" placeholder="Street Address 2" style="float:right"> <br><br>
+       City <input ng-model="newBusiness.city" type = "text" name="city" placeholder="City" style="float:right" required=required> <br><br>
+       State <input ng-model="newBusiness.state" type = "text" name="state" placeholder="State" style="float:right" required=required> <br><br>
+       Country <input ng-model="newBusiness.country" type = "text" name="country" placeholder="Country" style="float:right" required=required> <br><br>
+       Zip Code <input ng-model="newBusiness.zip" type = "number" name="zip" placeholder="Zip Code" style="float:right" required=required> <br><br>
        
        
-       <input type=submit class="button" style="float:right" value="Confirm">
+       <input type="button" ng-click="createBusiness()" class="button" style="float:right" value="Confirm">
        <br>
        <br>
        

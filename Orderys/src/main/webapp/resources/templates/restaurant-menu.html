@@ -1,6 +1,6 @@
 		<!-- main content for page -->
 		<div class="col-xs-6">
-			<h3 style="text-align:center">{{currentBusiness.name}}</h3>
+			<h3 style="text-align:center">{{business.name}}</h3>
 
 			<h4>Menu</h4>
 				
@@ -47,6 +47,6 @@
 					</li>
 				</ul>
 				<p>Total: amount</p>
-				<button class="button">Submit Order</button>
+				<button class="button" ng-click="placeOrder()">Submit Order</button>
 
 		</div>

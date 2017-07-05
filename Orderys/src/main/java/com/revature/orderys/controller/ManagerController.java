@@ -67,6 +67,12 @@ public class ManagerController {
 		}
 	}
 	
+	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
+	public Business getBusiness(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="businessId") long businessId) {
+		return service.getBusinessById(businessId);
+	}
+	
 //	/**
 //	 * update information for specified business
 //	 */
@@ -129,7 +135,9 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/product", method=RequestMethod.GET)
 	public ArrayList<Product> getProducts(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
-		return (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
+		ArrayList<Product> results = (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
+//		System.out.println("products = " + results);
+		return results;
 	}
 	/**
 	 * add product provided by specified business
@@ -137,7 +145,9 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/product", method=RequestMethod.POST)
 	public Product addProduct(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId, @RequestBody Product product) {
-//		product.setStation(service.getDefaultStation(service.getBusinessById(businessId)));
+		if (product.getStation() == null) {
+			product.setStation(service.getDefaultStation(service.getBusinessById(businessId)));
+		}
 		return service.addMenuItem(product);
 	}
 	
@@ -194,14 +204,13 @@ public class ManagerController {
 			@PathVariable(value="businessId") long businessId,
 			@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="firstname", required=true) String firstname,
-			@RequestParam(name="lastname", required=true) String lastname,
-			@RequestParam(name="message", required=true) String message) throws Exception {
+			@RequestParam(name="lastname", required=true) String lastname) throws Exception {
 		Business business = service.getBusinessById(businessId);
 		String subject = "Job offer from " + business.getName();
 		String emailBody = "Dear " + firstname + " " + lastname + "! You have received a job offer from "
-				+ business.getName() + ".\n" + message + "\n"
-						+ "Login or create an account on Orderys using this email address to start "
-						+ "working or reject this offer.";
+				+ business.getName() + "\n"
+				+ "Login or create an account on Orderys using this email address to start "
+				+ "working or reject this offer.";
 		Mailer mailer = Mailer.getInstance();
 		mailer.sendMail(email, subject, emailBody);
 		User employee = service.getUserByEmail(email);
