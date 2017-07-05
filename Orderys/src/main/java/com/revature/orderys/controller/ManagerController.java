@@ -1,5 +1,6 @@
 package com.revature.orderys.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.revature.orderys.bean.Product;
 import com.revature.orderys.bean.Station;
 import com.revature.orderys.bean.User;
 import com.revature.orderys.service.Service;
+import com.revature.orderys.util.Mailer;
 
 /**
  * The controller that handles requests to URIs starting with /business.
@@ -65,14 +67,6 @@ public class ManagerController {
 		}
 	}
 	
-//	/**
-//	 * get information for specified business
-//	 */
-//	@RequestMapping(value="/{businessId}", method=RequestMethod.GET)
-//	public Business getBusiness(HttpServletRequest request, HttpServletResponse response,
-//			@PathVariable(value="businessId") long businessId) {
-//		
-//	}
 	/**
 	 * update information for specified business
 	 */
@@ -81,14 +75,6 @@ public class ManagerController {
 			@PathVariable(value="businessId") long businessId, @RequestBody Business updates) {
 		
 	}
-//	/**
-//	 * update information for specified business
-//	 */
-//	@RequestMapping(value="/{businessId}", method=RequestMethod.PUT)
-//	/**
-//	 * delete specified business
-//	 */
-//	@RequestMapping(value="/{businessId}", method=RequestMethod.DELETE)
 	
 	/**
 	 * get list of stations for specified business
@@ -96,7 +82,7 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/station", method=RequestMethod.GET)
 	public ArrayList<Station> getStations(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
-		return (ArrayList<Station>) service;
+		return (ArrayList<Station>) service.getAllStationsByBusiness(service.getBusinessById(businessId));
 	}
 	/**
 	 * add a station for specified business
@@ -109,17 +95,9 @@ public class ManagerController {
 	}
 	
 //	/**
-//	 * get information for specific station of specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.GET)
-//	/**
 //	 * update information for specific station of specified business
 //	 */
 //	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.POST)
-//	/**
-//	 * update information for specific station of specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}", method=RequestMethod.PUT)
 	/**
 	 * delete specific station of specified business
 	 */
@@ -135,52 +113,22 @@ public class ManagerController {
 //	@RequestMapping(value="/{businessId}/station/{stationId}/employee", method=RequestMethod.POST)
 	
 	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}", method=RequestMethod.GET)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee/{employeeId}", method=RequestMethod.DELETE)
-	
 	/**
 	 * get list of orders items handled by specific station of specified business
 	 */
 	@RequestMapping(value="/{businessId}/orderItem", method=RequestMethod.GET)
 	public ArrayList<OrderItem> getActiveOrderItems(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="businessId") long businessId) {
-		
+		return (ArrayList<OrderItem>) service.viewActiveOrderItems(service.getBusinessById(businessId));
 	}
-	
-//	/**
-//	 * get information for specific product handled by specific station of specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee", method=RequestMethod.GET)
-//	/**
-//	 * update product handled by specific station of specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee", method=RequestMethod.POST)
-//	/**
-//	 * update information for specific product handled by specific station of specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/station/{stationId}/employee", method=RequestMethod.PUT)
-	
+		
 	/**
 	 * get list of products provided by specified business
 	 */
 	@RequestMapping(value="/{businessId}/product", method=RequestMethod.GET)
 	public ArrayList<Product> getProducts(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
-		return service.getMenu(service.getBusinessById(businessId));
+		return (ArrayList<Product>) service.getMenu(service.getBusinessById(businessId));
 	}
 	/**
 	 * add product provided by specified business
@@ -188,21 +136,41 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/product", method=RequestMethod.POST)
 	public Product addProduct(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId, @RequestBody Product product) {
-		
+//		product.setStation(service.getDefaultStation(service.getBusinessById(businessId)));
+		return service.addMenuItem(product);
 	}
 	
-	/**
-	 * get information for specific product provided by specified business
-	 */
-	@RequestMapping(value="/{businessId}/product/{productId}", method=RequestMethod.GET)
 	/**
 	 * update information for specific product provided by specified business
 	 */
 	@RequestMapping(value="/{businessId}/product/{productId}", method=RequestMethod.POST)
-//	/**
-//	 * update information for specific product provided by specified business
-//	 */
-//	@RequestMapping(value="/{businessId}/product/{productId}", method=RequestMethod.PUT)
+	public Product updateProduct(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="businessId") long businessId,
+			@PathVariable(value="productId") long productId,
+			@RequestBody Product updates) {
+		Product updated = service.getProductById(productId);
+		Long completionTime = updates.getIntendedCompletionTime();
+		String description = updates.getDescription();
+		String name = updates.getName();
+		BigDecimal price = updates.getProductPrice();
+		Station station = updates.getStation();
+		if (completionTime != null) {
+			updated.setIntendedCompletionTime(completionTime);
+		}
+		if (description != null) {
+			updated.setDescription(description);
+		}
+		if (name != null) {
+			updated.setName(name);
+		}
+		if (price != null) {
+			updated.setProductPrice(price);
+		}
+		if (station != null) {
+			updated.setStation(station);
+		}
+		return service.updateMenuItem(updated);
+	}
 //	/**
 //	 * delete specific product provided by specified business
 //	 */
@@ -214,28 +182,29 @@ public class ManagerController {
 	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.GET)
 	public ArrayList<User> getEmployees(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId) {
-		return (ArrayList<User>) service.getEmployeesByBusiness(business)
+		return (ArrayList<User>) service.getEmployeesByBusiness(service.getBusinessById(businessId));
 	}
 	/**
 	 * SEND SOMEONE AN EMAIL OFFERING THEM A JOB WITH SPECIFIED BUSINESS
 	 */
 	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.POST)
-	public void sendJobOffer(HttpServletRequest request, HttpServletResponse response,
+	public User sendJobOffer(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="businessId") long businessId,
 			@RequestParam(name="email", required=true) String email,
 			@RequestParam(name="firstname", required=true) String firstname,
 			@RequestParam(name="lastname", required=true) String lastname,
 			@RequestParam(name="message", required=true) String message) {
-		
+		String businessName = service.getBusinessById(businessId).getName();
+		String subject = "Job offer from " + businessName;
+		String emailBody = "Dear " + firstname + " " + lastname + "! You have received a job offer from "
+				+ businessName + ".\n" + message + "\n"
+						+ "Login or create an account on Orderys using this email address to start "
+						+ "working or reject this offer.";
+		Mailer mailer = Mailer.getInstance();
+		mailer.sendMail(email, subject, emailBody);
+		if ()
+		return service.hireNewEmployee(, service.getDefaultStation(service.getBusinessById(businessId)));
 	}
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="/{businessId}/employee", method=RequestMethod.DELETE)
 	
 	/**
 	 * get information for specific employee of specified business
@@ -245,57 +214,6 @@ public class ManagerController {
 	 * delete (fire) specific employee of specified business
 	 */
 	@RequestMapping(value="/{businessId}/employee/{employeeId}", method=RequestMethod.DELETE)
-	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
-//	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
-//	
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.POST)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.PUT)
-//	/**
-//	 * 
-//	 */
-//	@RequestMapping(value="", method=RequestMethod.DELETE)
 	
 	
 

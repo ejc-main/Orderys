@@ -19,8 +19,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Mailer {
   
-  private static String propertiesFile = "C:/Users/Eric/Employment/Revature/workspace/Eric_Christie_Code/BankingApp/"
-      + "src/com/ex/util/mailer.properties";
+  private static String propertiesFile = "src/main/resources/mailer.properties";
      
   
   private static final Mailer INSTANCE = new Mailer();
