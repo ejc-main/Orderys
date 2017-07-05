@@ -141,7 +141,6 @@ public class Service implements Serializable {
 	
 	// TODO; Untested
 	public List<Business> getAllBusinesses() {
-		System.out.println("reached service");
 		return BDao.getAllBusinesses();
 	}
 	
@@ -453,6 +452,15 @@ public class Service implements Serializable {
 	}
 	public Product getProductById(long id){
 		return productDao.getProductById(id);
+	}
+	//get default station for a business
+	public Station getDefaultStation(Business business){
+		ArrayList<Station> stations=(ArrayList<Station>)SDao.getAllStationsByBusiness(business);
+		for(Station station:stations){
+			if(station.getStationName().equalsIgnoreCase("default"));
+			return station;	
+		}
+		return null;
 	}
 	public static void main(String[] args) {
 		
