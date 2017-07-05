@@ -1,36 +1,36 @@
 		<!-- main content for page -->
 		<div class="col-xs-6">
-			<h3 style="text-align:center">Business name</h3>
+			<h3 style="text-align:center">{{currentBusiness.name}}</h3>
 
 			<h4>Menu</h4>
 				
-				<!-- Collapseable display for menu items -->
-				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="item in menuItems">
+<!-- 				Collapseable display for menu items -->
+<!-- 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="item in menuItems"> -->
 				
 				
-				<!-- one panel element -->
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="heading{{$index}}">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion"
-									href="#collapse{{$index}}" aria-expanded="false"
-									aria-controls="collapse{{$index}}">{{item.name}}</a> <p style="float:right">{{item.productPrice}}</p>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse"
-							role="tabpanel" aria-labelledby="heading{{$index}}">
-							<div class="panel-body">
-								</div>
-									<img alt="Menu Item Pic" ng-src="{{item.photoUrl}}" style="width:100px;height:100px; float:left">
-									<h5>{{item.name}}</h5>
-									<p>{{item.description}}</p>
-									<p>{{intendedCompletionTime}}</p>
-									<p>{{item.productPrice}}</p>
-									<button class="button" ng-click="addToOrder($index)">Add to Order</button>
-									<br>
-								</div>
-						</div>				
-					</div>
+<!-- 				one panel element -->
+<!-- 					<div class="panel panel-default"> -->
+<!-- 						<div class="panel-heading" role="tab" id="heading{{$index}}"> -->
+<!-- 							<h4 class="panel-title"> -->
+<!-- 								<a role="button" data-toggle="collapse" data-parent="#accordion" -->
+<!-- 									href="#collapse{{$index}}" aria-expanded="false" -->
+<!-- 									aria-controls="collapse{{$index}}">{{item.name}}</a> <p style="float:right">{{item.productPrice}}</p> -->
+<!-- 							</h4> -->
+<!-- 						</div> -->
+<!-- 						<div id="collapseOne" class="panel-collapse collapse" -->
+<!-- 							role="tabpanel" aria-labelledby="heading{{$index}}"> -->
+<!-- 							<div class="panel-body"> -->
+<!-- 								</div> -->
+<!-- 									<img alt="Menu Item Pic" ng-src="{{item.photoUrl}}" style="width:100px;height:100px; float:left"> -->
+<!-- 									<h5>{{item.name}}</h5> -->
+<!-- 									<p>{{item.description}}</p> -->
+<!-- 									<p>{{intendedCompletionTime}}</p> -->
+<!-- 									<p>{{item.productPrice}}</p> -->
+<!-- 									<button class="button" ng-click="addToOrder($index)">Add to Order</button> -->
+<!-- 									<br> -->
+<!-- 								</div> -->
+<!-- 						</div>				 -->
+<!-- 					</div> -->
 			</div>
 				
 

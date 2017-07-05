@@ -96,7 +96,7 @@ orderysApp.controller('cHomeController',
 		
 		$scope.setB = function(index){
 			
-			console.log(allBusiness.businessList[index]);
+			currB = $scope.allBusiness.businessList[index];
 		}
         
 		console.log($scope.allBusiness);
@@ -108,9 +108,11 @@ orderysApp.controller('cHomeController',
 orderysApp.controller('menuController', 
 function($scope, $http, dataFactory) {
 			
-			$scope.currentBusiness;
+			$scope.currentBusiness = currB;
 			$scope.menuItems;
-			$scope.order = order;
+			
+			
+			console.log(currB);
 			
 			
 			
@@ -132,8 +134,6 @@ function($scope, $http, dataFactory) {
 			{
 				$scope.order.splice(index,1);
 			}
-			
-			console.log($scope.currentBusiness);
 			
 });
 

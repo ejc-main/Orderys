@@ -10,8 +10,8 @@
 		<li ng-repeat = "item in allBusiness.businessList" style="border-bottom: solid black 1px">
 			<br>
 			{{item.name}}
-			<a href='#menu/0'style="text-decoration: none">
-				<button class="button" style="float:right" ng-click = "setB($index)">See Menu</button>
+			<a href='#menu/{{item.id}}'style="text-decoration: none" ng-click = "setB($index)">
+				<button class="button" style="float:right">See Menu</button>
 			</a>
 			
 			<br>
