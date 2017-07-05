@@ -1,6 +1,8 @@
 
 var usr = document.getElementById("userId").value;
 
+var currB;
+
 var order = {items : []};
 
 
@@ -13,6 +15,9 @@ function($scope, $http, dataFactory) {
 		$scope.User = data;
 		console.log(data);
 	});
+	
+	
+	console.log($scope.User);
 	
 	$scope.isManager = function() {
 	   
@@ -32,7 +37,6 @@ function($scope, $http, dataFactory) {
 			return false;
 		}
 	}
-	
 	
 	$scope.isEmployee = function() {
 		
@@ -77,23 +81,27 @@ function($scope, $http, dataFactory) {
 orderysApp.controller('cHomeController', 
 		function($scope, $http, dataFactory) {
 		
-		$scope.allBusiness;
-		$scope.userData;
+		$scope.allBusiness = {businessList : []};
+		$scope.userData = { user : {} };
 		
 		console.log(usr);
 		
-		dataFactory.getUser(usr).then(function (data) {
-			$scope.userData = data;
-			console.log($scope.User);
-		});
+		dataFactory.getUser(usr)
+		.then((successResponse) => 
+		{ $scope.userData.user = successResponse.data})
 		
-		dataFactory.getAllBusiness().then(function (data) {
-			$scope.allBusiness = data;
-			console.log($scope.allBusiness);
-		});
+		dataFactory.getAllBusiness()
+		.then((successResponse) => 
+		{ $scope.allBusiness.businessList = successResponse.data; })
 		
 		
-		
+		$scope.setB = function(index){
+			
+			console.log(allBusiness.businessList[index]);
+		}
+        
+		console.log($scope.allBusiness);
+		console.log($scope.userData);
 		
 		
 });
@@ -106,13 +114,6 @@ function($scope, $http, dataFactory) {
 			$scope.order = order;
 			
 			
-			dataFactory.getBusiness(1).success(function (data) {
-				$scope.currentBusiness = data;
-			});
-			
-			dataFactory.getProduct($scope.currentBusiness.id).success(function (data) {
-				$scope.menuItems = data;
-			});
 			
 			$scope.addToOrder = function(index){
 				
